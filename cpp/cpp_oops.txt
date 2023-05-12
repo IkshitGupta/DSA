@@ -1,0 +1,404 @@
+As the name suggests uses objects in programming. Object-oriented programming aims to implement real-world entities like inheritance, hiding, polymorphism, etc in programming. The main aim of OOP is to bind together the data and the functions that operate on them so that no other part of the code can access this data except that function.
+
+                                                                CLASS & Objects
+Class is the building block that leads to Object-Oriented programming. It is a user-defined data type, which holds its own data members and member functions, which can be accessed and used by creating an instance of that class.
+Data members are the data variables and member functions are the functions used to manipulate these variables and together defines the properties and behavior of the objects in a Class.
+
+An Object is an instance of a Class. When a class is defined, no memory is allocated but when it is instantiated (i.e. an object is created) memory is allocated.
+
+To define a member function outside the class definition we have to use the scope resolution :: operator along with class name and function name.
+class Geeks{
+    public:
+    void printname();
+}
+void Geeks::printname(){}   // function of Geeks Class
+
+                                                                Encapsulation
+Encapsulation is defined as wrapping up of data and information under a single unit. In Object Oriented Programming, Encapsulation is defined as binding together the data and the functions that manipulates them
+
+Access Modifiers:
+If we do not specify any access modifiers for the members inside the class, then by default the access modifier for the members will be Private.
+
+1. Public:  All the class members declared under the public specifier will be available to everyone. The data members and member functions declared as public can be accessed by other classes and functions too. The public members of a class can be accessed from anywhere in the program using the direct member access operator (.) with the object of that class.
+
+2. Private: The class members declared as private can be accessed only by the member functions inside the class. They are not allowed to be accessed directly by any object or function outside the class. Only the member functions or the friend functions are allowed to access the private data members of the class. 
+
+3. Protected:   The protected access modifier is similar to the private access modifier in the sense that it can’t be accessed outside of its class unless with the help of a friend class. The difference is that the class members declared as Protected can be accessed by any subclass (derived class) of that class as well. 
+
+                                                                Friend Class
+For example, a LinkedList class may be allowed to access private members of Node.
+class Node {
+    friend class LinkedList;
+};
+Like friend class, a friend function can be given a special grant to access private and protected members. A friend function can be: 
+a) A member of another class 
+b) A global function
+Friend function/class can be declared in any section of the class i.e. public or private or protected.
+When friend function is called neither name of object nor dot operator is used. However it may accept the object as argument whose value it want to access.
+class <class_name>{
+    friend  <return_type>  <function_name>(argument/s);
+};
+
+friend void max(XYZ,ABC);   max function friend of two classes XYZ and ABC, this statement given in both
+friend int LinkedList::search();    search function of LinkedList class
+Friendship is not mutual. If class A is a friend of B, then B doesn’t become a friend of A automatically.
+Friendship is not inherited
+Friend function can act as a bridge between two classes by accessing their private data.
+
+                                                                Abstraction
+Abstraction means displaying only essential information and hiding the details. Data abstraction refers to providing only essential information about the data to the outside world, hiding the background details or implementation.
+1. Abstraction using Classes
+2. Abstraction in Header files: One more type of abstraction in C++ can be header files. we simply call the function and pass the arguments without knowing the underlying algorithm according to which the function is actually working.
+
+                                                                Polymorphism
+The word “polymorphism” means having many forms. In simple words, we can define polymorphism as the ability of a message to be displayed in more than one form.
+1. Compile-time Polymorphism: Function Overloading, Operator Overloading
+2. Runtime Polymorphism: Virtual Functions
+
+Function Overloading:
+When two or more functions have the same name but different parameters i.e. when a function name is overloaded with different jobs.
+Parameters have a different type: add(int a, int b), add(double a, double b)
+Parameters have a different number: add(int a, int b), add(int a, int b, int c)
+Parameters have a different sequence of parameters: add(int a, double b), add(double a, int b)
+two functions: int sum() and float sum(), these two will generate a compile-time error as function overloading is not possible here.
+different return type will not be overloaded. 
+
+Operator Overloading:
+class Complex {
+    int real, im;
+    public :
+    Complex operator + (Complex const& obj){    // operator keyword followed by the symbol of the operator
+        Complex result;
+        result.real = real + obj.real;
+        result.im = im + obj.im;
+        return result;
+    }
+}
+
+cannot be overloaded:
+sizeof
+typeid
+Scope resolution (::)
+Class member access operators (.(dot), .* (pointer to member operator))
+Ternary or conditional (?:)
+
+[], (), etc.
+De-referencing     ->     (->)
+Dynamic memory allocation and De-allocation     ->     New, delete 
+conversion operators like int()
+can also be overloaded
+
+                                                                Inheritence
+The capability of a class to derive properties and characteristics from another class is called Inheritance.
+Inheritance is a feature or a process in which, new classes are created from the existing classes. The new class created is called “derived class” or “child class” and the existing class is known as the “base class” or “parent class”. The derived class now is said to be inherited from the base class.
+Sub Class: The class that inherits properties from another class is called Subclass or Derived Class. 
+Super Class: The class whose properties are inherited by a subclass is called Base Class or Superclass. 
+class <derived_class_name> : <access-specifier> <base_class_name>{
+}
+PRIVATE is taken as default
+
+A derived class doesn’t inherit access to private data members.
+When a base class is privately inherited by the derived class, public members of the base class becomes the private members of the derived class and therefore, the public members of the base class can only be accessed by the member functions of the derived class. They are inaccessible to the objects of the derived class.
+On the other hand, when the base class is publicly inherited by the derived class, public members of the base class also become the public members of the derived class. Therefore, the public members of the base class are accessible by the objects of the derived class as well as by the member functions of the derived class.
+
+1. Public Mode: If we derive a subclass from a public base class. Then the public member of the base class will become public in the derived class and protected members of the base class will become protected in the derived class.
+2. Protected Mode: If we derive a subclass from a Protected base class. Then both public members and protected members of the base class will become protected in the derived class.
+3. Private Mode: If we derive a subclass from a Private base class. Then both public members and protected members of the base class will become Private in the derived class.
+
+            Public          Protected           Private
+Public      Public          Protected           No Access
+Protected   Protected       Protected           No Access
+Private     Private         Private             No Access
+
+1. Single inheritance
+2. Multilevel inheritance
+3. Multiple inheritance
+4. Hierarchical inheritance
+5. Hybrid inheritance
+
+In single inheritance, a class is allowed to inherit from only one class. i.e. one subclass is inherited from one base class only
+Class A
+  .|.
+Class B
+
+Multiple Inheritance is a feature of C++ where a class can inherit from more than one class. i.e one subclass is inherited from more than one base class.
+Class B     Class C
+    .\.      ./.
+      Class A
+class A: public B, public C{
+};
+
+In Multilevel Inheritance a derived class is created from another derived class.
+Class C
+  .|.
+Class B
+  .|.
+Class A
+
+In Hierarchical Inheritance more than one subclass is inherited from a single base class. i.e. more than one derived class is created from a single base class.
+                      Class G
+                   ./.      .\.
+             Class B         CLASS E
+            ./.    .\.      ./.    .\.
+      Class A     Class C   Class D   Class F
+    
+Hybrid Inheritance is implemented by combining more than one type of inheritance. For example: Combining Hierarchical inheritance and Multiple Inheritance. 
+
+A special case of hybrid inheritance: Multipath inheritance: 
+A derived class with two base classes and these two base classes have one common base class is called multipath inheritance. Ambiguity can arise in this type of inheritance.
+                      Class A
+                   ./.      .\.
+             Class B         CLASS C
+                   .\.      ./.
+                      Class D
+In the above example, both ClassB and ClassC inherit ClassA, they both have a single copy of ClassA. However Class-D inherits both ClassB and ClassC, therefore Class-D has two copies of ClassA, one from ClassB and another from ClassC. 
+If we need to access the data member of ClassA through the object of Class-D, we must specify the path from which a will be accessed, whether it is from ClassB or ClassC, bcoz compiler can’t differentiate between two copies of ClassA in Class-D.
+Avoiding ambiguity using the scope resolution operator:
+obj.ClassB::a = 10;
+obj.ClassC::a = 100;
+or can use virtual functions
+
+                                                            Constructor & Destructor
+Constructor in C++ is a special method that is invoked automatically at the time of object creation. It is used to initialize the data members of new objects generally. The constructor in C++ has the same name as the class or structure.
+no return, in public
+Default Constructor: without parameters
+Even if we do not define any constructor explicitly, the compiler will automatically provide a default constructor
+Parameterized Constructors: with parameters, now no default constructor by compiler, have to create on own if required
+
+We can have more than one constructor in a class with same name, as long as each has a different list of arguments.This concept is known as Constructor Overloading
+
+A copy constructor is a member function that initializes an object using another object of the same class.
+ClassName (const ClassName &old_obj); (the one used in segment tree struct)
+compiler doesn’t allow parameters to be passed by value.
+
+Constructor can be defined in private section of class when that class is only used as a friend of some class, as that can access private
+
+
+A destructor is also a special member function as a constructor. Destructor destroys the class objects created by the constructor. Destructor has the same name as their class name preceded by a tiled (~) symbol. It is not possible to define more than one destructor. The destructor is only one way to destroy the object created by the constructor. Hence destructor can-not be overloaded. Destructor neither requires any argument nor returns any value. It is automatically called when the object goes out of scope.  Destructors release memory space occupied by the objects created by the constructor. In destructor, objects are destroyed in the reverse of object creation.
+The syntax for defining the destructor within the class
+~ <class-name>(){}
+Destructor should be declared in the public section of the program.
+
+Constructors and Destructors can be created outside the class by scope resolution
+<class-name>: : ~ <class-name>(){}
+
+class Test { 
+public: 
+	Test() { cout << "\n Constructor executed"; } 
+	~Test() { cout << "\n Destructor executed"; } 
+}; 
+
+main() { 
+	Test t, t1, t2; 
+	return 0; 
+}
+
+Constructor executed
+Constructor executed
+Constructor executed
+Destructor executed
+Destructor executed
+Destructor executed
+
+int count = 0; 
+class Test { 
+public: 
+	Test(){ 
+		count++; 
+		cout << "\n No. of Object created: " << count; 
+	} 
+	~Test() { 
+		cout << "\n No. of Object destroyed: " << count; 
+		--count; 
+	} 
+}; 
+
+main() { 
+	Test t, t1, t2; 
+	return 0; 
+}
+
+No. of Object created: 1
+No. of Object created: 2
+No. of Object created: 3
+No. of Object destroyed: 3
+No. of Object destroyed: 2
+No. of Object destroyed: 1
+
+class Sand{
+	public: 
+    Sand(){
+        cout << "Sand ";
+    }
+    ~Sand(){
+        cout << "~Sand ";
+    }
+};
+class Rock{
+	public: 
+    Rock(){
+        cout << "Rock ";
+    }
+    ~Rock(){
+        cout << "~Rock ";
+    }
+};
+class Hill: public Sand{
+    Rock data_;
+    public: 
+    Hill(){
+        cout << "Hill " << endl;
+    }
+    ~Hill(){
+        cout << "~Hill ";
+    }
+};
+
+int main(){
+	Hill h;
+	return 0;
+}
+
+Sand Rock Hill 
+~Hill ~Rock ~Sand
+
+First the base class object's constructor is called, then the embedded object (data member)'s constructor is called and finally the inherited constructor is executed. The order of destruction is the reverse
+
+class C : public B, public A{}  // first B, then A, then C
+
+Whenever we want to prevent the destruction of an object, we can make the destructor private.
+It is not a compiler error to create private destructors, but on creating object compile error occurs
+Test* t = new Test; creating object dynamically
+The above program also works fine. When something is created using dynamic memory allocation, it is the programmer’s responsibility to delete it. So compiler doesn’t bother. Test* t = (Test*)malloc(sizeof(Test)); // also works fine
+but on calling delete compile error as then destructor is called
+
+// to delete
+class Test {
+private:
+	~Test() {}
+public:
+	friend void destructTest(Test*);
+};
+// Only this function can destruct objects of Test
+void destructTest(Test* ptr) { delete ptr; }
+
+main(){
+	Test* ptr = new Test;
+	destructTest(ptr);
+}
+
+                                                            Virtual Function
+A virtual function is a member function which is declared within a base class and is re-defined (overridden) by a derived class. When you refer to a derived class object using a pointer or a reference to the base class, you can call a virtual function for that object and execute the derived class’s version of the function
+Virtual functions ensure that the correct function is called for an object, regardless of the type of reference (or pointer) used for function call.
+They are mainly used to achieve Runtime polymorphism
+Functions are declared with a virtual keyword in base class.
+The resolving of function call is done at runtime.
+
+Rules:
+Virtual functions cannot be static.
+A virtual function can be a friend function of another class.
+Virtual functions should be accessed using pointer or reference of base class type to achieve runtime polymorphism.
+The prototype of virtual functions should be the same in the base as well as derived class.
+They are always defined in the base class and overridden in a derived class. It is not mandatory for the derived class to override (or re-define the virtual function), in that case, the base class version of the function is used.
+A class may have virtual destructor but it cannot have a virtual constructor.
+
+Compile time (early binding) VS runtime (late binding) behavior of Virtual Functions
+class base {
+public:
+	virtual void print(){
+		cout << "print base class\n";
+	}
+
+	void show(){
+		cout << "show base class\n";
+	}
+};
+
+class derived : public base {
+public:
+	void print(){
+		cout << "print derived class\n";
+	}
+
+	void show(){
+		cout << "show derived class\n";
+	}
+};
+
+int main(){
+	base *bptr;
+	derived d;
+	bptr = &d;
+	// Virtual function, binded at runtime
+	bptr->print();
+	// Non-virtual function, binded at compile time
+	bptr->show();	
+	return 0;
+}
+
+print derived class
+show base class
+
+Runtime polymorphism is achieved only through a pointer (or reference) of base class type
+Late binding (Runtime) done for virtual function
+Early binding (Compile time) for other
+
+If object of that class is created then a virtual pointer (VPTR) is inserted as a data member of the class to point to VTABLE of that class. For each new object created, a new virtual pointer is inserted as a data member of that class.
+Irrespective of object is created or not, class contains as a member a static array of function pointers called VTABLE. Cells of this table store the address of each virtual function contained in that class.
+
+Limitations of Virtual Functions:
+Slower: The function call takes slightly longer due to the virtual mechanism and makes it more difficult for the compiler to optimize because it does not know exactly which function is going to be called at compile time.
+Difficult to Debug: In a complex system, virtual functions can make it a little more difficult to figure out where a function is being called from.
+
+virtual call mechanism is disallowed in constructors.
+Deleting a derived class object using a pointer of base class type that has a non-virtual destructor results in undefined behavior. To correct this situation, the base class should be defined with a virtual destructor.
+any time you have a virtual function in a class, you should immediately add a virtual destructor (even if it does nothing)
+
+class base {
+  public:
+    base()  { cout << "Constructing base\n"; }
+    virtual ~base() { cout << "Destructing base\n"; }    
+};
+ 
+class derived : public base {
+  public:
+    derived()   { cout << "Constructing derived\n"; }
+    virtual ~derived()  { cout << "Destructing derived\n"; }
+};
+ 
+main(){
+  derived *d = new derived(); 
+  base *b = d;
+  delete b;
+}
+
+in normal virtual function its not compulsory to override, if we do not override function of base class will run
+Pure Virtual Function/Abstract function: virtual void display() = 0;  // declaration of pure virtual function
+if we declare pure virtual function then its compulsory to override it in every sub class.
+class with pure virtual function is called an abstract function, i.e. a function which is made to be a base class only
+Sometimes implementation of all function cannot be provided in a base class because we don’t know the implementation. Such a class is called abstract class.
+We cannot create objects of abstract classes.
+
+void func(int a) override {}    // can give override keyword to tell that it is overrided from a virtual function, now if may be a different signature given (different parameters) compile error
+
+Dynamic Binding: the code to be executed in response to function call is decided at runtime. Eg. Virtual Functions
+Message Passing: Objects communicate with one another by sending and receiving information to each other. A message for an object is a request for execution of a procedure and therefore will invoke a function in the receiving object that generates the desired results. Message passing involves specifying the name of the object, the name of the function and the information to be sent.
+
+                                                            Exception Handling
+There are two types of exceptions: a)Synchronous, b)Asynchronous (i.e., exceptions which are beyond the program’s control, such as disc failure, keyboard interrupts etc.)
+try: Represents a block of code that can throw an exception.
+catch: Represents a block of code that is executed when a particular exception is thrown.
+throw: Used to throw an exception. Also used to list the exceptions that a function throws but doesn’t handle itself.
+int main(){
+    try  {
+       throw 'a';
+    }
+    catch (int x)  {    // will not convert char to int
+        cout << "Caught " << x;
+    }
+    catch (...)  {  // default will be printed
+        cout << "Default Exception\n";
+    }
+    return 0;
+}
+generally used as if (x < 0) throw 1

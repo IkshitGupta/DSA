@@ -1,0 +1,603 @@
+AT EVERY OPERATION CHECK IF IT CAN OVERFLOW
+Eg.
+for(int j = i; j >= 2 && j <= MAXN; j*=i)   // Wrong as MAXN*MAXN will overflow
+
+NEVER USE POW
+
+DON't create a map if array can be created
+
+An ‘int’ type variable in C language is able to store only numbers till 2147483647. -2^31 to 2^31 - 1 (+0, -0 same so ek extra in negative)
+approx
+int -: 10**9                faster
+long int -: 10**12
+long long int -: 10**18     slower
+even after operations check overflow doesn't happen
+long int c = a*1LL*b    (multiplied by a long long int 1)   so answer long long
+only upto 20 factorial can be calculated
+
+double has 2x more precision then float.
+float is a 32 bit (4 bytes) Floating Point Number 1 bit for the sign, 8 bits for the exponent, and 23 for the value, i.e., float has 7 decimal digits of precision.
+double is a 64 bit (8 bytes) Floating Point Number 1 bit for the sign, 11 bits for the exponent, and 52 bits for the value, i.e., double has 15 decimal digits of precision.
+
+cout << fixed << c << endl; will not print in exponential format
+cout << fixed << setprecision(0) << c << endl; remove decimal
+
+char - (1 byte); stored as an integer internally, each character has an integer code associated with it (ASCII code value) between 32 and 127 
+32 +'a' = 32+97 = 129
+converting a character from lowercase to uppercase. c1 = ‘A’ + (c1 – ‘a’)
+
+declare input variables globally
+
+Modifiers -:
+    default signed
+    unsigned -: range will increase
+    long -: 8 bytes. range increase
+    short -: 2 bytes range decreases
+
+iostream stands for standard input-output stream. This header file contains definitions of objects like cin, cout, etc.
+cout with insertion operator(<<)
+cin with extraction operator(>>)
+cout << endl inserts a new line and flushes the stream(output buffer), whereas cout << “\n” just inserts a new line
+'\n' outperforms endl in terms of speed (or time) when matter is related to new line only.
+
+int a (5) ; way of initializing
+
+goto -: The use of goto statement is highly discouraged as it makes the program logic very complex.
+// Printing 1 to 10
+label:
+    cout << n << " ";
+    n++;
+    if (n <= 10)
+        goto label;
+
+SWITCH -: It is used when we have multiple possibilities for the if statement.
+switch(variable) // variable is int or char
+{
+case 1: (i.e., variable = 1)
+   //execute your code
+    break;
+case n:
+   //execute your code
+    break;
+default:
+   //executes if nothing matches
+    break;
+}
+if we give case i, then it will not work as in front of case there should be a constant integer so while declaring i we can give const int i = 5;
+can give characters depending on ASCII values
+case ‘r’ :
+case ‘R’: 
+    printf(“Red”);
+    break;
+case 1 ... 5: for multiple cases in one line
+
+Ternary Operator
+variable = Expression1 ? Expression2 : Expression3
+It can be visualized into if-else statement as:  
+if(Expression1){
+    variable = Expression2;}
+else{
+    variable = Expression3;}
+Since the Conditional Operator ‘?:’ takes three operands to work, hence they are also called ternary operators.
+
+Use do while loop if the code needs to be executed at least once.
+for ( ; ; ) infinite loop
+
+Operators that operate or work with a single operand are unary operators. For example: Increment and Decrement. c = -a (unary minus), NOT(!), Addressof operator(&), sizeof()
+++x and x++ means x = x + 1 and --x and x−− means x = x - 1. Applying the pre-increment first add one to the operand and then the result is assigned to the variable on the left whereas post-increment first assigns the value to the variable on the left and then increment the operand.
+in x++ value is preserved temperorily and is incremented nefore the next statement is executed while in ++x value is incremented instantly
+eg. Initial values :: a = 10; b = 20;
+x = 50 + ++a; a = 11, x = 61
+x = 50 + a++; x = 60, a = 11
+
+Binary operators + - * /. Relational < > >= == <=. Logical && ||. Bitwise ~ | & ^ << >>.
+Assignment -: =, +=, -=, *= etc.
+
+type arrayName [size];
+can't increase size
+in {}
+int arr[6] = { 10, 20, 30, 40 }  first 4 as given and rest 0 if blank than all 0
+There is no index out of bounds checking, also no negative indexes as in python
+array always passed by reference, in 2d array, second size should be passed int a[][20]
+
+INT_MIN, INT_MAX for limits
+max, min functions available
+
+decltype(x) j = x + 5; // decltype is a keyword that extracts datatype
+decltype(fun1()) x; // Data type of x is same as return type of fun1()
+
+declaring 2d array -: int arr[n][m];
+
+taking array input (say character length n)
+char arr[n + 1];
+cin >> arr;
+cin.getline(array, size)
+
+Pointers -:
+    A pointer is a variable that stores value of address of a memory location of some another variable.
+    int *ptr = &var; or
+    int *ptr;
+    ptr = &var;
+    To access the value stored in the address we use the unary operator (*) that returns the value of the variable located at the address specified by its operand. This is also called Dereferencing.
+    * is called dereference or indirection operator
+    SO IT IS USED TO GET THE VALUE AT A GIVEN ADDRESS, to print value printf(%p, *ptr)
+    pointer can also store address of a pointer
+    
+    We can modify value by pointer. Eg.
+    int a = 5;
+    int *ptr = &a;
+    *ptr *= 20;  // Now a will become 100
+
+    Pointer Arithmetic (++, --, +=, -=) -:
+        agar ptr int tha toh ptr + 1 4 bad jayega, depending on size of datatype
+        Pointer arithmetic is meaningless unless performed on an array
+        Pointers contain addresses. Adding two addresses makes no sense, because there is no idea what it would point to
+    
+    Pointers make it possible to return more than one value from the function.
+    Pointers reduce the length and complexity of a program.
+    Pointers increase the processing speed.
+    Pointers save the memory.
+
+    An array name acts like a pointer constant. The value of this pointer constant is the address of the first element.
+    int *ptr = arr;  ye array ke first element ka address store kar raha hai, i.e., &arr[0] and ptr are same
+    Here, it means that array is a pointer
+    arr[i] == *(arr + i)
+    first element address 1000, 2nd address 1000 + sizeof(int(here)) and so on
+    printf("address of first element", &arr[0])
+    printf("address of first element", arr);    both same
+    printf("address of second element", arr + 1);
+    printf("address of second element", &arr[1]);   both same
+    for value at that address *(arr + 1) or *(&arr[1])
+    but can't do arr ++, etc which can be done in pointer as array is a constant
+    nums[i][j] is equivalent to *(*(nums+i)+j)
+
+    in **q = &p     // storing pointer
+
+    To return multiple values give in function addresses then modify its value in function
+    int min, max;
+    MinMax(&min, &max);
+    void MinMax(int *min, int *max){
+        *min = x; *max = y;}
+    passing large structure without reference would create a copy of the structure (hence wastage of space).
+
+    giving array in function -: int func(int arr[]) or int func(int *ptr)
+    on changing value of array in function it gets reflected in main function (even declared without pointer)
+    Pointers take up the space needed to hold an address, which is 4 bytes on a 32-bit machine and 8 bytes on a 64-bit machine.
+
+Dynamically allocated memory is allocated on Heap and non-static and local variables get memory allocated on Stack
+For normal variables like “int a”, “char str[10]”, etc, memory is automatically allocated and deallocated. For dynamically allocated memory like “int *p = new int[10]”, it is programmers responsibility to deallocate memory when no longer needed. If programmer doesn’t deallocate memory
+new and delete perform the task of allocating and freeing the memory in a better and easier way
+
+The new operator denotes a request for memory allocation on the Free Store. If sufficient memory is available, new operator initializes the memory and returns the address of the newly allocated and initialized memory to the pointer variable
+pointer-variable = new data-type;
+
+normal arrays are deallocated by compiler (If array is local, then deallocated when function returns or completes). However, dynamically allocated arrays always remain there until either they are deallocated by programmer or program terminates.
+
+delete pointer-variable; 
+delete[] pointer-variable;  // for dynamically allocated array
+
+int a = 10; // stored in heap
+int *p = new int;   // allocate memory in heap
+*p = 10;    // pointer will be in heap while the value will be stored in heap
+delete p;   // memory allocated and bvalue stored in heap deleted but pointer is not deleted (dangling pointer).
+p = new int[4]; // Reusing dangled pointer
+delete[] p;
+p = NULL;   // Deleting dangled pointer
+
+Strings (#include <string>) -:
+    In strings no need to know size beforehand, terminates with '\0'
+    Declaring -:
+        string str = "Ikshit";
+        string str1(5, 'n');    // str1 == nnnnn (initialization by character with number of occurrence)
+        string str1("first string");
+        string str2(str1);  // initialization by another string
+        string str4(str1, 6, 6);    // initialization by part of another string, from 6th index (second parameter), 6 characters (third parameter)
+        string str5(str2.begin(), str2.begin() + 5);    // initialization by part of another string iteratively.
+    Normal operations work (as in python)
+    s1 += s2 or s1.append(s2)   // appending
+    str4.append(str6, 0, 6)     // second parameter -: from which character start appending, // third parameter -: number of characters to append.
+    s.clear()   // deletes all character from string
+    s.size(), s.length() both returns length of string
+    str.at(2) or str[2] for accessing
+    str.front == str[0]
+    str.back == str[str.length - 1]
+    const char* charstr = str6.c_str();  // c_str returns null terminated char array version of string
+    str.find()  // takes 3 parameters, substring, from which index to start and number of characters to check. if not found string::npos (-1) is returned
+    str.substr() returns substring. 2 parameters from where to start and number of characters. if no second parameter then till end
+    str.erase(); 2 parameters - Index of first character to remove (default 0), Number of characters to remove
+    str6.replace(a, b, str); replace b characters from index a in str6 by str. if extra remains it will be appended
+    a.compare(b) = 0 if both equal
+    empty(): Tests whether the string is empty. This function return a Boolean value.
+    a.insert(start position, string to insert)
+    find(“string”): Searches the string for the first occurrence of the substring specified in arguments. It returns the position of the first occurrence of substring
+    a.find_first_of(b) : sabse pehle a ka konsa character b me hai
+    a.find_last_of(b) : last se a ka konsa character b me hai
+    rfind(“string”): Searches the string for the last occurrence of the substring specified in arguments. It returns the position of the last occurrence of substring
+    a.find_first_not_of(b) : sabse pehle a ka character jo b me nhi hai. similarly find_last_not_of
+    Reversing -: reverse(str.begin(), str.end()); or reverse(str)
+    stoi to convert numeric string to int
+    to_string() to convert int to string
+    sort(a.begin(), a.end()); to sort
+    s.push_back(); can insert char while append can insert string
+
+    transform(a.begin(), a.end(), a.begin(), ::toupper);    converting to uppercase, first two parameters to give string then next for where to start, last one is what to perform
+
+    if string contains space then input by getline(cin, str1)
+    getline se pehle agar cin use ho rha toh ek bar cin.ignore()
+
+    (int) '5' will not give 5 it will give ASCCi so to convert do '5' - '0'
+sort(a.begin(),a.end(),greater<int>()); // sorting a numeric string and reversing it
+
+Vectors -:
+Vectors are same as dynamic arrays with the ability to resize itself automatically when an element is inserted or deleted, with their storage being handled automatically by the container.
+vector<datatype> name;
+Initializing -:
+emplace_back again and again
+vector<int> v2 (3, 50); a vector of size 3 with all elements 50, if only size given then all elements initialized as 0
+vector<int> vect{ 10, 20, 30 };
+vector<int> vect(arr, arr + size); // Initializing from array
+vector<int> vect2(vect1.begin(), vect1.end());
+
+The ‘fill’ function assigns the value ‘val’ to all the elements in the range [begin, end), where ‘begin’ is the initial position and ‘end’ is the last position.
+fill(vect.begin() + 2, vect.end() - 1, 4);
+if we use fill_n then it takes beginning position, number of elements to be filled and values to be filled.
+
+The default value of a vector is 0.
+Modifiers -:
+    1. push_back or emplace_back -:
+        prefer emplace_back
+        push_back() function is used to push elements into a vector from the back. The new value is inserted into the vector at the end, after the current last element and the container size is increased by 1. 
+    2. pop_back -:
+        pop_back() function is used to pop or remove elements from a vector from the back. The value is removed from the vector from the end, and the container size is decreased by 1.
+    3. swap -:
+        constant time complexity
+        This function is used to swap the contents of one vector with another vector of same type and sizes of vectors may differ.
+        vectorname1.swap(vectorname2)
+        or swap(v1, v2)
+    4. assign -:
+        assigns new values to the vector elements by replacing old ones. It can also modify the size of the vector if necessary.
+        v.assign({ 1, 2, 3 });
+
+        vectorname.assign(int size, int value);  size - number of values to be assigned, value - value to be assigned to the vectorname. v.assign(7, 100);
+
+        The syntax for assigning values from an array or list: 
+        vectorname.assign(arr, arr + size); size - number of elements from the beginning which has to be assigned.
+
+        vectorname.assign(InputIterator first, InputIterator last) 
+        v.assign(v.begin(), v.begin() + 3); keval first 3 elements rakhne hai
+    5. insert or emplace -:
+        use of emplace() is preferred for efficiency reasons.
+        inserts new elements before the element at the specified position, effectively increasing the container size by the number of elements inserted.
+        vector_name.insert (position, val); position specifies the iterator which points to the position where the insertion is to be done.
+        The function also returns an iterator which points to the newly inserted element.
+
+        vector_name.insert(position, size, val); size specifies the number of times a val is to be inserted at the specified position.
+        vector_name.insert(position, iterator1, iterator2); iterator1 se iterator2 take ke position par
+        divisors.insert(divisors.end(), all(store));    // to add two vectors
+    6. clear -:
+        used to remove all the elements of the vector container, thus making it size 0. 
+        Time Complexity: O(N) 
+    7. erase -:
+        used to remove elements from a container from the specified position or range.
+        vectorname.erase(position) or vectorname.erase(startingposition, endingposition)
+Capacity -:
+    1. empty -:
+        The empty() function is used to check if the vector container is empty or not.
+    2. size -:
+        size() function is used to return the size of the vector container or the number of elements in the vector container.
+        Problem -: range 0 to vec.size() - 1. if vec.size() = 0 we get Segmentation Fault (SIGSEGV) because the return type of size() is size_t which is an alias for unsigned long int. unsigned long int var = 0; cout << var – 1;  // This will be equal to 18446744073709551615
+        Solution -: use (int) vec.size()
+    3. max_size -: returns max elements vector can hold
+    4. resize -:
+        alters the container’s content in actual by inserting or deleting the elements from it. 
+        If the given value of n is less than the size at present then extra elements are demolished.
+        If n is more than current size of container then upcoming elements are appended at the end of the vector.
+        vectorname.resize(int n, int val)
+Iterators -:
+    Good use of auto is to avoid long initializations when creating iterators for containers.   
+    WAY 1 - range from 0 to v.size()
+    WAY 2 - 
+        vector <int> :: iterator it; // get an integer iterator
+        for(it = v.begin(); it != v.end(); it ++){
+            cout << *it << endl; // because iterator is a pointer
+        } // 1 2 3
+    WAY 3 - 
+        for(auto i:v){  // same as for i in v
+            cout << i << endl;
+        } // 1 2 3
+        if we give
+        for(auto &i:v){  // same as for i in v
+            // using as reference so working same but now change on i will actually happen in the vector
+        } 
+    1. begin -:
+        begin() function is used to return an iterator pointing to the first element of the vector container.
+    2. end -:
+        end() function is used to return an iterator pointing to next to last element of the vector container.
+    3. rbegin -: returns a reverse iterator pointing to the last element in the container.
+    4. rend -: pointing to the theoretical element right before the first element in the array container.
+Reference -:
+    1. v[3]
+    2. v.at(3)
+    3. v.front() == v[0]
+    4. v.back() -: last value
+    5. v.data() -: returns a direct pointer to the memory array used internally by the vector to store its owned elements. 
+    for (int i = 0; i < vec.size(); ++i)
+        cout << *pos++ << " ";  printing vec elements
+for sorting : sort(v.begin(), v.end())
+passing vector by reference func(vector<int>& vect)
+
+Pair -:
+    pair (data_type1, data_type2) Pair_name
+    The first element is referenced as ‘first’ and the second element as ‘second’ in both assigning and accessing
+    initializing at same time -:
+    pair <int, char> g2 (1, 'a');
+    pair <int, char> g2 (g1); // copying
+
+    assigning both values simultaneously. make_pair(1, 'c'); or {1, 'c}
+    swap function and method available
+
+    can be compared, firstly first value is compared, if equal then second value
+    dictionary of tuple, here map, ump of pair
+    similarly sets, vector are compared and they can act as keys
+    if map ke value vector key pair;
+    then m[{a, b}].push_back(5); normal vector operation
+
+Eg. 
+a vector a given. return a vector b with b[i] as position of a[i] in sorted a
+bool myComp(pair<int, int> p1, pair <int, int> p2){
+    return p1.first < p2.first;
+}
+int main(){
+    vector <int> a {10, 16, 7, 14, 5, 3, 12, 9};
+    vector <pair <int, int>> p; // vector with datatype pair, stores value and index
+    for (int i = 0; i < a.size(); i++) {
+        p.emplace_back(make_pair(a[i], i)); // storing each pair
+    }
+    sort(p.begin(), p.end(), myComp); // Sorting vector of pairs
+    for (int i = 0; i < p.size(); i++){
+        a[p[i].second] = i;
+    }
+    for(auto i:a){
+        cout << i << " ";
+    }
+    return 0;
+}
+you want to store values in b with respective to values of a and sort a but a contain duplicates
+make vector of pair and sort that with respect to index 0
+
+pass by reference -: exactly same as normal passing, the change is just that an & is given before the name, now it will not create a copy of vector each time it is passed in the function. or use const    Very Very Important
+keep in mind that changes made in function will be permanent
+
+Iterators point to element not index
+max_element(a.begin(), a.end()) - a.begin();    // index of max_element
+*max_element(a.begin(), a.end()); // finding max element
+similarly for min
+accumulate(first_index, last_index, initial value of sum); // finding sum of elements
+lower_bound, upper_bound as function in vector, arrays
+in map, set use it as method s.lower_bound() // lower_bound(works slow as function here)
+lower_bound(a.begin(), a.end()) - a.begin();    // index
+auto it = lower_bound(a.begin(), a.end()); // iterator to element
+*it -: element
+it--;
+*it -: previous element
+
+equal_range()
+It returns a pair object, first is an iterator to the lower bound and second its upper bound.
+binary_search(all(vec), key) returns 1 if element in sorted list
+is_sorted
+
+arr[i * c + j] == arr[i][j] // 2d array
+
+typedef is used to change name of datatype
+typedef old name new name; eg. typedef unsigned Long ul, typedef int* intpoint
+purana aur naya both work karenge
+
+memset -: We can use memset() to set all values as 0 or -1 for integral data types also. It will not work if we use it to set as other values. The reason is simple, memset works byte by byte
+memset(a, 0, sizeof(a));
+memset(a, 't', sizeof(a)); // can use with char arrays
+
+Enumerated type (enumeration) is a user-defined data type which can be assigned some limited values. These values are defined by the programmer at the time of declaring the enumerated type.
+It can also be used with switch statements.
+For example: If a gender variable is created with value male or female. If any other value is assigned other than male or female then it is not appropriate. In this situation, one can declare the enumerated type in which only male and female values are assigned.
+enum keyword is used
+enum Gender { Male, Female };
+
+while ((scanf("%d", &n)) != EOF) # if number of test case not given but multiple test cases; also comment ios_sync part
+
+Template-:
+idea is to pass data type as a parameter so that we don’t need to write the same code for different data types.
+template <typename T>
+T myMax(T x, T y){
+   return (x > y)? x: y;
+}
+cout << myMax<int>(3, 7) << endl;  // Call myMax for int
+cout << myMax<char>('g', 'e') << endl;   // call myMax for char
+
+If returning array from function, declare as
+int *dist = new int[V]; or static int arr[100];
+and also accept as pointer
+
+bit
+int n = 245;
+bitset<32> b(n);    its an string with b[0] as 0th index from left i.e. already reversed
+b.set() // set all bits
+b.set(pos, p) // b[pos] = p
+b.set(pos) // b[pos] = 1
+b.reset(2)
+b.reset()
+b.flip(2)
+b.flip()
+b.count() // return number of set bits
+all operators can be applied directly
+.to_string, to_ulong, to_ullong
+
+Count number of set bits in an integer
+not so fast
+Without pragmas, running time is 2245 ms.
+With just O3, it's 2261 ms.     #pragma GCC optimize("O3")
+With just popcnt, it's 623 ms.  #pragma GCC target("popcnt")
+With both, it's 421ms.
+__builtin_popcount = int
+__builtin_popcountl = long int
+__builtin_popcountll = long long
+
+__builtin_parity(x): This function is used to check the parity of a number.
+Parity of a number refers to whether it contains an odd or even number of 1-bits. This function returns true(1) if the number has odd parity
+__builtin_clz(x): This function is used to count the leading zeros of the integer. It counts number of zeros before the first occurrence of one(set bit)    // in pragma lzcnt
+__builtin_ctz(x): This function is used to count the trailing zeros of the given integer. Count no of zeros from last to first occurrence of one(set bit)
+in all add ll for long long
+
+last element is prev(s.end())
+
+in inbuilt sort if you want to swap return false, else return true
+comparator should return false if its arguments are equal. IMP
+
+count(v.begin(), v.end(), val)
+find can be used as function
+all_of()    // returns true if all satisfy
+
+lambda function: [](param){return};
+auto sum = [](int x, int y){return x + y;};
+[&] : capture all external variable by reference
+all_of(v.begin(), v.end(), [](int x){x > 0;})   // reurn true if all elements positive
+similarly any_of // agar ek bhi true toh true
+none_of // koi bhi match nhi kar rha cond then true
+
+in binary of uppercase and lowercase difference is that next bit after msb in uppercase = 1 in lowercase
+uppercase to lowercase ch |= ' '
+lowercase to uppercase ch &= '_'
+
+The & and | operators have lower precedence than comparison operators. That means that x & 3 == 1 is interpreted as x & (3 == 1), which is probably not what you want.
+
+int 31 bits         unsigned 32
+long long 63 bits   unsigned 64
+
+stoi() : The stoi() function takes a string as an argument and returns its value (integer only).
+atoi() : The atoi() function takes a character array or string literal as an argument and returns its value.
+
+set<int> s(v.begin(), v.end()); // vector to set
+
+Rather than array can create vector with size
+assert(x > 7)   // given at a place error if not true; for debugging
+
+vvi vec (m, vi(n)); // vector of dimension m*n initialized to 0
+
+all(x) = x.begin(), x.end()
+agr 7 se last tak toh 7 + all(x)
+
+unique(all(x)) remove consecutive duplicates, can give custom comparator
+Another interesting feature of this function is that it does not changes the size of the container after deleting the elements, it just returns a pointer pointing to the new end of the container, and based upon that we have to resize the container
+v.resize(unique(all(v)) - v.begin());   will change and resize
+if vector sorted initially than only unique elements will remain
+
+iota(all(v), 10); vector fill be filled with 10, 11, 12, 13.....
+fill(all(v), 1); all elements 1
+in both if want to fill first n elements out of m elements use iota_n, fill_n takes start, n, val
+
+rotate(v.begin(), v.begin() + rotL, v.end()) // rotate left rotL times
+rotate(v.begin(), v.begin() + len(v) - rotR, v.end()); // rotate right rotR times
+
+set and map have a .count() method which returns 1 iff the key is in the container, otherwise 0
+instead of S.find(key) != S.end() just do S.count(key)
+but if using multiset or want to remove it later than better to get iterator by find
+
+sorting map, convert to set of pairs with custom comparator
+or to vector of pairs and sort vector using custom comparator
+set<pair<int, vi>, comp> s(all(m));
+for set custom comparator is unique (in templates)
+
+tuple<datatype1, datatype2, datatype3,......>
+elements of tuple are accesses by get<i>(t)
+
+partial_sum(first, last, b, myfun); as accumulate in python, b -: where to store
+vi b = {0}; // better to use with initial value as 0 
+sum[l:r]    // both inclusive
+indexing from 1: b[r] - b[l - 1]
+indexing from 0: b[r + 1] - b[l]
+partial_sum(all(s), back_inserter(b), fun);
+for 2d array prefix sum i.e.
+let (1, 1) top left/bottom left of rectangle and (i, j) bottom right/top right of rectangle, then sum of rectangle is the prefix sum
+psa[i][j] = psa[i-1][j] + psa[i][j-1] - psa[i-1][j-1] + a[i][j]
+sum of any rectnagle x1, y1 to x2, y2
+prefix[x2][y2] + prefix[x1 - 1][y1 - 1] - prefix[x1 - 1][y2] - prefix[x2][y1 - 1];
+
+want to increment x in [l, r], create a array of zeroes
+do a[l]+=x, a[r + 1]-=x
+get prefix sum for each value
+i.e. operation in a range, if possible can try applying on l, removing on r + 1, then doing prefix sum
+
+copy_n() copies one array elements to new array. This type of copy creates a deep copy of array. This function takes 3 arguments, source array name, size of array and the target array name.
+
+can't pass address of bool in vector of bool (i.e. can't do auto&)
+
+advance(ptr, 3); iterator increment by 3
+next, prev
+
+merge(all(a), all(b), comparator)   // merge two sorted container into 1
+for sorted ranges
+vi c(len(a) + len(b));
+c.resize(set_union(all(a), all(b), c.begin()) - c.begin());
+or
+vi c;
+set_union(all(a), all(b), inserter(c, c.end()));
+set_union -: union of two sets
+set_intersection    
+set_difference; the difference of two sets is formed by the elements that are present in the first set, but not in the second one.
+set_symmetric_difference; symmetric difference between two sets is formed by the elements that are present in one of the sets, but not in the other
+
+merging two sets -: merge(all(a), all(b), inserter(c, c.end()));
+set_intersection(all(a), all(b), inserter(c, c.end()));
+
+emplace_back doesn't work always so in that cases use push_back, example appending pair<int, bool>
+back_inserter:
+std::back_inserter constructs a back-insert iterator that inserts new elements at the end of the container to which it is applied
+vi v1 = { 1, 2, 3 };
+vi v2 = { 4, 5, 6 };
+copy(all(v1), back_inserter(v2));
+v1 : 1, 2, 3
+v2 : 4, 5, 6, 1, 2, 3
+No prior Knowledge of size of container required
+
+use assign as resize don't work except the default containers
+always make conversion when adding int to ll
+use const in function if don't wanna store and pass as reference
+for multiply always check for long long
+
+x repeats after n : x%(n + 1)
+
+stablesort keeps the order in case of equal cases but O(nlogn^2)
+
+next_permutation return next lexicographic
+prev_permutation return previous lexicographic
+
+suppose comaring each element with prev and prev(prev), but also changing starting positions, then better to store prev and prev(prev) as they may be changed
+
+std::distance, gives number of elements between two iterators; useful in set, map as there can't subtract iterators
+
+for binary tree (everyone has atmost 2 child), solve by making cases, child = 1, child = 2 and no child
+degree = 3, means connected to 3 vertices; for u != root; it has 2 child, binary
+
+resize do not reset value to 0, even if argument give, it is for new values, old values remain same. use resize + fill
+
+2d array faster than 2d vector
+always apply int to .size()
+when using if in map first check count(x) so that size dont increase
+
+don't set upper limit as INT_MAX if you may add on it
+
+can’t use *x after erasing x
+
+array is very very fast than vector, try to use array wherever possible
+given that sum of all test case will not exceed 2e5 but you are taking worst case in all say declaring an array of 4e5 in each test case. Don't do that, declare only required
+
+for string questions can think of storing indices of each character in vvi(26)
+Don't declare size in vector of class object
+
+Ordered set
+number of elements smaller than x -: A.order_of_key(x) O(logn)
+element at xth index -: *A.find_by_order(x) O(logn)
+you can use pair<T,int> where int as a key for multiset
+delete using s.erase(s.lower_bound({x, 0})) if don't know the key
+if using less_equal delete using s.erase(s.upper_bound(x))
+
+at each i incrementing map cnt, now in future value of map at each i required, so we solve iterating backwards and again decrementing map cnt, so it was better to store the value of map cnt at each i so no need to update map and access map again just use the value stored at that i
