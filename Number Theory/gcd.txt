@@ -1,0 +1,16 @@
+gcd(a, b) = gcd(a, b - a)
+gcd(a, b) = gcd(a, b + a)
+
+example -:
+gcd(k+i^2, k+(i+1)^2)
+gcd(k+i^2, (i+1)^2-i^2)
+gcd(k+i^2, 2*i + 1)
+gcd(2*i + 1, k+i^2)
+first term odd so no effect on multiplying other by power of 2
+gcd(2*i + 1, 4*k + 4*i^2)
+gcd(2*i + 1, 4*k + 4*i^2 - 2i*(2i+1))
+gcd(2*i + 1, 4*k - 2*i)
+gcd(2*i + 1, 4*k + 1)
+
+gcd (m, n) = gcd (m%n, n), if m > n
+gcd (m, n) = gcd (n, n%m), if m < n
