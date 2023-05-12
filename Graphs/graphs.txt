@@ -1,0 +1,32 @@
+Undirected -: Two Way
+Adjacent Vertices - : Connected by a edge (neighbours)
+Degree -: Number of edges connected to the node.(can be divided into 2 types in(incoming) and out(outgoing))
+Connected graph -: Starting from any node all other nodes can be reached (Always remember that it's not necessary that graph is connected)
+Connected Components -: Each connected graph in a disconnected graph is a connected component.
+Subgraph -: Part of graph
+Complete graph -: Every node is connected to every other node. (edges = nC2)
+Cycle -: Path from vertex to the same vertex
+Tree -: Connected acyclic undirected graph (with edges n - 1)
+DAG -: Directed acyclic graph
+Forest -: undirected graph in which any two vertices are connected by at most one path.
+
+Implementation -:
+    Edge List -: Store Vertices in a list and edges in another. Gnerally used when we need sorted list of edges based upon edge weight. Takes more time to find neighbours of given node. O(E)
+
+    Adjacency Matrix -: V*V matrix. Store [i][j] as 1 if have edge between them (or store weights, if no edge weight 0). Not memory efficient. 
+    Representation is easier to implement and follow. Removing an edge takes O(1) time. Queries like whether there is an edge from vertex ‘u’ to vertex ‘v’ are efficient and can be done O(1).
+
+    Adjacency List (Best) -: Memory efficient. Store each node aur kitne node se connected hai. All neighbours of a node are stored in a linked list.
+
+can use vvi in adjacency list instead of map
+
+There is a cycle in a graph only if there is a back edge present in the graph. A back edge is an edge that is from a node to itself (self-loop) or one of its ancestors in the tree produced by DFS.
+
+Minimum Spanning Tree -:
+It is a tree
+which connects all vertices and has the least weight (i.e. the sum of weights of edges is minimal). A spanning tree is a set of edges such that any vertex can reach any other by exactly one simple path.
+A minimum spanning tree of a graph is unique, if the weight of all the edges are distinct.
+Minimum spanning tree is also the tree with minimum product of weights of edges. (for positive weights, otherwise take log)
+The maximum spanning tree (spanning tree with the sum of weights of edges being maximum) of a graph can be obtained similarly to that of the minimum spanning tree, by changing the signs of the weights of all the edges
+
+A cycle that travels exactly once over each edge in a graph is called “Eulerian.” A cycle that travels exactly once over each vertex in a graph is called “Hamiltonian.”
