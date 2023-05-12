@@ -1,0 +1,187 @@
+A DataFrame is a table. It contains an array of individual entries, each of which has a certain value. Each entry corresponds to a row (or record) and a column.
+pd.DataFrame({'Yes': [50, 21], 'No': [131, 2]})
+	Yes	No
+0	50	131
+1	21	2
+pd.DataFrame(mydataset)         showing data in table format, a column with indexes automatic
+A Series is, in essence, a single column of a DataFrame
+pd.series(a)        A Pandas Series is like a column in a table. It is a one-dimensional array holding data of any type.
+pd.Series([30, 35, 40], index=['2015 Sales', '2016 Sales', '2017 Sales'], name='Product A')
+2015 Sales    30
+2016 Sales    35
+2017 Sales    40
+Name: Product A, dtype: int64
+
+myvar = pd.Series(a, index = ["x", "y", "z"])       in column with index in place of 0 1 2
+can access using index myvar[y]
+
+calories = {"day1": 420, "day2": 380, "day3": 390}      now in index column keys
+
+To select only some of the items in the dictionary, use the index argument and specify only the items you want to include in the Series.
+myvar = pd.Series(calories, index = ["day1", "day2"])       day3 will not be selected
+
+access can be done by indexing and dot, calories.day1
+calories["day2"][0] # 380   # goes in a column and selects the row
+
+loc and iloc goes in row and then in column
+loc attribute to return one or more specified row(s) using index
+calories    420         column name     data
+duration     50
+df.loc[[0, 1]]
+iloc index based
+x.iloc[:3, 0] in first 3 rows select 0th column
+possible to pass a list as first entry
+loc label based
+x.loc[0, "country"] country in first row
+
+in iloc last excluded, in loc included
+
+x.set_index("title") now title column used for indexing rather than 0 1
+
+condition
+print(x.country == "Italy")
+can be used inside loc to select rows with condition
+in pandas | & used (and or not used)
+x.loc[x.country.isin(["Italy", "France"])] # isin
+x.loc[x.price.notnull()]
+x.loc[x.price.null()]  important to note they take arguments in square brackets
+
+x["country"] = "India" # assigning constant value
+x['index_backwards'] = range(len(x), 0, -1) # assigning range of value
+
+pd.read_csv('data.csv')     to read csv files
+pd.read_json('data.json')   to read json file
+By default, when you print a DataFrame, you will only get the first 5 rows, and the last 5 rows
+use to_string() to print the entire DataFrame.
+
+shape() method returns tuple of number of row, column
+index_col=0 0th column will be used for indexing
+
+The head() method returns the headers and a specified number of rows, starting from the top.    df.head(10), if no entry then top 5 rows
+Similar tail method to read from last
+
+data.info()     The result tells us there are 169 rows and 4 columns and the name of each column, with the data type; it also tells how many in respective column as null
+
+x.points.describe() # for numeric fields
+return mean max count, etc.
+can use method like mean()
+unique() method gives list of unique values
+value_counts() gives a list with unique values, count
+
+reviews.points.map(lambda p: p - review_points_mean)    changing column points
+returns new don't change original
+
+reviews.country + " - " + reviews.region_1  # a column with joined entries
+reviews.points - review_points_mean
+operators faster than map
+
+title with highest ratio
+x = (reviews.points / reviews.price).idxmax()   # getting for that column which row is maximum
+y = reviews.loc[x, "title"]
+
+def stars(row):
+    if row.country == 'Canada':
+        return 3
+    elif row.points >= 95:
+        return 3
+    elif row.points >= 85:
+        return 2
+    else:
+        return 1
+
+star_ratings = reviews.apply(stars, axis='columns')
+If we had called reviews.apply() with axis='index', then instead of passing a function to transform each row, we would need to give a function to transform each column.
+
+to remove rows that contain empty cells, By default, the dropna() method returns a new DataFrame, and will not change the original. If you want to change the original DataFrame, use the inplace = True argument
+df.dropna(subset=['Date'], inplace = True)      to remove from certain column
+
+The fillna() method allows us to replace empty cells with a value;       df.fillna(130, inplace = True)      replaces all empty cells in the whole Data Frame.
+Replace Only For a Specified Columns    df["Calories"].fillna(130, inplace = True)
+x = df["Calories"].mean() to calculate mean of a column, similarly for mode and median
+df["Calories"].mode()[0] for mode
+
+df['Date'] = pd.to_datetime(df['Date'])     to convert all entries to date time format, can't convert Nan(empty value) to date time
+
+df.loc[rowNumber, columnName] = 45      df.loc[7, 'Duration'] = 45      to update value
+
+data.index -: RangeIndex(start=0, stop=169, step=1)
+for x in df.index:  # like for i in rows
+    if df.loc[x, "Duration"] > 120:
+        df.loc[x, "Duration"] = 120
+
+df.drop(x, inplace = True)      to remove x number row
+df.duplicated()     give index number and corresponding true or false where true means that row is duplicated
+df.drop_duplicates(inplace = True)      to remove duplicates
+
+df.corr() give relationship of each column with another column (proportionality)
+pandas also has plot function
+df.plot(kind = 'scatter', x = 'Duration', y = 'Calories')
+df["Duration"].plot(kind = 'hist')
+
+iteritems()	Iterate over the columns of the DataFrame
+iterrows()	Iterate over the rows of the DataFrame
+for index, row in df.iterrows():
+    print(row["firstname"])       index and content
+to_numpy to convert pandas DataFrame or series to numpy
+as_matrix convert to matrix without indes column
+a.loc[[1, 2, 3, 4]] all 4; a.iloc[[1, 2, 3, 4]] all 4; a.loc[1:4] all 4; a.iloc[1:4] not 4th
+df.ix[:4, 1:3]      rows, column
+X = boston_data.drop('MEDV', axis = 1)      from boston_data MEDV column removed and that table stored in X
+df = df.replace(to_replace=["low", "medium", "high"], value=[100, 500, 2500] )      to replace all values
+df.groupby('Team').mean()       according to column left different values mean of rest all data
+df.get_group('Boston Celtics')
+df.groupby(['Team', 'Position'])    # grouping by multiple
+
+reviews.groupby('points').points.count()    # alternative to df.value_counts, count how many times each entry occured
+reviews.groupby('points').size()    # groups same points together then return count of all
+reviews.groupby('points').price.min()   # for each group min price
+agg(), which lets you run a bunch of different functions on your DataFrame simultaneously.
+reviews.groupby(['country']).price.agg([len, min, max])
+new columns created of len min max
+countries_reviewed = reviews.groupby(['country', 'province']).description.agg([len])
+		                        len
+country	    province	
+Argentina	Mendoza Province	3264
+            Other	            536
+...	...	...
+Uruguay	    San Jose        	3
+            Uruguay         	24
+for converting back to a regular index, the reset_index() method
+countries_reviewed.sort_values(by='len')
+countries_reviewed.sort_values(by='len', ascending=False)
+To sort by index values, use the companion method sort_index(). This method has the same arguments and default order
+countries_reviewed.sort_values(by=['country', 'len'])
+
+for a given price find the best product
+reviews.groupby('price')['points'].max().sort_index()
+
+pd.crosstab(df.salary,df.left).plot(kind='bar')     har salary pe kitni bar left = 0 hai, kitni bar left = 1 hai and so on
+
+https://www.w3schools.com/python/pandas/pandas_ref_dataframe.asp -: Rest functions
+
+reviews.price.dtype
+reviews.dtype # returns for all
+reviews.points.astype('float64')    # converting type
+
+Entries missing values are given the value NaN, short for "Not a Number". For technical reasons these NaN values are always of the float64 dtype.
+reviews[pd.isnull(reviews.country)] all nan entries, similarly notnull()
+or reviews.price.isnull
+
+replace(a, b) replace a to b
+reviews.rename(columns={'points': 'score'})
+reviews.rename(index={0: 'firstEntry', 1: 'secondEntry'})
+
+Both the row index and the column index can have their own name attribute. The complimentary rename_axis() method may be used to change these names.
+reviews.rename_axis("wines", axis='rows').rename_axis("fields", axis='columns')
+
+pd.concat([canadian_youtube, british_youtube])  two different tables with some comman columns
+
+left = canadian_youtube.set_index(['title', 'trending_date'])
+right = british_youtube.set_index(['title', 'trending_date'])
+left.join(right, lsuffix='_CAN', rsuffix='_UK')
+
+a.set_index("ID").join(b.set_index("ID"))    combining with same ids
+videos that were trending on same day in two country
+
+# Remove three columns as index base
+df.drop(df.columns[[0, 4, 2]], axis=1, inplace=True)

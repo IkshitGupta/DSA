@@ -1,0 +1,70 @@
+submodule -: matplotlib.pyplot as plt
+plt.plot(xpoints, ypoints)
+plt.show()
+plt.plot(a,b,'d') -: giving character only points visible; many other characters can also be given representing differnt shapes
+If we do not specify the points in the x-axis, they will get the default values 0, 1, 2, 3, (etc. depending on the length of the y-points.
+plt.plot(ypoints, marker = 'o')     points and line both visible
+marker|line|color       o:r         circle, dotted, red
+'-'	Solid line	
+':'	Dotted line	
+'--'	Dashed line	
+'-.'	Dashed/dotted line      these can also be given as linestyle or ls
+markersize or ms argument to give size of marker
+markeredgecolor or mec for marker border color
+markerfacecolor or mfc for marker color
+color shortcut characters, names or hexadecimal
+linewidth attribute
+plt.xlabel & plt.ylabel to give name for x and y axis
+plt.title to give name to graph
+
+font1 = {'family':'serif','color':'blue','size':20}
+plt.title("Sports Watch Data", fontdict = font1)
+loc parameter in title for alignment
+plt.grid() to add grid lines
+plt.grid(axis = 'x') to give which axis to display; linestyle and linewidth can be added to grid to
+
+With the subplots() function you can draw multiple plots in one figure
+The subplots() function takes three arguments that describes the layout of the figure.
+The layout is organized in rows and columns, which are represented by the first and second argument.
+The third argument represents the index of the current plot.
+
+You can add a title to the entire figure with the suptitle() function.
+
+plt.scatter() function to draw scatter plot, plots one dot for each observation.
+
+np.array(["red","green","blue","yellow","pink","black","orange","purple","beige","brown","gray","cyan","magenta"])
+plt.scatter(x, y, c=colors);        similarly can do with sizes
+each point different color
+cmap='viridis'      many colormaps, a number for a color
+
+adjust the transparency of the dots with the alpha argument.
+plt.colorbar() to give colorbar of colormap at side
+
+plt.bar(x,y) for bar graphs
+plt.barh(x, y) for horizontal bar graph
+width for bar width
+height for height of horizontal bar graph
+
+randomly generate an array with 250 values, where the values will concentrate around 170, and the standard deviation is 10.
+x = np.random.normal(170, 10, 250)
+plt.hist(x)     histogram
+
+plt.pie(y)      pie chart
+mylabels = ["Apples", "Bananas", "Cherries", "Dates"]
+plt.pie(y, labels = mylabels)
+
+default start angle is at the x-axis, but you can change the start angle by specifying a startangle parameter.
+
+The explode parameter, if specified, and not None, must be an array with one value for each wedge.
+Each value represents how far from the center each wedge is displayed i.e. koi pie slightly outof the chart
+
+Add a shadow to the pie chart by setting the shadows parameter to True
+plt.legend()        a legend of labels, in legend title parameter to give title of legend
+
+plt.matshow(x_train[0])     Display an array as a matrix; for showing images
+
+ticks = graph.get_yticks()
+# Format those values into strings beginning with dollar sign
+new_labels = ['${}'.format(int(amt)) for amt in ticks]
+# Set the new labels
+graph.set_yticklabels(new_labels)

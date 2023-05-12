@@ -1,0 +1,48 @@
+step of capturing patterns from data is called fitting or training the model. The data used to fit the model is called the training data.
+tree's depth is a measure of how many splits it makes before coming to a prediction
+y = melbourne_data.Price    # first select target
+melbourne_features = ['Rooms', 'Bathroom', 'Landsize', 'Lattitude', 'Longtitude']   # then select features, columns used to build model
+X = melbourne_data[melbourne_features]
+
+Steps:
+Define: What type of model will it be? A decision tree? Some other type of model? Some other parameters of the model type are specified too.
+Fit: Capture patterns from provided data. This is the heart of modeling.
+Predict: Just what it sounds like
+Evaluate: Determine how accurate the model's predictions are.
+
+from sklearn.tree import DecisionTreeRegressor
+# Define model. Specify a number for random_state to ensure same results each run
+melbourne_model = DecisionTreeRegressor(random_state=1)
+# Fit model
+melbourne_model.fit(X, y)
+
+Many machine learning models allow some randomness in model training. Specifying a number for random_state ensures you get the same results in each run.
+
+how good is the model? model validation to measure the quality of your model. Measuring model quality is the key to iteratively improving your models.
+
+Mean Absolute Error: average of all absolute errors
+mean_absolute_error(y, predicted_home_prices)
+
+Since models' practical value come from making predictions on new data, we measure performance on data that wasn't used to build the model. The most straightforward way to do this is to exclude some data from the model-building process, and then use those to test the model's accuracy on data it hasn't seen before. This data is called validation data.
+
+scikit-learn library has a function train_test_split to break up the data into two pieces.
+
+from sklearn.metrics import mean_absolute_error
+from sklearn.model_selection import train_test_split
+the random_state argument guarantees we get the same split every time we run this script.
+train_X, val_X, train_y, val_y = train_test_split(X, y, random_state = 0)
+melbourne_model = DecisionTreeRegressor()
+melbourne_model.fit(train_X, train_y)
+val_predictions = melbourne_model.predict(val_X)
+print(mean_absolute_error(val_y, val_predictions))
+
+When we divide the houses amongst many leaves, we also have fewer houses in each leaf. Leaves with very few houses will make predictions that are quite close to those homes' actual values, but they may make very unreliable predictions for new data (because each prediction is based on only a few houses).
+This is a phenomenon called overfitting, where a model matches the training data almost perfectly, but does poorly in validation and other new data
+if a tree divides houses into only 2 or 4, each group still has a wide variety of houses. Resulting predictions may be far off for most houses, even in the training data (and it will be bad in validation too for the same reason). When a model fails to capture important distinctions and patterns in the data, so it performs poorly even in training data, that is called underfitting.
+
+max_leaf_nodes argument provides a way to control overfitting vs underfitting. The more leaves we allow the model to make, the more we move from the underfitting area to the overfitting area.
+
+once we know the best tree size, for the final training we can use all of the data available (not the split one)
+
+The random forest uses many trees, and it makes a prediction by averaging the predictions of each component tree. It generally has much better predictive accuracy than a single decision tree and it works well with default parameters.
+from sklearn.ensemble import RandomForestRegressor

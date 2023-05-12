@@ -1,0 +1,713 @@
+Ctrl + T -: to search files
+DON'T RUSH TO THE ANSWER, FIRST THINK
+PEMDAS - Parentheses, Exponents, Multiplication/Division, Addition/Subtraction.
+
+Printing items in list using * operator
+    a = [1, 2, 3, 4, 5]  (with space)
+    print(*a)
+    print(*a, sep = ", ")  (with commas) 
+    print(*a, sep = "\n")  (in seperate lines)
+    1 2 3 4 5
+    1, 2, 3, 4, 5
+
+sep in print -:
+    print('G','F','G', sep='')                  hai toh hat jayega nahi toh aajayega
+    print('09','12','2016', sep='-')
+    GFG
+    09-12-2016
+
+list1 = [5, 4, 3, 2, 1]
+list2 = list1
+list1 += [1, 2, 3, 4]
+list1 and list2 both become [5, 4, 3, 2, 1, 1, 2, 3, 4]
+
+list1 = [5, 4, 3, 2, 1]
+list2 = list1
+list1 = list1 + [1, 2, 3, 4]
+[5, 4, 3, 2, 1, 1, 2, 3, 4] [5, 4, 3, 2, 1]
+
+Reduce time of python execution -:
+d.sort() faster than sorted(d)
+to get common value in 2 lists convert to set than use &
+while 1 faster than while True
+try to use map, filter, reduce rather than running loops
+.function bar-bar evaluate hote hai toh pehle evaluate kar lo
+append = lis.append
+append(i)
+defining functions reduce time, same function in open (more time) and same in function (less time)
+deque better than list
+store memory prehand rather than appending
+l = [0] * 1000000
+sys.stdin.buffer.readline when taking list input or a lot of inputs and not taking any string inputs
+
+itertools module -:
+    1. count(start, step): This iterator starts printing from the “start” number and prints infinitely; for i in itertools.count(5, 5):
+    2. cycle() -: This iterator prints all values in order from the passed container. It restarts printing from the beginning again when all elements are printed in a cyclic manner. for i in itertools.cycle('AB'):   A B A B A B A B
+        iterators = itertools.cycle(l) ; next(iterators) to access
+    3.  repeat(val, num): This iterator repeatedzly prints the passed value infinite number of times. If the optional keyword num is mentioned, then it repeatedly prints num number of times. list(itertools.repeat(25, 4));    [25, 25, 25, 25]
+    4.  Product(): This tool computes the cartesian product of input iterables;     print(list(product([1, 2], repeat = 2)));   [(1, 1), (1, 2), (2, 1), (2, 2)]; repeat 2 matlab 2 ke set
+        print(list(product(['geeks', 'for', 'geeks'], '2')));   [('geeks', '2'), ('for', '2'), ('geeks', '2')]
+        print(list(product('AB', [3, 4])));     [('A', 3), ('A', 4), ('B', 3), ('B', 4)];
+    5.  Permutations(): print (list(permutations([1, 'geeks'], 2))); (list, kitne ke pair)      (0,1)(1,0) different
+    6.  Combinations()
+    7.  Combinations_with_replacement() : khud ke sath bhi pair banta hai
+    8.  Accumulate : 
+    very very fast then computing on own
+    also can give initial value as initial = 10, then in output first value will be initial and then it will accumulate from initial
+    doesn't work in pypy versions and python2
+    li1 = [1, 4, 5, 7]
+    print (list(itertools.accumulate(li1)))
+    [1, 5, 10, 17] # adding one after other
+    print (list(itertools.accumulate(li1, operator.mul)))
+    result = list(itertools.accumulate(li1, max))   # max till each index
+    [1, 4, 20, 140] # product one after other
+    can add strings
+    9.  list(chain(l1, l2, l3, ...)) : sab ko jod dega; better l1+l2+l3
+    if given early li4 = [li1, li2, li3] then chain.from_iterable(li4)
+    10. compress() : print (list(itertools.compress('GEEKSFORGEEKS', [1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0])))      ['G', 'F', 'G']
+    11. islice(iterable, start, stop, step):    li = [2, 4, 5, 7, 8, 10, 20]    print (list(itertools.islice(li, 1, 6, 2)))     [4, 7, 10]
+    12. starmap(func., tuple list): This iterator takes a function and tuple list as argument and returns the value according to the function from each tuple of list.  li = [ (1, 10, 5), (8, 4, 1), (5, 4, 9), (11, 10, 1) ]    print (list(itertools.starmap(min, li)))    [1, 1, 4, 1]
+    13. dropwhile(func, seq): This iterator starts printing the characters only after the func. in argument returns false for the first time.print (list(itertools.dropwhile(lambda x : x % 2 == 0, li))) 
+    14. takewhile(func, iterable): This iterator is opposite of dropwhile(), it prints the values till the function returns false for 1st time.print (list(itertools.takewhile(lambda x : x % 2 == 0, li )))
+
+txt.rstrip(",.qsw"); jitne bhi ,.qsw hai woh remove
+
+sorted, .sort me reverse = True for descending
+items = [("Product1", 10), ("Product2", 9), ("Product3", 12)]
+to sort on basis of price
+def sort_item(item):                        or items.sort(key = lambda item:item[1])
+    return item[1]
+items.sort(key = sort_item)
+fast way to sort dictionary is using operator.itemgetter
+sorted(dic, key=itemgetter('age'))
+dict(sorted(x.items(), key=lambda item: item[1]))
+a = dict(sorted(a.items(), key=lambda x: (x[1], x[0])))
+pehle first pe jo value hai us ke according agar wo same hai toh 0 pe jo value hai uske according
+Eg.
+a = {'a' : 1, "h" : 3, "d" : 4, "q" : 2, "c" : 2}
+a = dict(sorted(a.items(), key=lambda x: x[1]))             {'a': 1, 'q': 2, 'c': 2, 'h': 3, 'd': 4}     
+a = dict(sorted(a.items(), key=lambda x: (x[1], x[0])))     {'a': 1, 'c': 2, 'q': 2, 'h': 3, 'd': 4}
+
+Sys.stdin.readline() -:
+    Stdin stands for standard input which is a stream from which the program read its input data. This method is slightly different from the input() method as it also reads the escape character entered by the user. More this method also provides the parameter for the size i.e. how many characters it can read at a time.
+
+deque module -: Deque is preferred over list in the cases where we need quicker append and pop operations from both the ends of container
+    1.  append() :- This function is used to insert the value in its argument to the right end of deque.
+    2.  appendleft() :- This function is used to insert the value in its argument to the left end of deque.
+    3.  pop() :- This function is used to delete an argument from the right end of deque.
+    4.  popleft() :- This function is used to delete an argument from the left end of deque. 
+    5.  index(ele, beg, end) :- This function returns the first index of the value mentioned in arguments, starting searching from beg till end index.
+    6.  insert(i, a) :- This function inserts the value mentioned in arguments(a) at index(i) specified in arguments.
+    7.  remove() :- This function removes the first occurrence of value mentioned in arguments. 
+    8.  count() :- This function counts the number of occurrences of value mentioned in arguments. 
+    9.  extend(iterable) :- This function is used to add multiple values at the right end of deque. The argument passed is an iterable.
+    10. extendleft(iterable) :- This function is used to add multiple values at the left end of deque. The argument passed is an iterable. Order is reversed as a result of left appends.
+    11. reverse() :- This function is used to reverse order of deque elements.
+    12. rotate() :- This function rotates the deque by the number specified in arguments. If the number specified is negative, rotation occurs to left. Else rotation is to right. if positive jo argument hai utna list ko right se kato then right ka left me left ka right me
+    or lis[i:] + lis[:i]
+
+Counter module -:
+    print(Counter(['B','B','A','B','C','A','B','B','A','C']))
+    print(Counter({'A':3, 'B':5, 'C':2}))
+    print(Counter(A=3, B=5, C=2))
+
+    Counter({'B': 5, 'A': 3, 'C': 2})
+    Counter({'B': 5, 'A': 3, 'C': 2})
+    Counter({'B': 5, 'A': 3, 'C': 2})
+
+    coun.update([1, 2, 4])  aur add karne ke liye
+
+    c1 = Counter(A=4,  B=3, C=10)
+    c2 = Counter(A=10, B=3, C=4)
+    c1.subtract(c2)
+    Counter({'c': 6, 'B': 0, 'A': -6})
+
+    a = Counter(list)
+    a[element name] to get how many time its in
+
+    for letter, count in coun.most_common(3):   most occurring 3
+    heapq.nlargest(k, c.keys(), c.get) faster
+
+    coun = Counter(a=1, b=2, c=3)
+    print(list(coun.elements()))
+    ['a', 'b', 'b', 'c', 'c', 'c']
+
+    as we get dictionary so dictionary functions like .value .keys .items .get work
+    a:2 a - key 2 - value
+    + - & | works
+
+h_letters = []
+for letter in 'human':
+    h_letters.append(letter) 
+or 
+h_letters = [ letter for letter in 'human' ]
+
+Defaultdict module -:
+    d = defaultdict(int)
+    L = [1, 2, 3, 4, 2, 4, 1, 2]
+    for i in L:
+        d[i] += 1       
+    print(d)
+
+    defaultdict(<class 'int'>, {1: 2, 2: 3, 3: 1, 4: 2})
+
+    d = defaultdict(list)
+    for i in range(5):
+        d[i].append(i)
+    print(d)
+
+    defaultdict(<class 'list'>, {0: [0], 1: [1], 2: [2], 3: [3], 4: [4]})
+
+    d = defaultdict(lambda: "Not Present")      value asked of something not in dict
+    d["a"] = 1
+    d["b"] = 2
+
+NEVER USE dictionary with int as key
+dict.get(key, default=None)
+so we can give default value in get method itself, and it will not create a extra entry in dictionary
+
+in case of dictionary and set it is not good to use int as it can be hacked as the hashing function for int is not random. Hence convert it to string.
+**best is to create a list if memory permits**
+# can give each entry in this function
+import random
+RANDOM = random.randrange(2**62)
+def Wrapper(x):
+    return x^RANDOM
+Check D. Cyclic Rotation
+
+isinstance is used to know that object belongs to which class
+
+from typing import List
+can specify type of object in list
+path: List[int]     path is name of list
+
+NamedTuple agar table banani ho, ek dictionary ke element ko multiple values dena eg. roll no., age etc. and then can even access using these attribute names
+
+ord for ascii of character
+chr for character from ascii
+ord('A') - 65
+ord('Z') - 90
+ord('a') - 97
+ord('z') - 122
+
+Bit -:
+Multiplying by 2 -: x <<= 1
+Integer Division by 2 -: x >>= 1        1 ki jagah n then multipled by 2^n
+
+Check power of 2 -: isPowerof2 = lambda x : (x and not(x & x-1))
+If we subtract a power of 2 numbers by 1 then all unset bits after the only set bit become set; and the set bit becomes unset.
+For example for 4 (100) and 16(10000), we get the following after subtracting 1 
+3 –> 011 
+15 –> 01111
+So, if a number n is a power of 2 then bitwise & of n and n-1 will be zero. We can say n is a power of 2 or not based on the value of n&(n-1). The expression n&(n-1) will not work when n is 0. To handle this case also, our expression will become n& (!n&(n-1))
+
+any number can be expressed as sum of power of 2
+
+xor of n cancel n i.e. 5^2^5 = 2, eg only one element with count = 1 in list take xor of list
+n&1 == 1 odd else even
+
+the time complexity of bin() for a number n is O(log(n))
+
+def getBit(x, i):  # i from right
+    return int(x&(1<<i) != 0)       
+    ek number banaya jisme 1 hai only at required position now on taking and with original number if answer 0 then that bit was 0, if any number except zero means 1 was there
+similary,
+def setBit(x, i):  # i from right
+    return x|(1<<i)
+similarly,
+def clearBit(x, i) :
+    a = ~(1 << i)
+    return x&a
+
+number of set bits (i.e. how many 1)
+Brian Kernighan’s Algorithm:
+Subtracting 1 from a decimal number flips all the bits after the rightmost set bit (which is 1) including the rightmost set bit.
+for example :
+10 in binary is 00001010
+9  in binary is 00001001
+8  in binary is 00001000
+7  in binary is 00000111
+So if we subtract a number by 1 and do it bitwise & with itself (n & (n-1)), we unset the rightmost set bit. If we do n & (n-1) in a loop and count the number of times the loop executes, we get the set bit count.
+def countSetBits(x):
+    count = 0
+    while x:
+        x &= (x-1)
+        count+=1
+    return count
+
+l &= (l - 1) last se ek ek 1 hat ta jata hai
+100101
+100100
+100000
+0
+l |= (l + 1) last se ek ek 1 bad ta jata hai (Refer C_Bits)     
+100101
+100111
+101111
+111111
+1111111
+
+if n = 2^x
+(n - i - 1)&i = 0
+(n - i - 1)|i = n
+else
+(n - i - 1)|i = n - 1
+
+to flip the bits of a number: just simply subtract the number from the value obtained when all the bits are equal to 1. 
+
+Clear i bits of a from last (lsb)
+b = (a & (~(1<<(i + 1) - 1)))
+say number 00000111011 to clear we need say 5 bits (i = 4)
+           11111100000  not easy to make
+           00000100000  make this and -1
+           00000011111  now not
+           11111100000  now and
+           00000100000
+
+clear msb till (before) 3rd bit (i = 2)
+00000111011
+11111001111 equivalent to
+00000001111
+
+Working in subsets using bit -:
+arr = [a, b, c, d] now if element coming (1) or not coming (0) so we can loop from 0 (no ones coming) to 2^n - 1 (1111 all coming)
+for i in range(1 << n) :
+    for j in range(n) :     # checking if for that respective element bit is set to 1 or 0
+        if (i & (1 << j)) : # getting bit
+            print(arr[j], end = ' ')
+    print()
+
+exactly two elements appear only once
+i = 0
+while 1 :
+    if (xor&(1<<i) != 0) :  # find position of first 1 (using getBit)
+        c = i           # as in the two answers one has one at that place while other doesn't
+        break
+    i += 1
+ans1 = ans2 = 0
+for i in nums :
+    if (i&(1<<c) != 0) :    # all numbers with one at that position
+        ans1 ^= i
+    else :                  # all numbers with zero at that position
+        ans2 ^= i
+
+list with all occurring 3 times, and only one element occurring once. To get it make a 32 size array and calculate how many times each bit occur. all the bits which are not divisible by 3 are present in the unique number.
+bit = [0]*32
+neg = 0
+for i in nums :
+    if i < 0: neg += 1
+    c = abs(i)
+    for j in range(c.bit_length()) :
+        if (c&(1<<j) != 0) : bit[j] += 1
+ans = 0
+for i in range(32) :
+    if (bit[i] % 3 != 0) :
+        ans|=(1<<i) 
+if neg % 3 != 0:
+    ans = -ans
+
+In a binary number, the bit furthest to the left is called the most significant bit (msb) and the bit furthest to the right is called the least significant bit (lsb). The MSB gives the sign of the number (sign bit) , 0 for positive and 1 for negative. The remaining bits hold the magnitude of the number.
+def msbNumber(n):
+	# Suppose n is 273 (binary is 100010001). It does following
+	# 100010001 | 010001000 = 110011001
+	n |= n>>1
+	# This makes sure 4 bits (From MSB and including MSB) are set. It does following
+	# 110011001 | 001100110 = 111111111
+	n |= n>>2
+	n |= n>>4
+	n |= n>>8
+	n |= n>>16
+	# Increment n by 1 so that
+	# there is only one set bit
+	# which is just before original
+	# MSB. n now becomes 1000000000
+	n = n + 1
+	# Return original MSB after shifting.
+	# n now becomes 100000000
+	return (n >> 1)
+
+Check if a number has bits in alternate pattern n^(n>>1) if its 0 then yes.
+
+must see B_AND_0_SUM_BIG
+
+bit * 2 = same bit with zero at end
+
+a + b = (a|b) + (a&b)
+a&b <= min(a, b)
+a or b >= max(a, b)
+(a or b) xor (a and b) xor (a xor b) = 0
+also combination of 2 gives third
+
+even^even = even
+even^odd = odd
+
+can think of many bitwise relations by vien diagram
+
+XOR 1 to n -:
+Find the remainder of n by moduling it with 4. 
+If rem = 0, then xor will be same as n. 
+If rem = 1, then xor will be 1. 
+If rem = 2, then xor will be n + 1. 
+If rem = 3 ,then xor will be 0.
+
+Given a set, find XOR of the XOR’s of all subsets -: XOR is always 0 when n > 1 and Set[0] when n is 1. (by observation)
+
+int.bit_length()
+Returns the number of bits required to represent an integer in binary, excluding the sign and leading zeros.
+
+a^b = c
+then, a^c = b and b^c = a
+
+subarray -: maintains order, i.e. in [1, 2, 3, 4] [1, 3, 4] is not a subarray
+sum of subarray -: compute sum of at each index then s[j] - s[i]
+Kadane's Algorithm for maximum sum in subarray
+don't start with 0 as it ignores negative
+ms = nums[0]
+cs = nums[0]
+for i in range(1, len(nums)) :
+    if cs < 0:
+        cs = 0
+    cs += nums[i]
+    ms = max(cs, ms)
+
+string.replace(old, new, count) count means first count number of occurrences
+
+m = [pl for j, pl in enumerate(m) if j not in p]        pop multiple in list m with indexes to pop in list p
+
+subsequence order sahi hona chaiye no matter ke ek ke bad ek ho
+
+number with remainder 1 :
+a = 1(mod x)
+a and x should be coprime
+105 = 1(mod8)
+now numbers not coprime with x -: 2, 4, 6, 8, 10, 12, 14, 16 when divided by x either gives no remainder or gives remainder(not 1)
+
+a*q = q(mod x)  only when a and x coprime
+a = 1(mod x)
+
+35 = 5(mod 10)      33 = 3(mod 10)
+7 = 7(mod 10)       11 = 1(mod 10)
+
+op.append(i)
+prod*=i
+prod%=n
+bad me list ke product (then final mod) ki jarurat padegi toh append karte wakt hi prod lo ho aur mod bhi
+
+b = ' '.join(map(str, a))
+prin(b + '\n')
+faster than
+print(*a)
+
+Python String find() method returns the lowest index of the substring if it is found in a given string. If it is not found then it returns -1. takes substring, start, end. if only substring given then find in complete
+str.rfind() returns the highest index in the string where the substring sub is found within the slice s[start:end]. It returns -1 if the sub is not found.
+
+int(n, 2) -: binary to int
+
+ans *= pow(4, 2**k - 2, mod)
+ans %= mod (necessary)
+pow takes mod argument, way faster than ek ek karke 4 ko 4 se multiply karo aur mod lo
+Binary Exponentiation
+2^8 = 2^4 * 2^4 = 2^2 * 2^2 =   less operations
+if odd
+2^9 = 2 * 2^4 * 2^4
+
+dealing with float dont use pypy2
+
+[0, 0, 0, 1, 1, 1]
+assume finding 0,1 Combinations
+jo pehle 0 ka answer hai wohi next 0 ka hai toh phir loop kyu run karni ans reuse karo
+
+while working with array (len n) always remember index n not occur and handle -1 index
+
+divmod function -: divmod(x, y) gives a tuple as output (x // y, x % y) faster so use this when both required
+s[i:j:k] slice of s from i to j with step k
+
+creating list of list (eg to create [[0, 0], [0, 0]])
+WRONG -:
+lis = [[0]*2]*2 or [[]]*2
+in both way address will be same of each inner list, hence change made to one will be implemented in others
+CORRECT -: using loop
+lis = [[0]*2 for i in range(2)]
+
+in a grid checking diagonals right_top to left_bottom sum is constant, in left_top to right_bottom difference is constant of both signs + - so make a dictionary as operations will be same.
+
+any function if any 1 in list (binary) returns true
+if doing in loop calculations try to calculate in one time only
+
+mex
+start from 0 the first number not present is mex
+mex{0} = 0 // exception
+mex{1, 2, 3} = 0
+mex{0, 2, 4, 5, 6} = 1
+mex{0, 1, 2, 3, ...., n} = n + 1
+
+when very few cases are possible then try all
+if two small cases rather than finding logic try both
+
+1 to n numbers then n//2 + 1 se n tak ke sare numbers kisi n tak numbers se divide nahi hote
+
+remember in bit length to 0 explicitly
+in 01010 s.count('010') will give only 1
+
+you want negative of x%mod then write -x%mod don't write -(x%mod) don't know the reason
+
+The bisect uses binary search. The binary search technique is used to find elements in sorted list.
+bisect -: if already present returns rightmost position (bisect and bisect_right same)
+bisect_left -: if already present returns leftmost position
+insort -: returns sorted list after inserting (right)
+insort_left -: same but works as bisect_left
+all take 4 arguments list, number, start, end
+if sorted array always think of bisect, for searching or any other task
+Eg. Finding first occurrence of an element.
+def BinarySearch(a, x):
+    i = bisect_left(a, x)
+    if i != len(a) and a[i] == x:
+        return i
+    else:
+        return -1
+Similarly can implement for last occurence or finding greatest value smaller than x, etc.
+
+remember always while dividing
+ans = ceil(diff/x - 1)  correct upto diff ~ 10**15 after that answer comes wrong
+but for very high numerators division is in form of scientific notation hence answer comes wrong
+so better to use integer division using conditions and not to use math module in high numbers
+
+max(100, 51, 14, key=mod_5) mod_5 function which return mod_5 Output 14
+
+round(num, digits)
+round(51.5) -: 52
+round(3.7856, 2) -: 3.78
+round off to nearest 10 : -1 (second argument)
+round off to nearest 100 : -2 (second argument)
+
+x = 0.125
+x.as_integer_ratio()    (1, 8)
+
+a = "sfjk"
+print(a.startswith('sf')) True      similar endswith
+
+split function of string 
+datestr = '1956-01-31'
+year, month, day = datestr.split('-')
+
+print('geeks'.ljust(8, '*'))
+geeks***
+print('geeks'.rjust(8, '*')) (if nothing given than space come, can be used in right aligning)
+***geeks
+swapcase(self)
+    Convert uppercase characters to lowercase and lowercase characters to uppercase.
+isdigit(self, /)
+    Return True if the string is a digit string, False otherwise.    
+    A string is a digit string if all characters in the string are digits and there is at least one character in the string.  
+isnumeric(self, /)
+    Return True if the string is a numeric string, False otherwise.
+    A string is numeric if all characters in the string are numeric and there is at least one character in the string.
+isalpha check if all characters are alphabets
+
+a = "jjj."
+a = a.rstrip('.,')      jjj     rstrip me jyada bhi de sakte hai
+
+"For only {:.2f} dollars!".format(value) in place of {} value will be printed upto 2 decimal places
+
+in `array` a = [1, 2, 3]; a + 10 can directly give [11, 12, 13]
+
+prev = max((lis[i] - lis[ind - 1])*(lis[ind - 1] - lis[j]), (lis[i] - lis[ind])*(lis[ind] - lis[j]))
+ans += prev     is getting accepted
+but
+ans += max((lis[i] - lis[ind - 1])*(lis[ind - 1] - lis[j]), (lis[i] - lis[ind])*(lis[ind] - lis[j]))
+is getting TLE
+
+mod can be distributed in + - * but not in /
+
+from functools import cache or lru_cache
+before recurcive function @cache then it stores previous values
+if using @lru_cache then limited previous values with maxsize argument
+use lru_cache in online ide (if want to work as cache give argument as None)
+function.cache_clear() for clearing cache if using function again for some other input
+slow then dp array
+
+instead of using + use fstring
+print(f"My name is {name} {surname}.")
+
+b = [1, 2]
+a, c ,= b       a will become 1 and c will become 2. number of variables and length should be same
+
+every even integer greater than 2 can be expressed as the sum of two primes
+
+in dictionary removal at O(1)
+
+import gcd from fractions
+gcd(a,b)={a,    if b = 0
+         {gcd(b,amodb), otherwise.
+        
+Pigeonhole principle strong form –
+Theorem: Let q1, q2, . . . , qn be positive integers.
+If q1+ q2+ . . . + qn – n + 1 objects are put into n boxes, then either the 1st box contains at least q1 objects, or the 2nd box contains at least q2 objects, . . ., or the nth box contains at least qn objects.
+
+Example – 1: In a computer science department, a student club can be formed with either 10 members from first year or 8 members from second year or 6 from third year or 4 from final year. What is the minimum no. of students we have to choose randomly from department to ensure that a student club is formed?
+10 + 8 + 6 + 4 – 4 + 1 = 25
+
+Example – 2: A box contains 6 red, 8 green, 10 blue, 12 yellow and 15 white balls. What is the minimum no. of balls we have to choose randomly from the box to ensure that we get 9 balls of same color?
+6 + 8 + 10 + 12 + 15- 5 + 1 = 47 But it is not correct. In order to get the correct answer we need to include only blue, yellow and white balls because red and green balls are less than 9. But we are picking randomly so we include after we apply pigeon principle.
+i.e., 9 blue + 9 yellow + 9 white – 3 + 1 = 25
+Since we are picking randomly so we can get all the red and green balls before the above 25 balls. Therefore we add 6 red + 8 green + 25 = 39
+
+if else comprehension
+[x+1 for x in l if x >= 45]
+[x+1 if x >= 45 else x+5 for x in l]
+
+Don't do word = ''
+word += x
+rather than create a array and store value.
+in strings multiplying is optimal but concating is not
+pay attention subsequence hai ya subarray
+
+if ("abca" in s) or ('acba' in s) or ('aa' in s) : faster then using loop and checking each index
+
+if we need to find 2 things eg check if n can be represented as a^3 + b^3 then take a = 0 and b = n^(1/3) now calculate cube, if cube greater than required b -= 1, if cube smaller than required a += 1
+
+NEGATIVE MARKING APPROACH -:
+given an array of len n + 1 all numbers between 1 to n find number occuring more than once
+if the input array is [1, 3, 3, 2], then for 1, flip the number at index 1, making the array [1,-3,3,2]. Next, for -3 flip the number at index 3, making the array [1,−3,3,−2]. Finally, when we reach the second 3, we'll notice that nums[3] is already negative, indicating that 3 has been seen before and hence is the duplicate number.
+
+in set the operation in should be independent from the size of the container, ie. O(1), lookup/insert/delete in O(1).
+list to set in O(n)
+Internal working of Set is based on a data structure known as a hash table
+to add use s.add
+The built-in method, discard() in Python, removes the element from the set only if the element is present in the set. If the element is not present in the set, then no error or exception is raised and the original set is printed. remove gives error if element not present
+Two sets can be merged using union() function or | operator. 
+Intersection can be done through intersection() or & operator. Common Elements are selected
+To find difference in between sets. Similar to find difference in linked list. This is done through difference() or – operator. 
+s.clear() to clear set
+s1 <= s2	s1 is subset of s2
+s1 < s2	s1 is proper subset of s2
+s1 ˆ s2	the set of elements in precisely one of s1 or s2
+cannot add list to set, but can add tuple
+
+when multiple conditions example first element is greater than 1 and the last one is less than 8. solve both seperately and apply formula AUB = A + B - A intersection B
+
+if runtime error check -:
+1. same index as in for loop
+2. index >= 0 and < n
+
+slicing take o(k) time a = b[i : j], k = j - i
+
+you know that ans can only be 0 or 1. for example, question involves doing operations on array such that difference is minimum possible but sum of array remains same so ans 0 when sum of array divisible by n
+
+when performing one query after another, also think of storing all queries then applying in reverse order
+
+sliding window -: subarray, substring question with either we have to get maximum len of subarray (variable sliding) or len of subarray is given and we have to get something max or min from each subarray
+in variable sliding window to reduce size from start if can't know directly the index where to go then using pointer also at start, you can increase it and reduce
+
+if there are n players in a tournament it will require n - 1 matches to decide the winner, they can play in any order
+
+always while making dictionary check if all keys are distinct
+while making list see if multiple elements are useful otherwise
+key = []
+s = set()
+for i in range(n) :
+    h = inpu().rstrip('\n')
+    if h not in s :
+        key.append(h)
+        s.add(h)
+
+you want to store values in b with respective to values of a and sort a but a contain duplicates
+from operator import itemgetter
+for i in range(n):
+    X.append((A[i],B[i]))   # here we are sorting by index 0 so no need of itemgetter
+X.sort(key=itemgetter(0))
+
+sorting by two keys :
+nums.sort(key = lambda x: (a[x], -x)) # value in dictionary a and if same then sorting in reverse order by their values
+# faster
+a = Counter(nums)
+li = a.items()
+li.sort(key = lambda x : (x[1], -x[0]))
+ans = []
+for i, j in li :
+    ans += [i]*j
+return ans
+
+storing values of b[i]/a[i]
+rather store (b[i]//gcd, a[i]//gcd) tuple
+
+ans[i + 1 :] = ba[i + 1:] slower than
+for j in range(i + 1, len(ba)) :
+    ans[j] = ba[j]
+
+a ^ phi(n) == 1 (mod n)
+phi(1337) = 1140    # euler totient function
+a ^ 1137 == 1 (mod n)
+so a^b mod 1337 can be reduced to a^(b%1140) mod 1337
+
+only two things and count of both required, than get count of 1, other will be len - count; no need for counter
+
+if range less than think for brute force
+
+In heap better to change the value 1 at a time, also for maxheap take into consideration the case when poped val is zero specifically as can't apply same operation
+eg. say max heap; in all operation subtracting the value by 1
+so new = -(-x - 1) = x + 1
+for all values its fine but for x = 0 value will become positive which is not correct for a max heap hence, seperately
+if x == 0: new = -1
+
+When to use cpp/c++ :
+    1. Recursion
+    2. Modifying list or dictionary in function
+    3. Insertion, deletion required in O(log n) (Multiset, set) Eg. C_Glass_Craving i.e. maintaining sorted list with insertion and deletion
+    4. Keeping dictionary sorted (map)
+    5. Binary Search required on other data structures
+
+check number can be represented as a^b (b > 1)
+n = a^b
+log(n)/log(a) = b
+loop in 2 to sqrt(n)
+if abs(int(b) - b) is very very less than true
+
+inclusion/exclusion
+given a list of n prime numbers
+for range [1, m] find numbers divisible by any of n prime numbers
+so we have to get aUbUcUd.....
+now move from 000....0 to 111.....1 and get all combinations
+get number of factors with total 1 odd in string = m//(number formed by string)
+get number of factors with total 1 even in string = m//(number formed by string)
+ans in union formula odd intersection are added and even subtracted ans = odd - even
+for counter in range(1, pow_set_size = 1<<n):
+    p = 1
+    for j in range(n):
+        if (counter & (1 << j)): p *= a[j]
+    if (bitsoncount(counter) & 1): odd += (m // p)
+    else: even += (m // p)
+    return odd - even
+refer The_Three_Musketeers hackerearth
+
+use python2 in both hackerrank, hackerearth (have time scaling)
+
+python can sort tuples without key
+
+find max and min with min number of comparisions
+Divide the array into two parts and compare the maximums and minimums of the two parts to get the maximum and the minimum of the whole array.
+
+A = sorted(A, key = functools.cmp_to_key(comp)) # sorting by comparator function
+return -1 if no swap
+return 1 if swap
+return 0 if equal
+
+preference of negative is greater than left shift, so write
+INT_MAX = (1<<31) - 1
+
+stack/queue useful in maintaining maximum or minimum, and maximum on minimum on removing corner element
+
+operations in python can be applied to large numbers even up to length of 100000
+subtraction using carry method -: 109 ms
+using conversion to int -: 280 ms
+
+can convert a list of tuple to dict
+
+can verify case by brute force
+suppose we make assumption that answer will always be 0 when odd, can check if assumption correct by brute force
+
+solving circular array question where can't take adjacent, suppose maximum required
+can solve first for 0 to n - 1 then for 1 to n, then ans is max of the two cases
+also notice that when n = 1, not in both case, so handle seperately
+
+when max subarray asked think of dp, binary_search
