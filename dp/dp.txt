@@ -1,0 +1,76 @@
+multiple calls in recursion
+optimal solution asked (min, max, largest, etc.)
+Find number of ways also popular dp problem
+choice given whether to include or not
+
+Memoization -: Top-Down, starting from end
+Tabulation -: Bottom-Up, starting from start
+
+For base condition take smallest valid input
+
+Without Recursion
+make dp table, first row and first column are for initialization (because they contain smallest input for example base condition n == 0 or w == 0 return 4, so first column w = 0, first row n = 0 filled with 4)
+then just writing like recursion, also index of arrays are 1 less than i j (index of dp)
+
+sometimes can optimize inner loop by sorting or break
+
+when using xor start with b = 0
+and also set initial conditions, for i = 0 and j = 0
+
+in mcm for base think for invalid input
+for mcm recursion is better as 3 variables
+first set i j
+then base
+
+mcm also has o(n*n) solution but not valid in variations
+// i pe cut matlab ith ke bad cut
+
+2 conditions ans when both true, find first if first true then find second
+
+if using map for dp, remember to clear
+also store values as 
+if (dp[{i, j}] != 0){
+    return dp[{i, j}] - 1;
+}
+dp[{i, j}] = ans;
+dp[{i, j}] += 1;
+return dp[{i, j}] -= 1;
+
+dp like 
+map<int, int> dp[101][101];
+can't do dp.clear()
+loop and reset
+
+see constant thing moving in a line at each i, j, w white and b black, question depends on product may do dp[i][j][w*b]
+
+find the maximum element in the K manhattan distance neighbourhood for all elements in nxm matrix. 
+In other words, for every element M[i][j] find the maximum element M[p][q] such that abs(i-p)+abs(j-q) <= K.
+in such question get answer for k - 1
+
+O1 KnapSack GFG
+Subset Sum Problem GFG
+Minimum sum partition GFG
+Rod Cutting GFG
+Coin Change Leetcode
+Longest Common Subsequence (LCS) Leetcode
+The Longest Common Subsequence HackerRank
+Shortest Common Supersequence LEETCODE
+String Subsequence GFG
+Longest Palindromic Substring LEETCODE
+Longest Increasing Subsequence (LIS) Leetcode
+matrix chain multiplication GFG
+Palindrome Partitioning II LEETCODE
+Boolean Parenthesization GFG
+Scramble String LEETCODE
+Super Egg Drop LEETCODE
+Predict the Winner Leetcode
+Longest Bitonic subsequence GFG
+Ugly Number II LEETCODE
+Travelling Salesman Problem GFG (Bitmask DP)
+
+Atcoder contest
+I J M
+
+Continue from O
+
+Digit Dp
