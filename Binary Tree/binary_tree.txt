@@ -1,0 +1,188 @@
+data not stored linearly, but hierachally
+a tree where each node has at most 2 children
+root -: topmost
+siblings -: having same parent
+leaf nodes -: having no children
+Ancestors -: All parents, parent of parent and so on    (Similarly Decendents)
+A Binary Tree is a full binary tree if every node has 0 or 2 children.
+
+A Binary Tree is a Complete Binary Tree if all the levels are completely filled except possibly the last level and the last level has all keys as left as possible
+    Eg.       18
+           /       \  
+         15         30  
+        /  \        /  \
+      40    50    100   40
+     /  \   /
+    8   7  9 
+
+A Binary tree is a Perfect Binary Tree in which all the internal nodes have two children and all leaf nodes are at the same level.
+A binary tree is balanced if the height of the tree is O(Log n) where n is the number of nodes.
+A degenerate (or pathological) tree where every internal node has one child. Such trees are performance-wise same as linked list. 
+
+Properties -:
+    Maximum nodes at a level (L) (starting from top as 0) = 2^L
+    Maximum nodes in a tree of height H is (2^H - 1)
+    For N nodes, minimmum possible height or minimmum number of levels are log2(N + 1)
+    A binary tree with L leaves has at least log2(N + 1) + 1 number of levels
+
+PreOrder Traversal -:   1 - 2 - 4 - 2 - 5 - 2 - 1 - 3 - 6 - 3 - 7 - 3 - 1
+               1
+           /       \  
+         2          3  
+        /  \        /  \
+       4    5      6    7
+Values insertes in order -: Root - Left SubTree - Right SubTree
+[1, 2, 4, 5, 3, 6, 7]   for each root check compplete left then complete right
+
+InOrder Traversal -:
+Values insertes in order -: Left SubTree - Root - Right SubTree
+[4, 2, 5, 1, 6, 3, 7]
+
+PostOrder Traversal
+Values insertes in order -: Left SubTree - Right SubTree - Root
+[4, 5, 2, 6, 7, 3, 1]
+
+LevelOrder Traversal -: [1, 2, 3, 4, 5, 6, 7]; also called BFS; rest above are DFS
+
+Algo for constructing using preorder and inorder -:
+Pick element from preOrder & create a node 
+Increment preOrder index
+Search for picked element's position in inOrder
+Call to build left subtree from inOrder 0 to pos - 1
+Call to build right subtree from inOrder pos + 1 to n
+Return the node
+
+Algo for construct using postorder and inorder -:
+Pick element from postorder & create a node
+Decrement postorder index
+Search for picked element's position in inOrder
+Call to build right subtree from inOrder pos + 1 to n
+Call to build left subtree from inOrder 0 to pos - 1
+Return the node
+
+The diameter of a tree (sometimes called the width) is the number of nodes on the longest path between two leaf nodes
+
+The lowest common ancestor between two nodes n1 and n2 is defined as the lowest node that has both n1 and n2 as descendants. It is also the node where path change occur, i.e. 1 - 3 - 5 - 7, 1 - 3 - 6, lowest common ancestor 3 before path same
+Shortest distance between 2 nodes can be calculated as distance of node1 from lca + distance of node2 from lca
+
+height balanced -: a binary tree in which the left and right subtrees of every node differ in height by no more than 1
+
+                                                              Binary Search Tree
+The left subtree of node contain only nodes with keys lesser than the node's key
+The right subtree of node contain only nodes with keys greater than the node's key
+The left and right subtree should also be a binary search tree.
+There must be no duplicate nodes
+
+Most of the BST operations (e.g., search, max, min, insert, delete.. etc) take O(h) time where h is the height of the BST.
+inorder traversal of binary traversal give a sorted array
+
+deletion -:
+1) Node to be deleted is the leaf: Simply remove from the tree.
+2) Node to be deleted has only one child: Copy the child to the node and delete the child 
+3) Node to be deleted has two children: Find inorder successor of the node. Copy contents of the inorder successor to the node and delete the inorder successor. Note that inorder predecessor can also be used. 
+inorder successor can be obtained by finding the minimum value in the right child of the node.
+jo right sub tree me minimum hai wo sab right se chota hai aur kyuki woh right subtree me tha wo sab left se bada hai, so it is the perfect value for replacing. as it is minimum value it won't have a left child so now it will become case 1/2
+another possible solution is to go for maximum in left subtree
+
+for inorder successor if no right subtree find ancestor which is unvisited
+
+Catalan Numbers -:
+  Catalan Numbers are a sequence of natural numbers that occur in various counting problems, often involving recursively defined objects.
+  Cn = (2nCn)/(n + 1) = sigma Ci Cn-i (i = 0 to n - 1)
+  C0 = 1, C1 = 1 (pre defined)
+  C2 = 2, C3 = 5, C4 = 14
+
+minimum height is ceil(log2n)
+
+                                                                  AVL Tree
+AVL tree is a self-balancing Binary Search Tree (BST) where the difference between heights of left and right subtrees cannot be more than one for all nodes. 
+We make sure that height of the tree remains O(Logn) after every insertion and deletion, then we can guarantee an upper bound of O(Logn) for all these operations. The height of an AVL tree is always O(Logn) where n is the number of nodes in the tree.
+
+Insertion -:
+    30                       30                                               20
+   /    inserting 10        /       inbalanced, we inserted in left          /  \
+  20                       20       of left so ll rotation                  10   30
+                          /           clockwise at 30
+                         10
+
+    30                       30                                           2 step rotation
+   /    inserting 20        /       inbalanced, we inserted in left     anticlockwise at 10
+  10                       10       of right so lr rotation             30
+                             \                                         /
+                              20                                      20
+                                                                     /
+                                                                    10    now clockwise at 30 as in
+                                                                              previous
+                          bottom to top then top as right child
+
+Similarly rr anticlockwise at top, rl first clockwise then anticlockwise
+                                      
+
+        A                                       B           first normal rotation in ABC
+       / \                                     / \
+      B   AR                                  C   A
+     / \            LL rotation             / \  /  \
+    C   BR                                 CL CR BR  AR     Note position of BR
+   / \
+  CL  CR
+
+        A                                       C         first normal rotation in ABC
+       / \                                     / \
+      B   AR                                  B   A
+     / \            LR rotation             / \  /  \
+    BL  C                                 BL CL CR  AR     Note position of CL and CR
+       / \
+      CL  CR
+
+RLL OR RLR just consider first two i.e. RL
+
+The rotation operations (left and right rotate) take constant time as only a few pointers are being changed there. Updating the height and getting the balance factor also takes constant time. So the time complexity of AVL insert remains same as BST insert which is O(h) where h is the height of the tree. Since AVL tree is balanced, the height is O(Logn). So time complexity of AVL insert is O(Logn)
+
+Deletion -:
+Normal deletion as BST then check for balance
+The rotation operations (left and right rotate) take constant time as only few pointers are being changed there. Updating the height and getting the balance factor also take constant time. So the time complexity of AVL delete remains same as BST delete which is O(h) where h is height of the tree. Since AVL tree is balanced, the height is O(Logn). So time complexity of AVL delete is O(Log n).
+
+                                                                Red Black Tree
+balanced, same complexity as AVL
+1. Every node has a colour either red or black.
+2. The root of the tree is always black.
+3. There are no two adjacent red nodes (A red node cannot have a red parent or red child).
+4. Every path from a node (including root) to any of its descendants NULL nodes has the same number of black nodes.
+5. All leaf nodes are black nodes.
+
+Black height of the red-black tree is the number of black nodes on a path from the root node to a leaf node. Leaf nodes are also counted as black nodes. So, a red-black tree of height h has black height >= h/2.
+Height of a red-black tree with n nodes is h <= 2log2(n + 1).
+All leaves (NIL) are black.
+The black depth of a node is defined as the number of black nodes from the root to that node i.e the number of black ancestors.
+in a Red-Black Tree with n nodes, there is a root to leaf path with at-most Log2(n+1) black nodes.
+
+                GrandParent   (color b)
+                  /     \
+              Uncle     Parent    (color a)
+                        /     \
+                  X's sibling  X   (color b)
+
+Insertion -:
+Assign a red colour. If the node is a root node then change its colour to black, but if it is not then check the color of the parent node. If its colour is black then don’t change the colour but if it is not i.e. it is red then check the colour of the node’s uncle. If the node’s uncle has a red colour then change the colour of the node’s parent and uncle to black and that of grandfather to red colour and repeat the same process for him (i.e. grandfather).
+But, if the node’s uncle has black colour then there are 4 possible cases of rotation depending on X and parent. after these rotations, if the colours of the nodes are miss matching then recolour them.
+consider null as black
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+The AVL trees are more balanced compared to Red-Black Trees, but they may cause more rotations during insertion and deletion. So if your application involves many frequent insertions and deletions, then Red Black trees should be preferred. And if the insertions and deletions are less frequent and search is the more frequent operation, then AVL tree should be preferred

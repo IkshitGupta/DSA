@@ -1,0 +1,28 @@
+Binary Heap
+binary tree based
+max heap -: root element greatest of all
+min heap -: root element smallest of all
+same property recursively true for all nodes
+It is a complete binary tree
+A binary heap is typically represented as an array in level order traversal
+In complete binary tree for the ith node, i.e., Arr[i]:
+Arr[(i-1)/2]	Returns the parent node
+Arr[(2*i)+1]	Returns the left child node
+Arr[(2*i)+2]	Returns the right child node
+
+Priority Queue / Heap is an abstract data type, which is similar to a queue, however, in the priority queue, every element has some priority. The priority of the elements in a priority queue determines the order in which elements are removed from the priority queue. Therefore all the elements are either arranged in an ascending or descending order.
+
+Heap -: Insert O(log n), Search O(n), Get O(1), Remove O(log n)
+Sorted Array -: Insert O(n), Search O(log n), Get O(1), Remove O(n)
+Sorting an array requires O(n log n) complexity 
+Building heap takes O(n) time complexity.
+
+each element is added in left to right in each row
+so new element comes will be inserted in bottom right, then continuously compare with root and swap
+
+For deleting
+swap first and last nodes
+remove last node
+then heapify first node i.e., compare every time with children and replace
+
+heap sort is just heapifying and popping
