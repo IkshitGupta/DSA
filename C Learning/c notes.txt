@@ -1,0 +1,538 @@
+alt + arrow keys se line ko upar niche kar sakte hai
+copy line down -: alt + D
+
+CASE SENSITIVE
+#....  -: including library; no semi-colon after # line
+main -: a function in which program runs (only once) 
+int a, b; -: defining two integers
+int a=4; sath me define and storing
+gcc filename.c -o exefilename -: for compiling then .\exefilename.exe
+
+It is still a myth somewhere that ‘int’ is used to represent integers. Integer is a very vast category of numbers where as one ‘int’ has limited and exact amount of memory (size of ‘int’ is 4 bytes or 32 bits) to store what is being represented by it. An ‘int’ type variable in C language is able to store only numbers till 2147483647.
+
+Max. integer that can represented in 1 byte = 255 (total 256, 0-255)
+
+double(lf used) has 2x more precision then float.
+float is a 32 bit (4 bytes) Floating Point Number 1 bit for the sign, 8 bits for the exponent, and 23 for the value, i.e., float has 7 decimal digits of precision.
+double is a 64 bit (8 bytes) Floating Point Number 1 bit for the sign, 11 bits for the exponent, and 52 bits for the value, i.e., double has 15 decimal digits of precision.
+
+double a;
+    scanf("%lf", &a);       23.56
+    printf("%lf\n", a);     23.560000 (equal) but if float 23.559999 (so not equal); sometimes can give correct (eg. 0.5)
+
+if we right as 0.567f or anything like that it will remain 0.567 and will not change
+sizeof(fraction) comes 8
+eg. sizeof(0.1) = 8; sizeof(0.1f) = 4
+
+char - string (1 byte); stored as an integer internally, each character has an integer code associated with it (ASCII code value) between 32 and 127 
+32 +'a' = 32+97 = 129
+the ASCII code of c1 must lie between the ASCII code of ‘a’ and ‘z’
+if (c1 >= ‘a’ && c1<= ‘z’)
+printf(“%c is a lowercase alphabet\n”, c1);
+
+converting a character from lowercase to c1 = ‘A’ + (c1 – ‘a’) //uppercase
+
+C Supports Six Types of Tokens:
+    1.  Identifiers -: 
+        names given to different entities such 
+        as constants, variables, structures, functions (only alphanumeric and _); first character must be an alphabet or underscore; keyword not allowed; no space; a and A are different
+    2.  Keywords
+    3.  Constants -: 
+        Best to give in upper-case for identification; const type constant_name; const int SIDE = 10; can also give int const SIDE = 10; or #define PI 3.14 (kahi bhi pi dene pe 3.14 aayega) #undef to remove something definded
+    4.  Strings
+    5.  Operators -:
+        ++x and x++ means x = x+1 and --x and x−− means x = x-1. Applying the pre-increment first add one to the operand and then the result is assigned to the variable on the left whereas post-increment first assigns the value to the variable on the left and then increment the operand. in post its temperory.
+        ++x Operand will be altered in value before it is utilized in the program; x++ Operand will be altered in value after it is utilized in the program
+        eg. Initial values :: a = 10; b = 20;
+        x = 50 + ++a; a = 11, x = 61
+        x = 50 + a++; x = 60, a = 11
+        && (logical AND) evalutes to true if both the operands are non-zero, || (logical OR)  result is true if at least one of the operands is non-zero, ! (logical NOT); & |; binary and or; +=, -=, *=, /=, %=, etc. works
+        % can be used only with integer operands
+    6.  Special Symbols
+
+Logical operator returns 0 or 1. 2!=3 or !(2==3) same
+Unary negation operator (!)
+Single operand; Value is 0 if operand is non-zero; Value is 1 if operand is 0
+!10 -: 10 is non-0, so value !10 is 0
+
+a = 3 && (b = 4)
+b = 4 is an assignment expression (used to assign), evaluates to 4; && has higher precedence than =; 3 && (b = 4) evaluates to true as both operands of && are non-0, so final value of the logical expression is true; a = 3 && (b = 4) is an assignment expression, evaluates to 1 (true)
+Note that changing to b = 0 would have made the final value 0
+
+short, long as size qualifier; signed, unsigned as sign qualifier
+
+double a;
+a = 2*3;
+Type of r-value is int and the value is 6
+Type of l-value is double, so stores 6.0
+
+sizeof() -: Returns the size of a memory location.
+& -: Returns the address of a memory location.
+
+enum -: Enumeration is a special data type that consists of integral constants, and each of them is assigned with a specific name
+
+printf('%d', a)
+printf() returns total number of Characters Printed
+char st[] = "CODING";
+    printf("While printing ");
+    printf(", the value returned by printf() is : %d", printf("%s", st)); in the starting of printf itself printed then at %d length printed
+
+int a,b;
+a=35;
+b=45;
+printf('a+b=%d', a+b)
+printf("ASCII value is %d.", chr); a character with %d then it's ascii value is given
+
+34/6 will be 5 when 34 & 6 are integers, if 34/6.0 will be 34.66667 (where 6.0 and answer definded as float otherwise again 5)
+so in avg can't do (a+b)/2 as both int hence use Typecasting (float (a+b)/2)
+
+scanf("%d", &testInteger);
+scanf(“%d%d”, &x, &y) (same or two different lines)
+scanf("%dk", &a) input will be given as 25 or 25k
+scanf() returns total number of Inputs Scanned successfully
+printf("\n Second scanf() returns : %d", scanf("%s%s", a, b)); returns 2 as two inputs taken
+
+%d specifies signed decimal integer while %i specifies integer.
+
+%d and %i behave similar with printf but different in scanf
+%d takes integer value as signed decimal integer i.e. it takes negative values along with positive values but values should be in decimal otherwise it will print garbage value.(if input is in octal format like:012 then %d will ignore 0 and take input as 12) 
+%i takes integer value as integer value with decimal, hexadecimal or octal type. 
+To enter a value in hexadecimal format – value should be provided by preceding “0x” and value in octal format – value should be provided by preceding “0”
+
+%8.4f means 8 character ki space with 4 decimal accuracy, extra spaces before aa jayenge, agar -8 then spaces will come afterwards
+
+comments in /* and */
+Actually whenever at the end of the comment line if we use \(backslash) character then it merges the immediate next line with current line which makes the new line also as a comment for the compiler.
+statements enclosed within {} are called compound statements
+
+SWITCH -: It is used when we have multiple possibilities for the if statement.
+switch(variable) // variable is int or char
+{
+case 1: (i.e., variable = 1)
+   //execute your code
+    break;
+case n:
+   //execute your code
+    break;
+default:
+   //executes if nothing matches
+    break;
+}
+if we give case i, then it will not work as in front of case there should be a constant integer so while declaring i we can give const int i = 5;
+can give characters depending on ASCII values
+eg. switch (choice = getchar()) {
+case ‘r’ :
+case ‘R’: printf(“Red”);
+break;
+case ‘b’ :
+case ‘B’ : printf(“Blue”);
+break
+default can be placed even above
+case 1 ... 6: in this way multiple cases can be given in one time
+If it matches any one, all statements from that point till the end of the switch are executed so break is used
+eg. at case 4 (any one of 0 to 4) and case 9 give break and use as round of
+
+conditional/ternary operator (?) that assigns a value to a variable based on some condition
+variablename = (condition) ? value1:value2; variable to take value1 if condition valid
+
+LOOPS -:
+do
+{
+    statement(s);
+}while( condition );
+condition badme check hoti hai toh ek bar toh execute hoga hi
+
+While (condition)
+{
+    statement(s);
+    Incrementation;
+}
+while(1) or while(any non-zero integer) is an infinite loop; for(; ;) also infinite
+while(0) means condition will always be false and thus code in while will never get executed. 
+
+for (i = 0; i < count; i++) //1st & 2nd (in bracket) are optional
+{
+    /* code */
+}
+if many conditions are given (i<5, j<3) only last condition will be regarded (j<3)
+andar hi int i=0 likh sakte hai
+
+recursive takes much more time than iterative as in recursion (say fibonacci) for fibo(5) first fibo(4&3) required for 4 again 3 and 2 will be calculated, so every one will be calculated twice but in iterative each just calculated once
+
+label:
+    code
+goto label; (can be before label)
+can use as -: if then goto
+break ek hi loop se nikal sakte hai par isse nested se bhi nikal sakte hai.
+goto even; even de do
+label:
+    printf("%d ",n);
+    n++;
+    if (n <= 10)
+        goto label;
+
+Typecasting -: to change type as in python int(a); here, (int) a
+
+FUNCTION -:
+dataType functionName (Parameter List)
+datatype means function kya return karega, void if kuch return nahi karta (i.e., return 0 nahi likha)
+
+declaration -: main se pehle batana ki ye function hai by dataType functionName (Parameter List)
+definition -: function define karna, declaration and definition sath me bhi ho sakta hai aur definition call karne ke bad bhi bata sakte hai agar pehle declare kara hua hai
+call -: main me ya kahi bhi call karna
+in functions extern is assumed by itself
+
+function which returns -: return a+b (where function is addition(a,b)) here we have to store answer like c=addition(5,10)
+
+#include "file.h"
+#include <math.h>
+functions work as in python but not all are here
+all math functions return value in double format; printf("%d\n", sqrt(900)); answer 0; use lf, even f works
+
+Inside a function or a block.	local variables
+Out of all functions.	Global variables
+
+x=0 on top, x=5 in fn1, x=10 in fn2, calling fn1 + fn2 then printing x, ans 10; calling fn2 + fn1 then printing x, ans 5
+
+ARRAY
+type arrayName [ size ];
+can't increase size
+in {}
+
+A pointer is a variable in C & stores value of address of a memory location of some another variable.
+datatype like int ka data kisi memory me store hota hai, say a1, a2, ye a1, a2 (memories) pointer me store hota hai
+int *ptr = &var
+ptr pointer me var ka address
+pointer pointer ka address bhi store kar sakta hai
+*p ko print karne pe value aati hai
+* is called dereference or indirection operator
+SO IT IS USED TO GET THE VALUE AT A GIVEN ADDRESS
+using pointer to print value printf(%p, *ptr)
+%x -: prints hexadecimal value (in which address is stored)
+int *ptr = NULL (NULL pointer); address is 000000
+
+Pointers make it possible to return more than one value from the function.
+Pointers reduce the length and complexity of a program.
+Pointers increase the processing speed.
+Pointers save the memory.
+
+Arithmetic on pointer -:
+printf("%d", ptr)
+printf("%d", ptr + 1)
+agar ptr int tha toh ptr + 1 4 bad jayega, agar ptr char tha toh 1 bad jayega depending on size of datatype
+
+int *ptr = arr;     ye array ke first element ka address store kar raha hai, i.e., &arr[0] and ptr are same
+Here, it means that array is a pointer
+arr[i] == *(arr + i)
+first element address 1000, 2nd address 1000 + sizeof(int(here)) and so on
+printf("address of first element", &arr[0])
+printf("address of first element", arr);    both same
+printf("address of second element", arr + 1);
+printf("address of second element", &arr[1]);   both same
+for value at that address *(arr + 1) or *(&arr[1])
+but can't do arr ++, etc which can be done in pointer as array is a constant, if we give int *arrayptr = arr; now can do ++ in arrayptr because ye koi array nahi hai bas arr[0] ka address store kar rahi hai
+
+Actual parameters (eg given int x=2, y=3) now if its called as add(x,y) so a copy of x,y is gone in add and its called formal parameters.
+
+CALLING BY REFERENCE -: x = 7 in main; while calling func(&x); while declaration func(int *a) so now as func have the address of x so now the value of x can be changed in func even though x is declared inside main.
+eg. 2 variables in main giving their address in a function and in the function swapping it
+or strcpy(temp, str1);
+    strcpy(str1, str2);
+    strcpy(str2, temp);
+
+address se wapis value ke liye *a
+
+giving array in function -: int func(int arr[]) or int func(int *ptr)
+*(ptr), *(ptr + 1) to access
+on changing value of array in function it gets reflected in main function (even declared without pointer)
+on calling in pointer func(arr) as array will give address
+
+Pointers take up the space needed to hold an address, which is 4 bytes on a 32-bit machine and 8 bytes on a 64-bit machine.
+To return multiple values give in function blank addresses then modify its value in function
+int min, max;
+MinMax(&min, &max);
+void MinMax(int *min, int *max){
+    *min = x; *max = y;
+}
+
+NO STRING DATATYPE
+in array we can store string and the end of which is rerpresented by \0 (null character) (necessary)
+to create
+char name[] = "ikshit" double quotes me null apne aap aa jata hai
+char name[] = {'i', 'k', 's', 'h', 'i', 't', '/0'} here, single quotes
+for individual characters, C uses single quotes, whereas for strings, it uses double quotes
+
+getting input of string from user -: gets(var);
+printing string -: printf("%s", var); or puts(var); scanf can't get spaces
+puts() moves the cursor to next line
+
+STRING.H LIBRARY -:
+    1.  memchr(string, int c, n) > returns the string after c including c (upto given bytes(n)). eg. string = http://www.tutorialspoint.com, c = ., returns .tutorialspoint.com
+    2.  memcmp(string1, string2, n) > if string1 > string2 in upto given bytes returns positive value
+    3.  memcpy(*string1, *string2, n) > copies memory blocks of string2 on string1 upto given bytes(n) and returns pointer
+    4.  memmove(string1, string2, n) > overlapps memory blocks of string2 over string1 upto given bytes
+    5.  memset(string, int c, n) > copies the character c over first n bytes of the string
+    6.  strcat(string1, string2) > combines string 1 and string 2 in string 1
+    7.  strncat(string1, string2, size) > add string2 upto given size to string1
+    8.  strchr(string, int c) > same as memchr
+    9.  strcmp(string1, string2) > same as memcmp
+    10. strncmp(string1, string2, size) > same as memcmp
+    11. strcoll(string1, string2) > same as strcmp
+    12. strcpy(string1, string2) > copy string2 to string1
+    13. srrncpy includes size
+    14. strcspn(string1, string2) > calculates the length of the initial segment of string1, which consists entirely of characters not in string2
+    15. strerror ?
+    16. strlen(string) > length excluding null character
+    17. strpbrk(string1, string2) > Finds the first character in the string1 that matches any character in string2
+    18. strrchr(string, int c) > last occurrence of c ke badka including c
+    19. strspn(string1, string2) > Calculates the length of the initial segment of string1 which consists entirely of characters in string2
+    20. strstr(string1, string2) > after first occurrence of string2 including string2; returns pointer
+    21. strtok(string1, string2) > jaha bhi string1 me string2 waha se age piche me divide ho jayega, agar multiple times string2 then jo ek bar divide hua usme (NULL, string2)
+    22. strxfrm() ?
+    23. strrev(string) > reverse the string
+
+A string constant is treated as a pointer 
+Its value is the base address of the string
+char *p = “abc”;
+printf (“%s %s\n”,p,p+1);   abc bc is printed
+
+int strlen (const char *s) {        You cannot change contents of s in the function
+    int n;
+    for (n=0; *s!=‘\0’; ++s) ++n;
+    return n;
+}
+
+char *strcat(char *s1, const char *s2){
+    char *p = s1;       to store address of s1 so that any change in p will happen to s1
+    while (*p != '\0') /* go to end */
+        ++p;
+    while(*s2 != '\0') 
+        *p++ = *s2++; /* copy */
+    *p = '\0';
+    return s1;
+}
+
+STRUCTURE -:
+a user-defined data type; struct keyword is used to declare the structure
+struct Courses{
+    char  WebSite[50];
+    char  Subject[50];
+    int Price;
+    } c1, c2;
+struct Courses c1, c2; (rather than declaring c1, c2 there only, can declare later)
+to initialize -: c1.Price = ;  or struct Courses c1 = [values]    . is called structure member operator
+if in array don't know order {.Subject = , .Price = 1};
+for string strcpy(c1.WebSite, "ha wohi")
+value kahi bhi define karo, global local depends on c1,c2 kaha define kare hai
+an array of structures can also be created
+We cannot use operators like +,- etc. on Structure variables
+we can assign like c1 = c2 but can't compare
+struct student class[50];   as datatype is not student but struct student
+
+Arrow operator allows to access elements in Structures and Unions
+(pointer_name)->(variable_name)
+used to access structure variables with pointers
+(*p).roll, (*p).dept_code, (*p).cgpa
+p –> roll, p –> dept_code, p –> cgpa
+
+typedef is used to change name of datatype
+typedef old name new name; eg. typedef unsigned Long ul, typedef int* intpoint
+typedef struct Courses{
+    char  WebSite[50];
+    char  Subject[50];
+    int   Price;
+    } cour;
+now while declaration rather than struct Courses c1, c2; just cour c1,c2;
+work in scope   
+purana aur naya both work karenge
+
+UNION
+in structure each member has its own storage location while in union members uses a single shared memory location
+WebSite, Subject aur price me se koi ek hi use karna hai
+jis bhi datatype ki highest memory hai utni memory hoti hai union ki (here, 50)
+struct ki jagah union likhna hota hai
+
+a header file “stdbool.h” must be included to use bool in C
+
+To convert number to string (sprintf function) -:
+char result[50];
+    float num = 23.34;
+    sprintf(result, "%f", num);
+
+STATIC VARIABLES -:
+    static datatype variable = value;
+    property of preserving values even when they go out of scope
+    preserve their value and are not initialized again
+    eg. 
+    func1(){
+        static int a1 = 6;
+        a1++;
+        return a1;
+    }
+    int main(){
+        a = func1();
+        printf("%d", a); // prints 7
+        a = func1();
+        printf("%d", a) // prints 8 (it will not execute int a1 = 6 again as it had already stored a1 as 7)
+    }
+
+    initialized to 0 if not initialized manually (static int a; means static int a = 0;)
+    can be only initialized using constant literal (not like static int b = func1()), same for global variables
+    Static variables should not be declared inside structure
+
+MEMORY MANAGEMENT -:
+In the static memory allocation technique, allocation of memory is done at compilation time, and it stays the same throughout the entire run of your program. Neither any changes will be there in the amount of memory nor any change in the location of memory.
+Dynamic memory allocation is a way in which the size of a data structure can be changed during the run time.
+Architecture -:
+1.  Code [Text Segment]
+2.  Static/Global variables [a) Data Segment (For Inititialized int a = 5;) b) BSS Segment (For Uninitialized int a;)]
+3.  Stack -: pehle main ke variables store ho rahe hai phir usme koi func1 aaya toh main paused aur func1 ke store hone lag gaye phir func1 me func2 aaya toh func1 paused aur func2 ke store hone lag gaye. func2 finished toh ab voh stack se remove then func1 resumed, finished and removed from stack then again main resumed.
+    StackOverflow -: Jab stack full ho jaye eg. in recursion
+4.  Heap -: used in dynamic memory allocation using functions (malloc, calloc, realloc, free) all part of <stdlib.h>
+
+mallock -: to allocate memory; ptr = (ptr-type*) malloc(size in bytes); null pointer returns if space full; it does not initialize the memory allocated during execution, it carries garbage value; 40 agar 10 int chaiye
+calloc -: same as malloc; ptr = (ptr-type*) calloc(n, size in bytes), 10,4 agar 10 int chaiye; allocated memory initialized at 0
+realloc -: ptr = (ptr-type*) realloc(ptr, new size in bytes)
+free -: free(ptr); to free the allocated memory
+It would be better to use malloc over calloc, unless we want the zero-initialization because malloc is faster than calloc
+
+int* ptr;
+ptr = (int*) malloc(10*sizeof(int)); 10 size ka array of int
+
+int **p;
+p = (int **) malloc(3 * sizeof(int *));     Allocating Pointer to Pointer
+
+getchar(); sometimes jab lagatar scanf hai toh enter key dabane pe voh bhi scanf me chale jati hai so getchar() given
+can also be used for inputting a single character
+
+storage class-:
+1.  Auto storage class -: (auto variable) default
+scope local, default value garbage, live till end of the function       eg. auto int a; or int a; (same)
+2.  External storage class -: (external variable)
+scope global; default initial value 0; lifetime throughout the program. can be changed in any function, keyword extern
+3.  Static storage class -: static variable (padh liya)
+4.  Register storage class -: (register variable)
+scope local, default value garbage, live till end of the function; so its same as auto but the difference is its stored in cpu register so it is defined for variables which are to be used very frequently, if no space in register then declared as auto; register keyword; we cannot obtain the address of a register variable using pointers.
+
+Declaration of a variable is for informing to the compiler the following information: name of the variable, type of value it holds and the initial value if any it takes. i.e., declaration gives details about the properties of a variable. Whereas, Definition of a variable says where the variable gets stored. i.e., memory for the variable is allocated during the definition of the variable.
+A variable or function can be declared any number of times, but it can be defined only once. memory is not allocated while declaration.
+in c declaration and definition of variables occur at same time in normal way int a; a is declared and defined.
+but if we use extern keyword it just involves declaration, no memory is allocated at that time
+extern int var;
+int main(void)
+{
+    var = 10;
+    return 0;
+}   error as declared but not defined
+
+extern int var = 0;
+int main(void){
+    var = 10;
+    return 0;
+} will work as if a variable is only declared and an initializer is also provided with that declaration, then the memory for that variable will be allocated
+
+void pointer -:
+a pointer that has no data type associated with it 
+int x = 10;
+char y = 'x';
+void *p = &x; // stores address of x
+printf("%d", *((int*)p)) // Typecasting required for printing
+p = &y; // now holds address of y
+malloc() and calloc() return void* type pointer that's why uske aage (int*) lagate hai
+not possible to dereference void pointer
+pointer Arithmetic not allowed
+
+null pointer -:
+int x = 10;
+int *ptr = NULL; // can't be dereferenced, solves problem of by mistaking dereferencing pointer with garbage value
+p = &x; // ab dereference kar sakte hai
+null macro is definded as ((void *)0) in header files i.e. address 0 dekhayega
+null pointer is a value while void pointer is a type
+
+dangling pointer -:
+a pointer pointing to freed memory location or the location whose content has been deleted, or gone out of scope
+int *ptr = (int *) mallock (sizeof(int));
+free (ptr); // ptr now dangling
+ptr = NULL; // ptr no longer dangling
+
+char word[N], *w[M];    array of pointers
+int i, n;
+scanf("%d",&n);
+for (i=0; i<n; ++i) {
+    scanf("%s", word);
+    w[i] = (char *) malloc ((strlen(word)+1)*sizeof(char));
+    strcpy (w[i], word) ;
+}
+
+int x = 10, *p, **q;     Pointer to pointer – stores the address of a pointer variable
+p = &x;
+q = &p;
+
+int myfunc(){
+    int a = 34;
+    return &a;
+}
+int main(){
+    int *ptr = myfunc(); // dangling pointer, as jab address of a return hogaya after that voh heap se hat gaya
+}
+agar koi pointer dangling hogaya toh use null banade
+
+wild pointer -:
+Uninitialized pointers are known as wild pointers
+dereferencing can cause bugs
+suggested to avoid and initialize as null
+
+program executed by compiler while # statements by pre-processor
+macro like function but fast speed
+#define hyd "hyderabad" or #define hyd #hyderabad (other # converts to string)
+#define square(r) r*r
+#ifndef LIMIT      (if not defined) aise hi ifdef
+#define LIMIT 50
+#endif
+This tells the compiler to define LIMIT, only if LIMIT isn't already defined.
+
+FILE *fp = NULL; declaring initially
+fopen(path, mode) // used to open file
+fclose()
+to read a file fscanf(ptr, "%s", string) (storing first word of file in variable string)
+to write in a file fprintf(ptr, "%s", string)
+fgetc(file pointer) -: to get a character
+char c = fgetc(ptr)
+on runnning each time next wala aayega
+char str[4];
+fgets(str, length, ptr)
+fputc(character in '', file pointer)
+similarly fputs
+
+int argc, char const *argv[]
+argv me 0 pe program name phir arguments
+argc is length of argv
+
+function pointer -: 
+int sum(int a, int b){
+    return a+b
+}
+in main
+int (*ptr) (int, int) ;
+ptr = &sum (& dena jaruri nahi)
+int d = (*ptr)(6,4); d = 10 
+Using instead of switch -: 
+void (*fun_ptr_arr[])(int, int) = {add, subtract, multiply};
+(*fun_ptr_arr[ch])(a, b);
+no allocation of memory using function pointer
+Function pointer are used to pass a function to a function.
+void hello(int (*ptr)(int, int)){
+    printf("Hello");
+    printf("%d", ptr(5,7));
+}
+
+to return array -: in function define array using ynamic allocation
+
+char buffer[50];
+int a = 10, b = 20, c;
+c = a + b;
+sprintf(buffer, "Sum of %d and %d is %d", a, b, c);
+// The string "sum of 10 and 20 is 30" is stored
+// into buffer instead of printing on stdout
+printf("%s", buffer);
+return 0;
