@@ -35,3 +35,28 @@ def getFactorization(x):
 sieve()
 
 # Pollard’s Rho is a prime factorization algorithm, particularly fast for a large composite number with small prime factors
+
+# const int MAXN = 1000001;
+# vi spf;
+# void sieve(){
+#     spf.resize(MAXN);
+#     iota(all(spf), 0);
+#     fr(i, 2, int(sqrt(MAXN)) + 1){
+#         if (spf[i] == i){
+#             for (int j = i*i; j <= MAXN; j += i){
+#                 if (spf[j] == j){
+#                     spf[j] = i;
+#                 }
+#             }
+#         }
+#     }
+# }
+
+# vi getFactorization(int x){
+#     vi facs;
+#     while (x != 1){
+#         facs.eb(spf[x]);
+#         x /= spf[x];
+#     }
+#     return facs;
+# }
