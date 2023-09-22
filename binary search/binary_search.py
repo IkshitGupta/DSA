@@ -115,6 +115,7 @@ a = [5, 6, 7, 8, 9, 10]
 # min time meeting different coordinates
 # so binary search in time
 # we have to find maximum time of all the individual coordinates as the coordinate which will reach last after that meeting will start
+# in binary search don't set end as max value as star + end will exceed
 
 # finding maximum average of segment of any length
 
