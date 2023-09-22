@@ -1,0 +1,871 @@
+AIM: bind together the data and the functions that operate on them so that no other part of the code can access this data except that function
+
+Class & Objects:
+    A Class is a user-defined data type that has data members and member functions.
+    Data members are the data variables and member functions are the functions used to manipulate these variables together
+    An Object is an instance of a Class.
+    When a class is defined, no memory is allocated but when it is instantiated (i.e. an object is created) memory is allocated.
+
+    Inline Functions:
+        An inline function is a function that is expanded in line when it is called. When the inline function is called whole code of the inline function gets inserted or substituted at the point of the inline function call. This substitution is performed by the C++ compiler at compile time.
+        C++ provides inline functions to reduce the function call overhead
+        inline return-type function-name(parameters) {// function code}
+        The compiler can ignore the request for inlining
+            If a function contains a loop. (for, while and do-while) 
+            If a function contains static variables. 
+            If a function is recursive. 
+            If a function return type is other than void, and the return statement doesn’t exist in a function body. 
+            If a function contains a switch or goto statement. 
+        The added variables from the inlined function consume additional registers. This means that when the inline function body is substituted at the point of the function call, the total number of variables used by the function also gets inserted.
+        If you use too many inline functions then the size of the binary executable file will be large, because of the duplication of the same code. 
+        all the functions defined inside the class are implicitly inline
+
+    Why do we give semicolons at the end of class?
+    just like structure and union, we can also create the instance of a class at the end just before the semicolon. As a result, once execution reaches at that line, it creates a class and allocates memory to your instance.
+
+Access Modifiers:
+    we can access the private data members of a class indirectly using the public member functions of the class. 
+        class Circle{  
+            private:
+            double radius;
+            public:   
+            void compute_area(double r){
+                radius = r;
+                cout << "Radius is: " << radius << endl;
+            }
+        };
+    The protected access modifier is similar to the private access modifier in the sense that it can’t be accessed outside of its class unless with the help of a friend class. The difference is that the class members declared as Protected can be accessed by any subclass (derived class) of that class as well. 
+
+Friend Class and Function:
+    A friend class can access private and protected members of other classes in which it is declared as a friend.
+    For example, a LinkedList class may be allowed to access private members of Node.
+    We can declare friend class or function anywhere in the base class body whether its private, protected or public block.
+
+    friend class F
+
+    Declaring a friend function in the class
+    friend return_type function_name (arguments);    // for a global function
+                or
+    friend return_type class_name::function_name (arguments);    // for a member function of another class
+
+    friend void anotherClass::memberFunction(base&);    // giving variable name as reference as passed in the original function
+
+    We always have to define both the classes before the function definition
+    friend void max(XYZ, ABC);  // here XYX and ABC are classes
+    Friendship is not mutual
+    Friendship is not inherited.
+
+Constructors:
+    invoked automatically at the time of object creation
+    member function of a class
+    mostly declared in the public section of the class though it can be declared in the private section of the class
+    Constructor can not be declared virtual
+    Constructor cannot be inherited
+    Addresses of Constructor cannot be referred
+    Constructor make implicit calls to new and delete operators during memory allocation
+
+    Default Constructor:
+        Constructor which doesn’t take any argument. It has no parameters
+        if Parameterized constructor given then it overrides default so also need to make default
+    Parameterized Constructors:
+    Copy Constructor:
+        member function that initializes an object using another object of the same class
+        used to initialize the members of a newly created object by copying the members of an already existing object
+        Sample(Sample &t){
+            id=t.id;
+        }
+        If we don’t define our own copy constructor, the C++ compiler creates a default copy constructor for each class which does a member-wise copy between objects
+        The default copy constructor does only shallow copy
+        bag1 -> variables <- bag2
+        Deep copy is possible only with a user-defined copy constructor. In a user-defined copy constructor, we make sure that pointers (or references) of copied objects point to new memory locations
+        bag1 -> variables, bag2 -> variable
+
+        In shallow copy, an object is created by simply copying the data of all variables of the original object. This works well if none of the variables of the object are defined in the heap section of memory. If some variables are dynamically allocated memory from heap section, then the copied object variable will also reference the same memory location.
+        
+        MyClass t1, t2;
+        MyClass t3 = t1;    // copy constructor will be called
+        t2 = t1;    // assignment operator no copy constructor called
+
+        a copy constructor can be made private. When we make a copy constructor private in a class, objects of that class become non-copyable
+        if we pass an argument by value in a copy constructor, a call to the copy constructor would be made to call the copy constructor which becomes a non-terminating chain of calls.
+
+    Constructor in private:
+        If we want that class should not be instantiated by anyone else but only by a friend class
+
+        // class A
+        class A{
+        private:
+            A(){
+            cout << "constructor of A\n";
+            }
+            friend class B;
+        };
+        // class B, friend of class A
+        class B{
+        public:
+            B(){
+                A a1;
+                cout << "constructor of B\n";
+            }
+        };
+        int main(){
+            B b1;
+            return 0;
+        }
+
+        Output:
+        constructor of A
+        constructor of B
+
+Destructors:
+    instance member function (function associated with instance/object of a class) that is invoked automatically whenever an object is going to be destroyed
+    Destructor has the same name as their class name preceded by ~
+    not possible to define more than one destructor
+    can-not be overloaded
+    neither requires any argument nor returns any value
+    automatically called when an object goes out of scope
+    release memory space occupied by the objects created by the constructor
+    objects are destroyed in the reverse of an object creation
+
+    if the object is created by using new or the constructor uses new to allocate memory that resides in the heap memory or the free store, the destructor should use delete to free the memory
+    The default destructor works fine unless we have dynamically allocated memory or pointer in class
+    should be declared in the public section
+
+    Private Destructor:
+        Whenever we want to prevent the destruction of an object, we can make the destructor private
+        For dynamically created objects, it may happen that you pass a pointer to the object to a function and the function deletes the object. If the object is referred after the function call, the reference will become dangling
+
+        class Test {
+        private:
+            ~Test() {}
+        };
+        int main() { Test t; }
+        Error   compiler notices that the local variable ‘t’ cannot be destructed because the destructor is private. 
+
+        class Test {
+        private:
+            ~Test() {}
+        };
+        int main() { 
+            Test* t;    // no object being constructed, the program just creates a pointer of type “Test *”
+            Test* t = new Test; // When something is created using dynamic memory allocation, it is the programmer’s responsibility to delete it. So compiler doesn’t bother.
+            Test* t = (Test*)malloc(sizeof(Test)); // also works fine
+        }
+
+        class Test {
+        private:
+            ~Test() {}
+        public:
+            friend void destructTest(Test*);
+        };
+        // Only this function can destruct objects of Test
+        void destructTest(Test* ptr) { delete ptr; }
+        int main(){
+            // create an object
+            Test* ptr = new Test;
+            // destruct the object
+            destructTest(ptr);
+            return 0;
+        }
+
+        class parent {
+            // private destructor
+            ~parent() { cout << "destructor called" << endl; }
+        
+        public:
+            parent() { cout << "constructor called" << endl; }
+            void destruct() { delete this; }
+        };       
+        int main(){
+            parent* p;
+            p = new parent;
+            // destructor called
+            p->destruct();
+            return 0;
+        }
+
+Stack vs heap
+    Parameter	                                  STACK	                                        HEAP
+    Basic	                    Memory is allocated in a contiguous block.	    Memory is allocated in any random order.
+    Allocation and De-allocation	    Automatic by compiler instructions.	        Manual by the programmer.
+    Cost	                                        Less                                       	More
+    Access time	                                   Faster	                                   Slower
+    Main Issue	                            Shortage of memory	                        Memory fragmentation
+    Locality of reference	                    Excellent	                                   Adequate
+    Safety	                Thread safe, data stored can only be accessed by the owner	Not Thread safe, data stored visible to all threads
+    Flexibility	                                Fixed-size	                            Resizing is possible
+    Data type structure	                        Linear	                                    Hierarchical
+    Preferred	            Static memory allocation is preferred in an array.	Heap memory allocation is preferred in the linked list.
+    Size	                            Small than heap memory.	                    Larger than stack memory.
+
+Polymorphism:
+    “polymorphism” means having many forms. In simple words, we can define polymorphism as the ability of a message to be displayed in more than one form.
+    Compile-Time Polymorphism
+        Function Overloading
+            When there are multiple functions with the same name but different parameters, then the functions are said to be overloaded
+            Functions can be overloaded by changing the number of arguments or/and changing the type of arguments.
+        Operator Overloading
+    
+    Runtime Polymorphism
+        Function Overriding
+        Virtual Function
+
+Function Overloading:
+    two or more functions can have the same name but different parameters
+
+    Parameters should have a different type
+    Parameters should have a different number
+    Parameters should have a different sequence of parameters
+
+    Working of a function
+    Exact match:- (Function name and Parameter)
+    If a not exact match is found:–
+        ->Char, Unsigned char, and short are promoted to an int.
+        ->Float is promoted to double
+
+    If no match is found:
+        ->C++ tries to find a match through the standard conversion.
+    ELSE ERROR
+
+    function declarations cannot be overloaded:
+        Function declarations that differ only in the return type
+        Parameter declarations that differ only in a pointer
+            int fun(int *ptr);
+            int fun(int ptr[]);
+        Parameter declarations that differ only in the presence or absence of const and/or volatile are equivalent.
+
+    class Test {
+        protected:
+        int x;
+        public:
+        // This is a constructor for the Test class. It takes an integer i as a parameter and initializes the protected member x with the value of i.
+        Test(int i) : x(i) {}
+
+        // The const qualifier at the end of the function declaration indicates that this function does not modify the state of the Test object it is called on
+        void fun() const{
+            cout << "fun() const called " << endl;
+        }
+        void fun() { cout << "fun() called " << endl; }
+    };
+
+    int main(){
+        Test t1(10);
+        const Test t2(20);
+        t1.fun();
+        t2.fun();
+        return 0;
+    }
+    ‘const void fun()’ is called on the const object, and ‘void fun()’ is called on the non-const object. C++ allows member methods to be overloaded on the basis of const type. Overloading on the basis of const type can be useful when a function returns a reference or pointer.
+
+    C++ allows functions to be overloaded on the basis of the const-ness of parameters only if the const parameter is a reference or a pointer.
+    void fun(char *a)
+    void fun(const char *a)
+
+    Function overloading comes under the compile-time polymorphism. During compilation, the function signature is checked. So, functions can be overloaded, if the signatures are not the same. The return type of a function has no effect on function overloading, therefore the same function signature with different return type will not be overloaded.
+
+    void test(float s,float t)    {
+        cout << "Function with float called ";
+    }
+    void test(int s, int t){
+        cout << "Function with int called ";
+    }
+    int main(){
+        test(3.5, 5.6); // 3.5 and 5.6 defaut as double, so compiler don't know to convert to int or float
+        return 0;
+    }
+    Error!!
+
+    To overload main() function in C++, it is necessary to use class and declare the main as member function. Note that main is not reserved word. we can declare a variable whose name is main
+
+    improves code readability and allows code reusability.
+    save memory space, consistency, and readability.
+    speeds up the execution
+    Code maintenance also becomes easy.
+    eliminates the use of different function names
+
+Operator Overloading:
+    Complex operator+(Complex const& obj){
+        Complex res;
+        res.real = real + obj.real;
+        res.imag = imag + obj.imag;
+        return res;
+    }
+
+    operators that cannot be overloaded
+    sizeof
+    typeid
+    Scope resolution (::)
+    Class member access operators (.(dot), .* (pointer to member operator))
+    Ternary or conditional (?:)
+
+    For operator overloading to work, at least one of the operands must be a user-defined class object.
+    Conversion Operator: We can also write conversion operators that can be used to convert one type to another type. 
+    operator float() const{
+        return float(num) / float(den);
+    }
+
+    Overloading Unary Operator
+    void operator-(){
+        feet--;
+        inch--;
+    }
+    -d1;
+    no argument is passed and no return_type value is returned, because the unary operator works on a single operand.
+
+    Overloading Binary Operator using a Friend function
+    friend Distance operator + (Distance&, Distance&);
+    Distance operator+(Distance& d1, Distance& d2) {
+        Distance d3;
+        d3.feet = d1.feet + d2.feet;
+        d3.inch = d1.inch + d2.inch;
+        return d3;
+    }
+
+    Functors:
+        int increment(int x) {  return (x+1); }
+        transform(arr, arr+n, arr, increment);
+
+        Now suppose, that we want to add 5 to contents of arr[]. As transform requires a unary function, we cannot pass a number to increment()
+        A functor (or function object) is a C++ class that acts like a function. Functors are called using the same old function call syntax. To create a functor, we create a object that overloads the operator().
+
+        class increment{
+            private:
+            int num;
+            public:
+            increment(int n) : num(n) {}
+
+            // This operator overloading enables calling operator function () on objects of increment
+            int operator () (int arr_num) const {
+                return num + arr_num;
+            }
+        };
+        transform(arr, arr+n, arr, increment(to_add));  // to_add = 5
+        
+Inheritance:
+    The new class created is called “derived class” or “child class” or "sub class" and the existing class is known as the “base class” or “parent class” or "super class"
+    When we say derived class inherits the base class, it means, the derived class inherits all the properties of the base class, without changing the properties of base class and may add new features to its own
+
+    class  <derived_class_name> : <access-specifier> <base_class_name>
+    if no specifier then private by default
+    When a base class is privately inherited by the derived class, public members of the base class becomes the private members of the derived class
+    when the base class is publicly inherited by the derived class, public members of the base class also become the public members of the derived class
+    void setX (int x){
+       // The 'this' pointer is used to retrieve the object's x hidden by the local variable 'x'
+       this->x = x;
+   }
+
+    When a reference to a local object is returned, the returned reference can be used to chain function calls on a single object
+
+    class Test{
+        private:
+        int x;
+        int y;
+        public:
+        Test(int x = 0, int y = 0) { this->x = x; this->y = y; }
+        Test &setX(int a) { x = a; return *this; }
+        Test &setY(int b) { y = b; return *this; }
+    };
+    obj1.setX(10).setY(20);
+
+                        Public          Protected           Private     // in base class
+    // in derived class
+    Public              Public          Protected           No Access
+    Protected           Protected       Protected           No Access
+    Private             Private         Private             No Access
+
+    Types of Inheritance in C++:
+    1) Single Inheritance: class is allowed to inherit from only one class. i.e. one subclass is inherited by one base class only
+    2) Multiple Inheritance: class can inherit from more than one class. i.e one subclass is inherited from more than one base class.
+    class A: public B, public C // access mode for every base class must be specified. 
+
+    class A{
+        public:
+        A()  { cout << "A's constructor called" << endl; }
+    };
+    
+    class B{
+        public:
+        B()  { cout << "B's constructor called" << endl; }
+    };
+    
+    class C: public B, public A {
+        public:
+        C()  { cout << "C's constructor called" << endl; }
+    };
+    B's constructor called
+    A's constructor called
+    C's constructor called
+
+    class S: public A1, virtual A2
+    now virtual class constructor called first A2 then A1 then S
+
+    3) Multilevel Inheritance: derived class is created from another derived class.
+    4) Hierarchical Inheritance: more than one derived class is created from a single base class.
+    5) Hybrid (Virtual) Inheritance: implemented by combining more than one type of inheritance.
+
+    Overloading doesn’t work for derived class, There is no overload resolution between Base and Derived. The compiler looks into the scope of Derived, finds the function and calls it
+
+Function Overriding:
+    redefinition of base class function in its derived class with the same signature i.e. return type and parameters.
+
+    class Parent {
+        public:
+        void GeeksforGeeks_Print(){
+            cout << "Base Function" << endl;
+        }
+    };
+
+    class Child : public Parent {
+        public:
+        void GeeksforGeeks_Print(){
+            cout << "Derived Function" << endl;
+            // call of overridden function
+            Parent::GeeksforGeeks_Print();
+        }
+    };
+
+    int main(){
+        Child Child_Derived;
+        Child_Derived.GeeksforGeeks_Print();    // calling this just calls function in derived class
+        Child_Derived.Parent::GeeksforGeeks_Print();
+        return 0;
+    }
+
+    Derived Function
+    Base Function
+    Base Function
+
+    Using Pointer:
+    class Parent {
+        public:
+        void GeeksforGeeks(){
+            cout << "Base Function" << endl;
+        }
+    };
+
+    class Child : public Parent {
+        public:
+        void GeeksforGeeks(){
+            cout << "Derived Function" << endl;
+        }
+    };
+
+    int main(){
+        Child Child_Derived;
+        // pointer of Parent type that points to derived1
+        Parent* ptr = &Child_Derived;
+        // call function of Base class using ptr
+        ptr->GeeksforGeeks();
+        Child_Derived.GeeksforGeeks();
+        return 0;
+    }
+    Base Function
+    Derived Function
+
+Virtual Function:
+    A virtual function (also known as virtual methods) is a member function that is declared within a base class and is re-defined (overridden) by a derived class. 
+    When you refer to a derived class object using a pointer or a reference to the base class, you can call a virtual function for that object and execute the derived class’s version of the method.
+    Functions are declared with a virtual keyword in a base class.
+    
+    Virtual functions cannot be static.
+    A virtual function can be a friend function of another class.
+    Virtual functions should be accessed using a pointer or reference of base class type to achieve runtime polymorphism.
+    The prototype of virtual functions should be the same in the base as well as the derived class.
+    They are always defined in the base class and overridden in a derived class. It is not mandatory for the derived class to override (or re-define the virtual function), in that case, the base class version of the function is used.
+    A class may have a virtual destructor but it cannot have a virtual constructor.
+
+    If we have created a virtual function in the base class and it is being overridden in the derived class then we don’t need a virtual keyword in the derived class
+
+    Early Binding VS Late Binding
+    In early binding (static), binding occurs at compile time when virtual keyword not given
+    In late binding (dynamic), binding occurs at run time as it is decided which function to call, here virtual keyword given
+
+    Vtable and vptr:
+        If an object of that class is created then a virtual pointer (VPTR) is inserted as a data member of the class to point to the VTABLE of that class. For each new object created, a new virtual pointer is inserted as a data member of that class
+        Irrespective of whether the object is created or not, the class contains as a member a static array of function pointers called VTABLE. Cells of this table store the address of each virtual function contained in that class.
+
+        derived d;
+        base* bptr = &d;
+        bptr->print();
+
+        In table of that class just the address of function of that class if it is virtual anywhere
+
+    Slower: The function call takes slightly longer due to the virtual mechanism and makes it more difficult for the compiler to optimize because it does not know exactly which function is going to be called at compile time.
+    Difficult to Debug: In a complex system, virtual functions can make it a little more difficult to figure out where a function is being called from.
+    
+    Whenever a virtual function is called using a base class reference or pointer it cannot be inlined because the call is resolved at runtime, but whenever called using the object (without reference or pointer) of that class, can be inlined because the compiler knows the exact class of the object at compile time
+
+    Virtual Destructor:
+        Deleting a derived class object using a pointer of base class type that has a non-virtual destructor results in undefined behavior.
+
+        class base {
+            public:
+            base(){
+                cout << "Constructing base\n";
+            }
+            virtual ~base(){ 
+                cout << "Destructing base\n";
+            }	
+        };
+
+        class derived : public base {
+            public:
+            derived()	{ 
+                cout << "Constructing derived\n";
+            }
+            ~derived(){
+                cout << "Destructing derived\n";
+            }
+        };
+
+        int main(){
+            derived *d = new derived(); // bracket not necessary
+            base *b = d;
+            delete b;
+            getchar();
+            return 0;
+        }
+
+        Constructing base
+        Constructing derived
+        Destructing derived
+        Destructing base
+
+        if virtual keyword not given
+        Constructing base
+        Constructing derived
+        Destructing base
+
+        any time you have a virtual function in a class, you should immediately add a virtual destructor (even if it does nothing).
+
+        can't create virtual constructor in C++
+
+Pure Virtual Function/Abstract Function:
+    virtual void show() = 0;
+    virtual function for which we can have an implementation, But we must override that function in the derived class, otherwise, the derived class will also become an abstract class.
+    A class is abstract if it has at least one pure virtual function.
+    A pure virtual function is implemented by classes that are derived from an Abstract class.
+    We cannot instantiate an abstract class
+    We can have pointers and references of abstract class type.
+
+    If we do not override the pure virtual function in the derived class, then the derived class also becomes an abstract class.
+    An abstract class can have constructors.
+
+    Derived(int i, int j)
+		: Base(i)   // calling constructor of base class in derived class
+	{
+		y = j;
+	}
+
+    An abstract class in C++ can also be defined using struct keyword
+    struct shapeClass{
+        virtual void Draw()=0;
+    }
+
+    Pure Virtual Destructor:
+        if a class contains a pure virtual destructor, it must provide a function body for the pure virtual destructor. for a pure virtual destructor, you must specify a destructor body.
+        When destroying instances of a derived class using a base class pointer object, a virtual destructor is used to free up memory space allocated by the derived class object or instance. 
+        class Base {
+            public:
+            virtual ~Base() = 0; // Pure virtual destructor
+        };
+        // if not give this then error
+        Base::~Base(){ // Explicit destructor call
+            std::cout << "Pure virtual destructor is called";
+        }
+        
+        // Initialization of derived class
+        class Derived : public Base {
+            public:
+            ~Derived() { std::cout << "~Derived() is executed\n"; }
+        };
+        
+        int main(){
+            // Calling of derived member function
+            Base* b = new Derived();
+            delete b;
+            return 0;
+        }
+
+        ~Derived() is executed
+        Pure virtual destructor is called
+
+        Why a pure virtual function requires a function body?
+        The reason is that destructors (unlike other functions) are not actually ‘overridden’, rather they are always called in the reverse order of the class derivation. This means that a derived class destructor will be invoked first, then the base class destructor will be called. If the definition of the pure virtual destructor is not provided, then what function body will be called during object destruction? Therefore the compiler and linker enforce the existence of a function body for pure virtual destructors. 
+
+        Constructors cannot be declared as virtual
+
+        A virtual function can be private as C++ has access control, but not visibility control. As mentioned virtual functions can be overridden by the derived class but under all circumstances will only be called within the base class.
+
+Diamond Problem / Multipath inheritance:
+    when two superclasses of a class have a common base class
+    class has two copies of the base class
+
+            Person
+            /   \
+        Student  Faculty
+            \   /
+              TA
+    
+    solution to this problem is ‘virtual’ keyword. We make the classes ‘Faculty’ and ‘Student’ as virtual base classes to avoid two copies of ‘Person’ in ‘TA’ class.
+    Virtual base classes are used in virtual inheritance in a way of preventing multiple “instances” of a given class appearing in an inheritance hierarchy when using multiple inheritances. 
+
+    class Person {
+        public:
+        Person(int x) { cout << "Person::Person(int ) called" << endl; }
+        Person()	 { cout << "Person::Person() called" << endl; }
+    };
+
+    class Faculty : virtual public Person {
+        public:
+        Faculty(int x):Person(x) {
+            cout<<"Faculty::Faculty(int ) called"<< endl;
+        }
+    };
+
+    class Student : virtual public Person {
+        public:
+        Student(int x):Person(x) {
+            cout<<"Student::Student(int ) called"<< endl;
+        }
+    };
+
+    class TA : public Faculty, public Student {
+        public:
+        TA(int x):Student(x), Faculty(x) {
+            cout<<"TA::TA(int ) called"<< endl;
+        }
+    };
+
+    int main() {
+        TA ta1(30);
+    }
+
+    Person::Person() called
+    Faculty::Faculty(int ) called
+    Student::Student(int ) called
+    TA::TA(int ) called
+
+    constructor of ‘Person’ is called once. One important thing to note in the above output is, the default constructor of ‘Person’ is called. When we use ‘virtual’ keyword, the default constructor of grandparent class is called by default even if the parent classes explicitly call parameterized constructor.
+    How to call the parameterized constructor of the ‘Person’ class? The constructor has to be called in ‘TA’ class.
+    TA(int x):Student(x), Faculty(x), Person(x)   {
+        cout<<"TA::TA(int ) called"<< endl;
+    }
+    In general, it is not allowed to call the grandparent’s constructor directly, it has to be called through parent class. It is allowed only when ‘virtual’ keyword is used.
+
+    Avoiding ambiguity using the scope resolution operator: Using the scope resolution operator we can manually specify the path from which data member a will be accessed
+    obj.ClassB::a = 10; 	 // Statement 3
+    obj.ClassC::a = 100;    // Statement 4
+    still 2 copies present hence virtal base class better option
+
+Encapsulation:
+    wrapping up of data and information in a single unit.
+    binding together the data and the functions that manipulate them.
+    Properties of Encapsulation: 
+        Data Protection
+        Information Hiding: Encapsulation hides the internal implementation details of a class from external code. Only the public interface of the class is accessible, providing abstraction and simplifying the usage of the class while allowing the internal implementation to be modified without impacting external code.
+
+Data Abstraction:
+    Abstraction means displaying only essential information and hiding the details.
+    One more type of abstraction in C++ can be header files.
+
+Static Data Members:
+    Static data members are class members that are declared using static keywords
+    Only one copy of that member is created for the entire class and is shared by all the objects of that class, no matter how many objects are created.
+    It is initialized before any object of this class is created, even before the main starts.
+
+    class A {
+        public:
+        A(){
+            cout << "A's Constructor Called " << endl;
+        }
+    };
+
+    class B {
+        static A a;
+        public:
+        B(){
+            cout << "B's Constructor Called " << endl;
+        }
+    };
+
+    int main(){
+        B b;
+        return 0;
+    }
+    B's Constructor Called
+
+    Static members are only declared in a class declaration, not defined. They must be explicitly defined outside the class using the scope resolution operator.
+
+    Static Member Function:
+        independent of any object of the class
+        A static member function can be called even if no objects of the class exist
+        static member function can also be accessed using the class name through the scope resolution operator
+        can access static data members and static member functions inside or outside of the class
+        have a scope inside the class
+        cannot access the current object pointer, do not have access to the current object using the this pointer because static member functions are not bound to any particular object instance.
+
+        class MyClass {
+            private:
+            static int count; // Static member variable to keep track of the count
+
+            public:
+            MyClass() {
+                count++; // Increment the count when an object is created
+            }
+            static int getCount() {
+                return count; // Return the count using a static member function
+            }
+        };
+        // Initialize the static member variable outside the class
+        int MyClass::count = 0;
+        int main() {
+            MyClass obj1;
+            MyClass obj2;
+            MyClass obj3;
+            int objectCount = MyClass::getCount(); // Get the count of objects
+            std::cout << "Number of objects created: " << objectCount << std::endl;
+            return 0;
+        }
+
+        The getCount function is made static in the example to allow it to be called on the class itself, without requiring an instance of the class.
+
+    class A {
+        int x;
+        public:
+        A(){
+            cout << "A's constructor called " << endl;
+        }
+    };
+
+    class B {
+        static A a;
+        public:
+        B(){
+            cout << "B's constructor called " << endl;
+        }
+        static A getA(){
+            return a;
+        }
+    };
+
+    // Definition of a
+    A B::a; // compilation error if this line not present
+
+    // Driver code
+    int main(){
+        B b1, b2, b3;
+        A a = b1.getA();
+        return 0;
+    }
+
+    A's constructor called // at time of defining
+    B's constructor called 
+    B's constructor called 
+    B's constructor called 
+
+class Test {
+	int a;
+    public:
+	void func(int a) { 
+        cout << this -> a;
+        // cout << Test::a;    // if static int a;
+    }
+};
+
+Local Class:
+    A class declared inside a function becomes local to that function
+    A local class can have static functions but, not static data members (static variables)
+    A local class type name can only be used in the same function
+    All the methods of Local classes must be defined inside the class only, i.e., cannot define using scope operator
+    scope operator can be used to call static functions
+    Member methods of the local class can only access static and enum variables of the enclosing function. Non-static variables of the enclosing function are not accessible inside local classes.
+    Local classes can access global types, variables, and functions. 
+    local classes can access other local classes of the same function.
+
+Enum:
+    user-defined data type which can be assigned some limited values. These values are defined by the programmer at the time of declaring the enumerated type.
+    It can also be used with switch statements.
+    For example: If a gender variable is created with value male or female. If any other value is assigned other than male or female then it is not appropriate. In this situation, one can declare the enumerated type in which only male and female values are assigned.
+    enum keyword is used
+    enum Gender { Male, Female };
+    By default, the starting code value of the first element of the enum is 0 (as in the case of the array). But it can be changed explicitly.
+    if we assign a value to something, then next one will have next value
+
+    Two enumerations cannot share the same names
+    enum Gender1 { Male, Female };
+    enum Gender2 { Male, Female };
+    compile error
+
+    enum year {
+        Jan,
+        Feb,
+        Mar,
+    };
+
+    int main(){
+        int i; // here int declared, if year than error below
+        for (i = Jan; i <= Mar; i++) cout << i << " ";  // 0 1 2 
+        return 0;
+    }
+
+    No variable can have a name which is already in some enumeration
+
+    enum Gender { Male, Female };
+    enum Color { Red, Green };
+    Gender gender = Male;
+    Color color = Red;
+    if (gender == color)  // compilation error, Enums are not type-safe, cannot compare like this
+
+Enum Class:
+    enum class EnumName{ Value1, Value2, ... ValueN};
+    access using scope
+    strongly typed and strongly scoped
+    doesn’t allow implicit conversion to int, i.e. on printing EnumName:Jan we will not get 0, if we do int(EnumName:Jan) then 0
+
+    The underlying type of an enum class can be any integral data type like char, short, int, unsigned int, etc., which determines the size and range of values the enum can hold.
+    enum class EnumName : type{ Value1, Value2, ... ValueN}; // int by default
+
+C++ is called partial or semi Object Oriented Language
+    Main function is outside the class, While in JAVA, main function is executed first and it reside in the class which is mandatory.
+    Global variable : In C++, we can declare a variable globally, which can be accessible from anywhere and hence, it does not provides complete privacy to the data as no one can be restricted to access and modify those data and so, it provides encapsulation partially whereas In JAVA, we can declare variable inside class only and we can provide access specifier to it.
+    Availability of Friend function
+
+Exception Handling:
+    try: Represents a block of code that can throw an exception.
+    catch: Represents a block of code that is executed when a particular exception is thrown.
+    throw: Used to throw an exception. Also used to list the exceptions that a function throws but doesn’t handle itself.
+    int main(){
+        int x = -1;
+        // Some code
+        cout << "Before try \n";
+        try {
+            cout << "Inside try \n";
+            if (x < 0){
+                throw x;
+                cout << "After throw (Never executed) \n";
+            }
+        }
+        catch (int x ) {
+            cout << "Exception Caught \n";
+        }
+        cout << "After catch (Will be executed) \n";
+        return 0;
+    }
+
+    There is a special catch block called the ‘catch all’ block, written as catch(…), that can be used to catch all types of exceptions.
+
+    int main(){
+        try {
+            throw 10;   // int thrown so will go in catch all
+        }
+        catch (char *excp) {
+            cout << "Caught " << excp;
+        }
+        catch (...) {
+            cout << "Default Exception\n";
+        }
+        return 0;
+    }
+
+    A derived class exception should be caught before a base class exception
