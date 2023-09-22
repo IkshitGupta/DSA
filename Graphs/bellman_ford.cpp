@@ -173,7 +173,7 @@ int main(){
 
 // it is sufficient to remember the last vertex check for which there was a relaxation in nth phase. This vertex will either lie in a negative weight cycle, or is reachable from it. To get the vertices that are guaranteed to lie in a negative cycle, starting from the vertex check, pass through to the predecessors n times. Hence we will get the vertex y, namely the vertex in the cycle earliest reachable from source.
 
-// SPFA
+// Shortest Path Faster Algorithm (SPFA)
 // SPFA is a improvement of the Bellman-Ford algorithm which takes advantage of the fact that not all attempts at relaxation will work. The main idea is to create a queue containing only the vertices that were relaxed but that still could further relax their neighbors. And whenever you can relax some neighbor, you should put him in the queue. This algorithm can also be used to detect negative cycles as the Bellman-Ford.
 // The worst case of this algorithm is equal to the O(mn) of the Bellman-Ford, but in practice it works much faster in O(n) on average.
 // algorithm continues forever if there is a negative cycle. To avoid this, it is possible to create a counter that stores how many times a vertex has been relaxed and stop the algorithm as soon as some vertex got relaxed for the n-th time. Note, also there is no reason to put a vertex in the queue if it is already in.

@@ -50,7 +50,7 @@ class Graph{
                 if (parent != -1 && low[v] >= discovery[n]){    // n is not root and satisfy condition
                     isAp[n] = true;
                 }
-                // for bridges remove parent != -1 and bottom else if condition
+                // for bridges remove parent != -1 and bottom children condition
                 // if (low[v] > discovery[n]){
                 //     bridges.push_back({v, n});
                 // }

@@ -84,7 +84,7 @@ class Graph{
     bool dfs_help(T v, vi& color, vi& time_in, vi& time_out, int& timer, vi& parent){
         time_in[v] = timer++;
         color[v] = 1;
-        for(auto u : adjl[v]){
+        for(auto& u : adjl[v]){
             if (color[u] == 0) {
                 parent[u] = v;
                 if (dfs_help(u, color, time_in, time_out, timer, parent)) return true;
@@ -150,9 +150,6 @@ int main(){
 }
 
 // O(V + E) dfs from source
-// but we do dfs from every node (i.e. checking each vertex) hence O(V(V + E))
-
-// bool, if else, break, parent not needed if not checking cycle
 
                                 //  Types of edges
 // If v is not visited:

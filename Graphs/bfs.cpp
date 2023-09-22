@@ -36,7 +36,7 @@ template<typename T>
 class Graph{
     public:
     map<T, vector<T>> adjl;
-    // vector<vi> adjl;
+    // vvi adjl;
     Graph(){
         adjl.resize(n + 1);
     }

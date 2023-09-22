@@ -32,7 +32,6 @@ template<typename T> void printlist(vector<T>& v){
     cout << endl;
 }
 
-map<int, str> dic;
 int n;
 template<typename T>
 class Graph{
@@ -71,15 +70,12 @@ class Graph{
                 if (inDegree[u] == 0) que.eb(u);
             }
         }
-
-        if(len(ans) != n){
+    
+        if(len(ans) != n){  // cycle present
             cout << -1 << endl;
             return;
         }
         printlist(ans);
-        for(auto& i : ans){
-            cout << dic[i] << " ";
-        }
     }
 
 };
@@ -88,19 +84,8 @@ int main(){
     n = 9;
     Graph<int> g;
     // g.start();
-    dic = {{1, "English"}, {2, "Programming"}, {3, "HTML"}, {4, "Maths"}, {5, "CSS"}, {6, "JS"}, {7, "Python"}, {8, "Web"}, {9, "Java"}};
-    g.add_edge(1, 2);
-    g.add_edge(1, 3);
-    g.add_edge(4, 2);
-    g.add_edge(2, 3);
-    g.add_edge(3, 5);
-    g.add_edge(5, 6);
-    g.add_edge(2, 7);
-    g.add_edge(7, 8);
-    g.add_edge(9, 8);
-    g.add_edge(6, 8);
-    g.add_edge(2, 9);
-    g.add_edge(2, 6);
-    g.kahn();
+    
     return 0;
 }
+
+// in the end which do not get into queue are all part of cycle

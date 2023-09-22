@@ -54,7 +54,7 @@ class Graph{
     // void dfs_help(T v, map<T, int>& color, deque<T>& ans){
     void dfs_help(T v, vi& color, deque<T>& ans){
         color[v] = 1;
-        for(auto u : adjl[v]){
+        for(auto& u : adjl[v]){
             if (color[u.F] == 0) {
                 dfs_help(u.F, color, ans);
             }
@@ -75,7 +75,7 @@ class Graph{
                 dfs_help(i, color, ans);
             }
         }
-        if (len(ans) != n || check == 1){
+        if (check){
             cout << -1 << endl;
             return;
         }
@@ -184,6 +184,7 @@ int main(){
     return 0;
 }
 
+// ordering of nodes such that before performing a task all its pre-requisites are performed
 // # if there is a edge from vertex u to vertex v, then vertex u comes before vertex v in ordering
 // # Work only in DAG
 // # O(V + E)
@@ -191,3 +192,5 @@ int main(){
 // Application in calculating shortest path for DAG in O(E + V)
 // edges on adding will still remain DAG
 // all possible left to right combinations in topological sort
+
+// if we want all the dependencies to be finished before 1, then can run dfs from 1 and add the elements when visited[i] = 2

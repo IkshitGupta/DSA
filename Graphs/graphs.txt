@@ -1,6 +1,6 @@
 Undirected -: Two Way
 Adjacent Vertices - : Connected by a edge (neighbours)
-Degree -: Number of edges connected to the node.(can be divided into 2 types in(incoming) and out(outgoing))
+Degree -: Number of edges connected to the node (can be divided into 2 types in(incoming) and out(outgoing))
 Connected graph -: Starting from any node all other nodes can be reached (Always remember that it's not necessary that graph is connected)
 Connected Components -: Each connected graph in a disconnected graph is a connected component.
 Subgraph -: Part of graph
@@ -30,3 +30,12 @@ Minimum spanning tree is also the tree with minimum product of weights of edges.
 The maximum spanning tree (spanning tree with the sum of weights of edges being maximum) of a graph can be obtained similarly to that of the minimum spanning tree, by changing the signs of the weights of all the edges
 
 A cycle that travels exactly once over each edge in a graph is called “Eulerian.” A cycle that travels exactly once over each vertex in a graph is called “Hamiltonian.”
+
+PseudoNode:
+NKS Problem
+n*n grid (n < 2e3), given a rook with its standard moves. Starting Pos, Ending pos given. Each cell contains coins, move from start to end with minimum coins.
+
+Now from a cell we can go to about 2n cells hence total edges n^2*2n ~ n^3 edges
+Applying dijkstra using pseudo nodes
+Taking a pseudo node for each row and each column, i.e. for a node corresponding to a row it has an edge to each cell of that row with weight as the coin in that cell. So for going from one cell to another we have to go to pseudonode then to cell
+Now total edges = 2*n(pseudo nodes)*n(connected to n cells) ~ n^2 edges
