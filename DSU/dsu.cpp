@@ -123,7 +123,7 @@ int main(){
 
 // https://cp-algorithms.com/data_structures/disjoint_set_union.html
 
-//  We are given several elements, each of which is a separate set. A DSU will have an operation to combine any two sets, and it will be able to tell in which set a specific element is.
+// We are given several elements, each of which is a separate set. A DSU will have an operation to combine any two sets, and it will be able to tell in which set a specific element is.
 
 // make_set(v) - creates a new set consisting of the new element v
 // union_sets(a, b) - merges the two specified sets (the set in which the element a is located, and the set in which the element b is located)
@@ -139,7 +139,7 @@ int main(){
 
 // Compress jumps along a segment
 // problem of painting subarrays
-//  We have a segment of length L, each element initially has the color 0. We have to repaint the subarray [l, r] with the color c for each query (l, r, c). At the end we want to find the final color of each cell. We assume that we know all the queries in advance, i.e. the task is offline.
+// We have a segment of length L, each element initially has the color 0. We have to repaint the subarray [l, r] with the color c for each query (l, r, c). At the end we want to find the final color of each cell. We assume that we know all the queries in advance, i.e. the task is offline.
 
 // For the solution we can make a DSU, which for each cell stores a link to the next unpainted cell. Thus initially each cell points to itself. After painting one requested repaint of a segment, all cells from that segment will point to the cell after the segment.
 // Now to solve this problem, we consider the queries in the reverse order: from last to first. This way when we execute a query, we only have to paint exactly the unpainted cells in the subarray. All other cells already contain their final color. To quickly iterate over all unpainted cells, we use the DSU. We find the left-most unpainted cell inside of a segment, repaint it, and with the pointer we move to the next empty cell to the right.
@@ -159,3 +159,34 @@ int main(){
 //     }
 // }
 // We can use union by rank, if we store the next unpainted cell in an additional array
+
+// Storing all elements of DSU
+const int MAXN = 1e5;
+vi lst[MAXN];
+int parent[MAXN];
+
+void make_set(int v) {
+    lst[v] = vi(1, v);
+    parent[v] = v;
+}
+
+int find_set(int v) {
+    return parent[v];
+}
+
+void union_sets(int a, int b) {
+    a = find_set(a);
+    b = find_set(b);
+    if (a != b) {
+        if (len(lst[a]) < len(lst[b])){
+            swap(a, b);
+        }
+        while (!lst[b].empty()) {
+            int v = lst[b].back();
+            lst[b].pop_back();
+            parent[v] = a;
+            lst[a].eb(v);
+        }
+    }
+}
+// Eg F. Asya And Kittens

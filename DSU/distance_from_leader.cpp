@@ -49,6 +49,7 @@ class DSU{
         if (v == parent[v].F)
             return parent[v];
         int l = parent[v].S;    // distance of it to its parent
+        // also doing setting parent operation
         parent[v] = find_set(parent[v].F);  // this will contain distance of its parent to root
         parent[v].S += l;
         return parent[v];
