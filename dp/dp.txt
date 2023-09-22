@@ -47,11 +47,10 @@ find the maximum element in the K manhattan distance neighbourhood for all eleme
 In other words, for every element M[i][j] find the maximum element M[p][q] such that abs(i-p)+abs(j-q) <= K.
 in such question get answer for k - 1
 
-O1 KnapSack GFG
-Subset Sum Problem GFG
+sometimes better to use recursive
+
 Minimum sum partition GFG
 Rod Cutting GFG
-Coin Change Leetcode
 Longest Common Subsequence (LCS) Leetcode
 The Longest Common Subsequence HackerRank
 Shortest Common Supersequence LEETCODE
@@ -71,6 +70,6 @@ Travelling Salesman Problem GFG (Bitmask DP)
 Atcoder contest
 I J M
 
-Continue from O
+Continue from O (bitmask)
 
 Digit Dp
