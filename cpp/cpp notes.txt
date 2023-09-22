@@ -396,11 +396,17 @@ memset -: We can use memset() to set all values as 0 or -1 for integral data typ
 memset(a, 0, sizeof(a));
 memset(a, 't', sizeof(a)); // can use with char arrays
 
-Enumerated type (enumeration) is a user-defined data type which can be assigned some limited values. These values are defined by the programmer at the time of declaring the enumerated type.
-It can also be used with switch statements.
-For example: If a gender variable is created with value male or female. If any other value is assigned other than male or female then it is not appropriate. In this situation, one can declare the enumerated type in which only male and female values are assigned.
-enum keyword is used
-enum Gender { Male, Female };
+Union:
+    user-defined datatype in which we can define members of different types of data types just like structures. But one thing that makes it different from structures is that the member variables in a union share the same memory location, unlike a structure that allocates memory separately for each member variable. The size of the union is equal to the size of the largest data type.
+    Memory space can be used by one member variable at one point in time, which means if we assign value to one member variable, it will automatically deallocate the other member variable stored in the memory which will lead to loss of data.
+    When the available memory is limited, it can be used to achieve memory efficiency.
+    It is used to encapsulate different types of data members.
+    anonymous unions in C++ that are declared without any name inside a main function
+    union {
+      int standard;
+      char section;
+    };
+    standard = 8;
 
 while ((scanf("%d", &n)) != EOF) # if number of test case not given but multiple test cases; also comment ios_sync part
 
@@ -459,6 +465,7 @@ all_of()    // returns true if all satisfy
 lambda function: [](param){return};
 auto sum = [](int x, int y){return x + y;};
 [&] : capture all external variable by reference
+always use lambda function while working with custom comparator
 all_of(v.begin(), v.end(), [](int x){x > 0;})   // reurn true if all elements positive
 similarly any_of // agar ek bhi true toh true
 none_of // koi bhi match nhi kar rha cond then true
@@ -510,6 +517,7 @@ tuple<datatype1, datatype2, datatype3,......>
 elements of tuple are accesses by get<i>(t)
 
 partial_sum(first, last, b, myfun); as accumulate in python, b -: where to store
+// use ll for a
 vi b = {0}; // better to use with initial value as 0 
 sum[l:r]    // both inclusive
 indexing from 1: b[r] - b[l - 1]
@@ -519,7 +527,7 @@ for 2d array prefix sum i.e.
 let (1, 1) top left/bottom left of rectangle and (i, j) bottom right/top right of rectangle, then sum of rectangle is the prefix sum
 psa[i][j] = psa[i-1][j] + psa[i][j-1] - psa[i-1][j-1] + a[i][j]
 sum of any rectnagle x1, y1 to x2, y2
-prefix[x2][y2] + prefix[x1 - 1][y1 - 1] - prefix[x1 - 1][y2] - prefix[x2][y1 - 1];
+psa[x2][y2] + psa[x1 - 1][y1 - 1] - psa[x1 - 1][y2] - psa[x2][y1 - 1];
 
 want to increment x in [l, r], create a array of zeroes
 do a[l]+=x, a[r + 1]-=x
@@ -567,8 +575,10 @@ x repeats after n : x%(n + 1)
 
 stablesort keeps the order in case of equal cases but O(nlogn^2)
 
-next_permutation return next lexicographic
-prev_permutation return previous lexicographic
+next_permutation
+prev_permutation
+do not return a new ans, modifies input
+returns a bool value, if 0 means no answer possible
 
 suppose comaring each element with prev and prev(prev), but also changing starting positions, then better to store prev and prev(prev) as they may be changed
 
@@ -601,3 +611,5 @@ delete using s.erase(s.lower_bound({x, 0})) if don't know the key
 if using less_equal delete using s.erase(s.upper_bound(x))
 
 at each i incrementing map cnt, now in future value of map at each i required, so we solve iterating backwards and again decrementing map cnt, so it was better to store the value of map cnt at each i so no need to update map and access map again just use the value stored at that i
+
+In digit dp, handle extra digits in l by if (i == 0 && (low && idx <= extra))
