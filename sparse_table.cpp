@@ -41,17 +41,6 @@ class SparseTable{
         return min(store[x][l], store[x][r - (1 << x) + 1]);
     }
     // similarly gcd
-
-    ll getsum(int l, int r){
-        ll s = 0;
-        frr(i, k, -1){
-            if ((1 << i) <= r + 1 - l){
-                s += store[i][l];
-                l += (1 << i);
-            }
-        }
-        return s;
-    }
 };
 
 int main(){
@@ -62,3 +51,14 @@ int main(){
 // can answer most range queries in O(log n), but its true power is answering range minimum queries (or equivalent range maximum queries). For those queries it can compute the answer in O(1) time.
 // can only be used on immutable arrays
 // https://www.youtube.com/watch?v=0jWeUdxrGm4
+
+// ll getsum(int l, int r){
+//     ll s = 0;
+//     frr(i, k, -1){
+//         if ((1 << i) <= r + 1 - l){
+//             s += store[i][l];
+//             l += (1 << i);
+//         }
+//     }
+//     return s;
+// }
