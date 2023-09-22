@@ -72,7 +72,7 @@ template<typename T> void printlist(vector<T>& v){
 // loop for each length (1..n) in str(1..n) O(n^2), add hash in set, total O(n^2logn)
 // better to use trie, there O(n^2)
 
-ll pw(ll a, ll b, int m){  // remove mod if not needed
+ll pw(ll a, ll b, int m){
     a %= m;
     ll ans = 1;
     while(b > 0){
