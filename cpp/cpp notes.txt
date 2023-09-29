@@ -613,3 +613,5 @@ if using less_equal delete using s.erase(s.upper_bound(x))
 at each i incrementing map cnt, now in future value of map at each i required, so we solve iterating backwards and again decrementing map cnt, so it was better to store the value of map cnt at each i so no need to update map and access map again just use the value stored at that i
 
 In digit dp, handle extra digits in l by if (i == 0 && (low && idx <= extra))
+
+Do not use vector<bool>, as very very slow
