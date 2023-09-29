@@ -45,89 +45,91 @@ int mod = 1e9 + 7;
 // for getting final a, use get
 
 int n;
+ll NO_OPERATION = LLONG_MAX;
 struct node{
-    ll op = 0;  // stores operations, initially all 0
-    void combine(const node& left, const node& right){
-        
+    ll op1, s;
+    node(){
+        op1 = NO_OPERATION;
+        s = 0;
     }
+    
+    void combine(const node& left, const node& right){
+        s = left.s + right.s;
+    }
+
+    void initialize(ll val){
+        s = val;
+    }
+
+    void operation(ll val, int l){
+        if (val == NO_OPERATION){
+            return;
+        }
+        // apply operation
+        if (op1 == NO_OPERATION) {
+            op1 = val;
+        }
+        else {
+            op1 += val;
+        }
+        s += val*l;
+    }
+    // what wiil be the child after this operation
 };
 
 class SegTree{
-    ll NO_OPERATION = LLONG_MAX;
     vector<node> t;
-    
-    // length required in many
-    ll operation(ll a, ll b){   // for non commutative
-        if (b == NO_OPERATION) return a;    // no change in child a
-        // if (a == NO_OPERATION) a =   // assign value in this case
-        return b;   // apply the operation to child
-    }
-    // what wiil be the child after this operation (for returning b)
-    // for commutative same function will work, as b will always be no_operation, as propagation done already
 
     // propagate in all
     void propogate(int v, int tl, int tr){
         if (tl == tr) return;   // leaf node
-        // int tm = (tl + tr)/2;
-        t[2*v].op = operation(t[2*v].op, t[v].op);
-        // t[2*v].s = operation(t[2*v].s, t[v].op);
-        t[2*v + 1].op = operation(t[2*v + 1].op, t[v].op);
-        // t[2*v + 1].s = operation(t[2*v + 1].s, t[v].op);
-        t[v].op = NO_OPERATION;
+        int tm = (tl + tr)/2;
+        t[2*v].operation(t[v].op1, tm + 1 - tl);
+        t[2*v + 1].operation(t[v].op1, tr - tm);
+        t[v].op1 = NO_OPERATION;
     }
+
     public:
     SegTree(){
         t.resize(4*n);
     }
 
     // no need if initially 0
-    // void build(vi& a, int v = 1, int tl = 0, int tr = n - 1){
-    //     if(tl == tr) t[v].op = a[tl];
-    //     else{
-    //         int tm = (tl + tr)/2;
-    //         build(a, v*2, tl, tm);
-    //         build(a, v*2 + 1, tm + 1, tr);
-    //         t[v].combine(t[v*2], t[v*2 + 1]);
-    //         t[v] = node();
-    //     }
-    // }
-
-    node get(int v, int tl, int tr, int pos){
-        propogate(v, tl, tr);
-        if (tr == tl) return t[v];
-        int tm = (tl + tr)/2;
-        node x;
-        if (pos <= tm) x.op = operation(t[v].op, get(v*2, tl, tm, pos).op);
-        else x.op = operation(t[v].op, get(v*2 + 1, tm + 1, tr, pos).op);
-        return x;
-    }
-
-    ll get(int pos){
-        return get(1, 0, n - 1, pos).op;
-    }
-
-    void update(int v, int tl, int tr, int l, int r, int val){
-        propogate(v, tl, tr);
-        if (tl > r || tr < l) return;
-        if(tl >= l && tr <= r){
-            t[v].op = operation(t[v].op, val);
+    void build(vl& a, int v = 1, int tl = 0, int tr = n - 1){
+        if(tl == tr) {
+            t[v].initialize(a[tl]);
         }
         else{
             int tm = (tl + tr)/2;
-            update(v*2, tl, tm, l, r, val);
-            update(v*2 + 1, tm + 1, tr, l, r, val);
-            // t[v].combine(t[2*v], t[2*v + 1]);
+            build(a, v*2, tl, tm);
+            build(a, v*2 + 1, tm + 1, tr);
+            t[v].combine(t[v*2], t[v*2 + 1]);
         }
     }
 
-    void update(int l, int r, int val){
-        update(1, 0, n - 1, l, r, val);
+    void update_seg(int v, int tl, int tr, int l, int r, int val){  // updating segment
+        propogate(v, tl, tr);
+        if (tl > r || tr < l) return;
+        if(tl >= l && tr <= r){
+            t[v].operation(val, tr + 1 - tl);
+        }
+        else{
+            int tm = (tl + tr)/2;
+            update_seg(v*2, tl, tm, l, r, val);
+            update_seg(v*2 + 1, tm + 1, tr, l, r, val);
+            t[v].combine(t[v*2], t[v*2 + 1]);
+        }
+    }
+
+    void update_seg(int l, int r, int val){
+        update_seg(1, 0, n - 1, l, r, val);
     }
 
     node query(int v, int tl, int tr, int l, int r){
         propogate(v, tl, tr);
-        if (tl > r || tr < l){
+        if (tl > r || tr < l){  // need to set how empty node should behave
             node x;
+            // x.mi = LLONG_MAX;
             return x;
         }
         if(tl >= l && tr <= r){
@@ -140,7 +142,11 @@ class SegTree{
     }
 
     ll query(int l, int r){
-        return query(1, 0, n - 1, l, r).op;
+        return query(1, 0, n - 1, l, r).s;
+    }
+
+    ll get(int pos){
+        return query(1, 0, n - 1, pos, pos).s;
     }
 };
 

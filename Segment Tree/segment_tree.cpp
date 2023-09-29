@@ -60,14 +60,18 @@ int mod = 1e9 + 7;
 // if indexing from 1, size = 4n + 4 and everywhere 1 to n in place of 0 to n - 1
 
 int n;
-vi a;
 struct node{
-    ll s = 0;
-    // node(){
-
-    // }
+    ll s;
+    node(){
+        s = 0;
+    }
+    
     void combine(const node& left, const node& right){
         s = left.s + right.s;
+    }
+
+    void initialize(ll val){
+        s = val;
     }
 };
 
@@ -78,8 +82,10 @@ class SegTree{
         t.resize(4*n);
     }
 
-    void build(vi& a, int v = 1, int tl = 0, int tr = n - 1){
-        if(tl == tr) t[v].s = a[tl];
+    void build(vl& a, int v = 1, int tl = 0, int tr = n - 1){
+        if(tl == tr) {
+            t[v].initialize(a[tl]);
+        }
         else{
             int tm = (tl + tr)/2;
             build(a, v*2, tl, tm);
@@ -103,10 +109,9 @@ class SegTree{
         return query(1, 0, n - 1, l, r).s;
     }
 
-    void update(int v, int tl, int tr, int pos, int val){
+    void update(int v, int tl, int tr, int pos, ll val){
         if(tl == tr){
-            t[v].s = val;
-            a[pos] = val;
+            t[v].initialize(val);
         } 
         else{
             int tm = (tl + tr)/2;
@@ -116,7 +121,7 @@ class SegTree{
         }
     }
 
-    void update(int pos, int val){
+    void update(int pos, ll val){
         update(1, 0, n - 1, pos, val);
     }
 };
