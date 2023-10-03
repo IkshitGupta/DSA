@@ -82,6 +82,7 @@ class SegTree{
 
     // propagate in all
     void propogate(int v, int tl, int tr){
+        if (t[v].op1 == NO_OPERATION) return;
         if (tl == tr) return;   // leaf node
         int tm = (tl + tr)/2;
         t[2*v].operation(t[v].op1, tm + 1 - tl);
