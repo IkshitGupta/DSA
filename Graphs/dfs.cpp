@@ -176,3 +176,5 @@ int main(){
 // in connected components also include single points i.e. not connected to any
 
 // in the undirected version, if a vertex v gets colored black, it will never be visited again by the DFS. This is because we already explored all connected edges of v when we first visited it. The connected component containing v (after removing the edge between v and its parent) must be a tree, if the DFS has completed processing v without finding a cycle. So we don't even need to distinguish between 1 and 2 state. we can turn the int vector visited into a boolean vector but then have to consider parent case individually.
+
+// to get all cycles in an undirected graph backtrack using parent when color == 1 comes again, and add the vertices in vector, for each color == 1 put that in a global vector
