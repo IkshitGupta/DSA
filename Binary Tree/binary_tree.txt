@@ -45,7 +45,7 @@ Values insertes in order -: Left SubTree - Right SubTree - Root
 LevelOrder Traversal -: [1, 2, 3, 4, 5, 6, 7]; also called BFS; rest above are DFS
 
 Algo for constructing using preorder and inorder -:
-Pick element from preOrder & create a node 
+Pick element from preOrder & create a node
 Increment preOrder index
 Search for picked element's position in inOrder
 Call to build left subtree from inOrder 0 to pos - 1
@@ -166,23 +166,5 @@ Insertion -:
 Assign a red colour. If the node is a root node then change its colour to black, but if it is not then check the color of the parent node. If its colour is black then don’t change the colour but if it is not i.e. it is red then check the colour of the node’s uncle. If the node’s uncle has a red colour then change the colour of the node’s parent and uncle to black and that of grandfather to red colour and repeat the same process for him (i.e. grandfather).
 But, if the node’s uncle has black colour then there are 4 possible cases of rotation depending on X and parent. after these rotations, if the colours of the nodes are miss matching then recolour them.
 consider null as black
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 The AVL trees are more balanced compared to Red-Black Trees, but they may cause more rotations during insertion and deletion. So if your application involves many frequent insertions and deletions, then Red Black trees should be preferred. And if the insertions and deletions are less frequent and search is the more frequent operation, then AVL tree should be preferred

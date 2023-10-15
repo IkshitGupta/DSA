@@ -56,7 +56,7 @@ Node* construct_by_pre_in(int preorder [], int inorder [], int start, int end) {
     }
     static int idx = 0;
     int curr = preorder[idx];
-    idx ++;
+    idx++;
     Node* node = new Node(curr);
     if (start == end){
         return node;
@@ -71,7 +71,7 @@ void levelorder(Node* root){
     if (root == NULL){
         return;
     }
-    deque <Node*> q;
+    deque<Node*> q;
     q.emplace_back(root);
     q.push_back(NULL);   // ON POPING IF NULL COMES MEANS ONE LEVEL COMPLETED
     while (1){
@@ -116,7 +116,7 @@ int LCA (Node* root, int n1, int n2){
         return -1;
     }
     int pc;
-    for (pc = 0; pc < path1.size() && pc < path2.size(); pc ++){
+    for (pc = 0; pc < path1.size() && pc < path2.size(); pc++){
         if (path1[pc] != path2[pc]){
             break;
         }
@@ -125,7 +125,7 @@ int LCA (Node* root, int n1, int n2){
     return path1[pc - 1];
 }
 
-// O(n) single traversal of Binary Tree and without extra storage for path arrays 
+// O(n) single traversal of Binary Tree and without extra storage for path arrays
 // The idea is to traverse the tree starting from the root. If any of the given keys (n1 and n2) matches with the root, then the root is LCA (assuming that both keys are present). If the root doesn’t match with any of the keys, we recur for the left and right subtree. The node which has one key present in its left subtree and the other key present in the right subtree is the LCA. If both keys lie in the left subtree, then the left subtree has LCA also, otherwise, LCA lies in the right subtree.  
 Node* LCA2 (Node* root, int n2, int n1){
     if (root == NULL) {
