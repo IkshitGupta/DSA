@@ -115,9 +115,9 @@ class Hashing{
     vl hash1, hash2;
     // 1 based indexing
     public:
-    pl hash_pair;
     vl invpow1;
     vl invpow2;
+    
     Hashing(str& s){
         int n = len(s); 
         hash1.resize(n + 1);
@@ -130,7 +130,7 @@ class Hashing{
             hash2[i + 1] = hash2[i] + (s[i] - 'a' + 1)*pow2[i];
             hash2[i + 1] %= mod2;
         }
-        hash_pair = {hash1[n], hash2[n]};
+
         invpow1.resize(n + 1);
         invpow2.resize(n + 1);
         invpow1[n] = pw(pow1[n], mod1 - 2, mod1);
@@ -164,6 +164,8 @@ class Hashing{
 //     ll cur = (h[i + S] - h[i] + m)%m;
 //     if (cur == (h_s * powp[i])%m) ans.eb(i); // powp[i] in formula
 // }
+
+// can also be used to count distinct subarrays
 
 int main(){
     pre();

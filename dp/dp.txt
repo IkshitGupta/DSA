@@ -72,4 +72,6 @@ I J M
 
 Continue from O (bitmask)
 
-Digit Dp
+2 types of mcm
+-> do for current merge with left right
+-> do for left and right then merge

@@ -33,13 +33,13 @@ def getFactorization(x):
         x //= spf[x]
     return ret
 sieve()
-
+print(getFactorization(12344))
 # Pollard’s Rho is a prime factorization algorithm, particularly fast for a large composite number with small prime factors
 
 # const int MAXN = 1000001;
 # vi spf;
 # void sieve(){
-#     spf.resize(MAXN);
+#     spf.resize(MAXN + 1);
 #     iota(all(spf), 0);
 #     fr(i, 2, int(sqrt(MAXN)) + 1){
 #         if (spf[i] == i){

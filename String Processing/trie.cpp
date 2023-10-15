@@ -38,8 +38,7 @@ typedef multiset<ll> msl;
 #define out2(x, y) cout << x << " " << y << " " << endl
 int mod = 1e9 + 7;
 
-class node{
-    public:
+struct node{
     char data;
     map<char, node*> h; // if a in h then it has its address
     bool isLast;
@@ -81,30 +80,26 @@ class Trie{
 };
 
 // bitwise
-class node2{
-    public:
-    bool data;
+struct node2{
+    int data;
     int cnt = 0;
     vector<node2*> h; // if a in h then it has its address
-    node2(bool d){
+    node2(int d){
         data = d;
-        h.eb(nullptr);  // for 0 and 1
-        h.eb(nullptr);
+        h.push_back(NULL);  // for 0 and 1
+        h.push_back(NULL);
     }
 };
 
 class Trie2{
     public:
-    node2* root;
-    Trie2(){
-        root = new node2(0);  // initial root which will contain map of first charachter
-    }
+    node2* root = new node2(0);  // initial root which will contain map of first charachter
 
-    void insert(ll n){
+    void insert(ll x){
         node2* temp = root;
         frr(i, 32, -1){
-            bool ch = (1ll<<i)&n;
-            if(temp->h[ch] == nullptr){ // if this character not present in previous charachter map
+            int ch = (((1LL<<i)&x) != 0);
+            if(temp->h[ch] == NULL){ // if this character not present in previous charachter map
                 node2* child = new node2(ch);
                 temp->h[ch] = child;
             }
@@ -113,23 +108,23 @@ class Trie2{
         }
     }
 
-    void remove(ll n, node2*& temp, int i){
+    void remove(ll x, node2*& temp, int i){
         if (i == -1) return;
-        bool ch = (1ll<<i)&n;
-        remove(n, temp->h[ch], i - 1);
-        if (temp->h[ch]->cnt == 1) temp->h[ch] = nullptr;
+        int ch = (((1LL<<i)&x) != 0);
+        remove(x, temp->h[ch], i - 1);
+        if (temp->h[ch]->cnt == 1) temp->h[ch] = NULL;
         else temp->h[ch]->cnt--;
     }
     
-    ll Xor(ll n){   // gives maximum possible xor with n and elements in trie
+    ll Xor(ll x){   // gives maximum possible xor with n and elements in trie
         node2* temp = root;
         int ans = 0;
         frr(i, 32, -1){ // starting as bigger bit more priority
-            bool ch = (1ll<<i)&n;
+            int ch = (((1LL<<i)&x) != 0);
             ch ^= 1;
-            if(temp->h[ch] != nullptr) {
+            if(temp->h[ch] != NULL) {
                 temp = temp->h[ch];
-                ans |= 1<<i;
+                ans |= (1LL<<i);
             }
             else{
                 temp = temp->h[ch^1];

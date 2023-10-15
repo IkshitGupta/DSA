@@ -15,12 +15,12 @@ for j in range(n) :
     mi.append(j)
 # next max/min on removing a element (moving window)
 
-# for each element we can calculate smaller/bigger element just before the ith element
+# for each element we can calculate smaller/bigger element `just` before the ith element
 # deque<int> mi;
 # int n = arr.size();
 # vector<int> min_before(n);
 # for(int j = 0; j < n; j++){
-#     // if min which is not equal required than equality sign
+#     // equal sign if strictly greater/smaller required
 #     while ((mi.size() != 0) && (arr[mi.back()] > arr[j])){
 #         mi.pop_back();
 #     }

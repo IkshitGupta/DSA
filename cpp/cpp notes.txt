@@ -151,7 +151,7 @@ Pointers -:
     but can't do arr ++, etc which can be done in pointer as array is a constant
     nums[i][j] is equivalent to *(*(nums+i)+j)
 
-    in **q = &p     // storing pointer
+    int **q = &p     // storing pointer
 
     To return multiple values give in function addresses then modify its value in function
     int min, max;
@@ -615,3 +615,5 @@ at each i incrementing map cnt, now in future value of map at each i required, s
 In digit dp, handle extra digits in l by if (i == 0 && (low && idx <= extra))
 
 Do not use vector<bool>, as very very slow
+
+nullptr is a keyword that represents zero as an address (its type is considered a pointer-type), while NULL is the value zero as an int
