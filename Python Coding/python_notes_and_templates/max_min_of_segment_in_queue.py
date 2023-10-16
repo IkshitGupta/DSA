@@ -1,11 +1,10 @@
 # application of stack
-from collections import deque
 a = list()  # given list
 n = len(a)
 # stores indices
 # deque because may need to pop front in window problems
-ma = deque()
-mi = deque()
+ma = []
+mi = []
 for j in range(n) :
     while (len(ma) != 0) and (a[ma[-1]] < a[j]) :
         ma.pop()
@@ -16,7 +15,7 @@ for j in range(n) :
 # next max/min on removing a element (moving window)
 
 # for each element we can calculate smaller/bigger element `just` before the ith element
-# deque<int> mi;
+# vector<int> mi;
 # int n = arr.size();
 # vector<int> min_before(n);
 # for(int j = 0; j < n; j++){
@@ -24,7 +23,7 @@ for j in range(n) :
 #     while ((mi.size() != 0) && (arr[mi.back()] > arr[j])){
 #         mi.pop_back();
 #     }
-#     if (mi.size() == 0){
+#     if (mi.empty()){
 #         min_before[j] = -1;
 #     }
 #     else{
