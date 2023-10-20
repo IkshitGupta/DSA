@@ -15,7 +15,7 @@ class Heap {
         int right = 2*i + 2;
         // Assume current as min
         int minIndex = i;
-        if (left < v.size() && compare(v[left], v[i])){
+        if (left < v.size() && compare(v[left], v[minIndex])){
             minIndex = left;
         }
         if (right < v.size() && compare(v[right], v[minIndex])){
@@ -44,7 +44,7 @@ class Heap {
         return v[0];
     }
     bool empty(){
-        return v.size() == 0;
+        return v.empty();
     }
     void pop() {
         swap(v[0], v[v.size() - 1]);

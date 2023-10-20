@@ -104,7 +104,7 @@ Insertion -:
   20                       20       of left so ll rotation                  10   30
                           /           clockwise at 30
                          10
-
+\
     30                       30                                           2 step rotation
    /    inserting 20        /       inbalanced, we inserted in left     anticlockwise at 10
   10                       10       of right so lr rotation             30
