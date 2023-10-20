@@ -89,29 +89,24 @@ ll pw(ll a, ll b, int m){
 
 vl pow1;
 vl pow2;
-void pre(){
-    int end = 2e5 + 1;  // len of s
-    pow1.resize(end);
-    pow2.resize(end);
-    int p1 = 31, p2 = 37;
-    int mod1 = 1e9 + 7;
-    int mod2 = 1e9 + 9;
+const int p1 = 31, p2 = 37;
+const int mod1 = 1e9 + 7, mod2 = 1e9 + 9;
+void pre(int MAX){  // MAX length possible
+    pow1.resize(MAX + 1);
+    pow2.resize(MAX + 1);
     pow1[0] = 1;
-    fr(i, 1, end){
+    fr(i, 1, MAX + 1){
         pow1[i] = pow1[i - 1]*p1;
         pow1[i] %= mod1;
     }
     pow2[0] = 1;
-    fr(i, 1, end){
+    fr(i, 1, MAX + 1){
         pow2[i] = pow2[i - 1]*p2;
         pow2[i] %= mod2;
     }
 }
 
 class Hashing{
-    int p1 = 31, p2 = 37;
-    int mod1 = 1e9 + 7;
-    int mod2 = 1e9 + 9;
     vl hash1, hash2;
     // 1 based indexing
     public:
@@ -119,23 +114,21 @@ class Hashing{
     vl invpow2;
     
     Hashing(str& s){
-        int n = len(s); 
-        hash1.resize(n + 1);
-        hash2.resize(n + 1);
-        loop(i, n){
+        int l = len(s);
+        hash1.resize(l + 1);
+        hash2.resize(l + 1);
+        loop(i, l){
             hash1[i + 1] = hash1[i] + (s[i] - 'a' + 1)*pow1[i];
             hash1[i + 1] %= mod1;
-        }
-        loop(i, n){
             hash2[i + 1] = hash2[i] + (s[i] - 'a' + 1)*pow2[i];
             hash2[i + 1] %= mod2;
         }
 
-        invpow1.resize(n + 1);
-        invpow2.resize(n + 1);
-        invpow1[n] = pw(pow1[n], mod1 - 2, mod1);
-        invpow2[n] = pw(pow2[n], mod2 - 2, mod2);
-        frr(i, n - 1, -1){  // modular inverse in O(n)
+        invpow1.resize(l + 1);
+        invpow2.resize(l + 1);
+        invpow1[l] = pw(pow1[l], mod1 - 2, mod1);
+        invpow2[l] = pw(pow2[l], mod2 - 2, mod2);
+        frr(i, l - 1, -1){  // modular inverse in O(n)
             invpow1[i] = invpow1[i + 1]*p1;
             invpow1[i] %= mod1;
             invpow2[i] = invpow2[i + 1]*p2;
@@ -168,6 +161,6 @@ class Hashing{
 // can also be used to count distinct subarrays
 
 int main(){
-    pre();
+    pre(1e5);
     return 0;
 }
