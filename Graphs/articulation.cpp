@@ -36,39 +36,39 @@ class Graph{
         adjl[y].eb(x);
     }
 
-    void dfs_help(int n, vector<bool>& visited, vi& discovery, vi& low, int& parent, vector<bool>& isAp){
+    void dfs_help(int v, vi& visited, vi& discovery, vi& low, int& parent, vi& isAp){
         int children = 0;
-        visited[n] = true;
-        discovery[n] = time;
-        low[n] = time;
+        visited[v] = 1;
+        discovery[v] = time;
+        low[v] = time;
         time++;
-        for (auto v : adjl[n]){
-            if (!visited[v]){   // the edge is part of DFS tree;
+        for(auto& u : adjl[v]){
+            if (!visited[u]){   // the edge is part of DFS tree;
                 children++;
-                dfs_help(v, visited, discovery, low, n, isAp);
-                low[n] = min(low[n], low[v]);
-                if (parent != -1 && low[v] >= discovery[n]){    // n is not root and satisfy condition
-                    isAp[n] = true;
+                dfs_help(u, visited, discovery, low, v, isAp);
+                low[v] = min(low[v], low[u]);
+                if (parent != -1 && low[u] >= discovery[v]){    // v is not root and satisfy condition
+                    isAp[v] = 1;
                 }
                 // for bridges remove parent != -1 and bottom children condition
-                // if (low[v] > discovery[n]){
-                //     bridges.push_back({v, n});
+                // if (low[u] > discovery[v]){
+                //     bridges.push_back({v, u});
                 // }
             }
-            else if (v != parent){  // already visited, hence backedge
-                low[n] = min(low[n], discovery[v]);
+            else if (u != parent){  // already visited, hence backedge
+                low[v] = min(low[v], discovery[u]);
             }
         }
         if (parent == -1 && children > 1){
-            isAp[n] = true;
+            isAp[v] = 1;
         }
     }
 
     void ap(){
-        vector<bool> visited(n + 1);
+        vi visited(n + 1);
         vi discovery(n + 1);
         vi low(n + 1);
-        vector<bool> isAp(n + 1);
+        vi isAp(n + 1);
         int parent = -1;
         fr(i, 0, n){
             if (!visited[i]){
