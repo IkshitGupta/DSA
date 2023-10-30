@@ -25,15 +25,6 @@ Class & Objects:
 
 Access Modifiers:
     we can access the private data members of a class indirectly using the public member functions of the class. 
-        class Circle{  
-            private:
-            double radius;
-            public:   
-            void compute_area(double r){
-                radius = r;
-                cout << "Radius is: " << radius << endl;
-            }
-        };
     The protected access modifier is similar to the private access modifier in the sense that it can’t be accessed outside of its class unless with the help of a friend class. The difference is that the class members declared as Protected can be accessed by any subclass (derived class) of that class as well. 
 
 Friend Class and Function:
@@ -497,6 +488,7 @@ Virtual Function:
 
     Virtual Destructor:
         Deleting a derived class object using a pointer of base class type that has a non-virtual destructor results in undefined behavior.
+        even if no virtual function or even function if no virtual keyword then derived destructor will not be called, only when declared using pointer and new
 
         class base {
             public:
@@ -551,6 +543,7 @@ Pure Virtual Function/Abstract Function:
     If we do not override the pure virtual function in the derived class, then the derived class also becomes an abstract class.
     An abstract class can have constructors.
 
+    // constructor of derived class
     Derived(int i, int j)
 		: Base(i)   // calling constructor of base class in derived class
 	{
@@ -563,11 +556,12 @@ Pure Virtual Function/Abstract Function:
     }
 
     Pure Virtual Destructor:
-        if a class contains a pure virtual destructor, it must provide a function body for the pure virtual destructor. for a pure virtual destructor, you must specify a destructor body.
+        if a class contains a pure virtual function, it must provide a function body for the pure virtual destructor. for a pure virtual destructor, you must specify a destructor body.
         When destroying instances of a derived class using a base class pointer object, a virtual destructor is used to free up memory space allocated by the derived class object or instance. 
         class Base {
             public:
             virtual ~Base() = 0; // Pure virtual destructor
+            // can give normal virtual destructor also but this also makes class abstract
         };
         // if not give this then error
         Base::~Base(){ // Explicit destructor call
@@ -595,7 +589,7 @@ Pure Virtual Function/Abstract Function:
 
         Constructors cannot be declared as virtual
 
-        A virtual function can be private as C++ has access control, but not visibility control. As mentioned virtual functions can be overridden by the derived class but under all circumstances will only be called within the base class.
+        A virtual function can be private (in derived) as C++ has access control, but not visibility control. As mentioned virtual functions can be overridden by the derived class but under all circumstances will only be called within the base class.
 
 Diamond Problem / Multipath inheritance:
     when two superclasses of a class have a common base class
@@ -669,6 +663,29 @@ Data Abstraction:
     Abstraction means displaying only essential information and hiding the details.
     One more type of abstraction in C++ can be header files.
 
+class Derived{
+    public:
+    Base b;
+    Derived(){
+        cout << "Derived Constructor called\n";
+    }
+}
+// first base constructor then derived
+
+class A;
+class B;
+A constructor
+B constructor
+B destructor
+A destructor
+
+class A;
+static class B;
+A constructor
+B constructor
+A destructor
+B destructor
+
 Static Data Members:
     Static data members are class members that are declared using static keywords
     Only one copy of that member is created for the entire class and is shared by all the objects of that class, no matter how many objects are created.
@@ -696,6 +713,7 @@ Static Data Members:
     B's Constructor Called
 
     Static members are only declared in a class declaration, not defined. They must be explicitly defined outside the class using the scope resolution operator.
+    This declaration tells the compiler that the member exists and its type, but it doesn't allocate memory for variables or provide the actual implementation for functions. This is true for both static data members and static member functions.
 
     Static Member Function:
         independent of any object of the class
