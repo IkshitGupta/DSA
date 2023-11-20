@@ -41,7 +41,7 @@ int mod = 1e9 + 7;
 struct node{
     char data;
     map<char, node*> h; // if a in h then it has its address
-    bool isLast;
+    int isLast;
     node(char d){
         data = d;
         isLast = 0;
@@ -86,20 +86,21 @@ struct node2{
     vector<node2*> h; // if a in h then it has its address
     node2(int d){
         data = d;
-        h.push_back(NULL);  // for 0 and 1
-        h.push_back(NULL);
+        h.resize(2, nullptr);
     }
 };
 
+template<typename T>
 class Trie2{
+    const int hb = 32;
     public:
     node2* root = new node2(0);  // initial root which will contain map of first charachter
 
-    void insert(ll x){
+    void insert(T x){
         node2* temp = root;
-        frr(i, 32, -1){
+        frr(i, hb, -1){
             int ch = (((1LL<<i)&x) != 0);
-            if(temp->h[ch] == NULL){ // if this character not present in previous charachter map
+            if(temp->h[ch] == nullptr){ // if this character not present in previous charachter map
                 node2* child = new node2(ch);
                 temp->h[ch] = child;
             }
@@ -108,21 +109,28 @@ class Trie2{
         }
     }
 
-    void remove(ll x, node2*& temp, int i){
+    void remove(T x, node2* temp, int i){
         if (i == -1) return;
         int ch = (((1LL<<i)&x) != 0);
         remove(x, temp->h[ch], i - 1);
-        if (temp->h[ch]->cnt == 1) temp->h[ch] = NULL;
+        if (temp->h[ch]->cnt == 1) {
+            delete temp -> h[ch];
+            temp->h[ch] = nullptr;
+        }
         else temp->h[ch]->cnt--;
     }
+
+    void remove(T x){
+        remove(x, root, hb);
+    }
     
-    ll Xor(ll x){   // gives maximum possible xor with n and elements in trie
+    T Xor(T x){   // gives maximum possible xor with n and elements in trie
         node2* temp = root;
-        int ans = 0;
-        frr(i, 32, -1){ // starting as bigger bit more priority
+        T ans = 0;
+        frr(i, hb, -1){ // starting as bigger bit more priority
             int ch = (((1LL<<i)&x) != 0);
             ch ^= 1;
-            if(temp->h[ch] != NULL) {
+            if(temp->h[ch] != nullptr) {
                 temp = temp->h[ch];
                 ans |= (1LL<<i);
             }
