@@ -23,9 +23,8 @@ int ht (Node* root){
 
 Node* ll (Node* root){
     Node* x = root -> left;
-    Node* temp = x -> right;
+    root -> left = x -> right;
     x -> right = root;
-    root -> left = temp;
     root -> height = max(ht(root -> left), ht(root -> right)) + 1;
     x -> height = max(ht(x -> left), ht(x -> right)) + 1;
     return x;
@@ -33,9 +32,8 @@ Node* ll (Node* root){
 
 Node* rr (Node* root){
     Node* x = root -> right;
-    Node* temp = x -> left;
+    root -> right = x -> left;
     x -> left = root;
-    root -> right = temp;
     root -> height = max(ht(root -> left), ht(root -> right)) + 1;
     x -> height = max(ht(x -> left), ht(x -> right)) + 1;
     return x;
@@ -90,12 +88,12 @@ void preOrder(Node* root){
     preOrder(root -> right);
 }
 
-Node* inorderSucc(Node* root){
+int inorderSucc(Node* root){
     Node* curr = root;
     while (curr && curr -> left != NULL){
         curr = curr -> left;
     }
-    return curr;
+    return curr -> data;
 }
 
 // same as in BST
@@ -123,9 +121,9 @@ Node* deleteAVL (Node* root, int key){
             return temp;
         }
         // CASE 3
-        Node* temp = inorderSucc(root -> right);
-        root -> data = temp -> data;    // Copy the inorder successor's content to this node
-        root -> right = deleteAVL(root->right, temp ->data);    // Delete the inorder successor
+        int temp = inorderSucc(root -> right);
+        root -> data = temp;    // Copy the inorder successor's content to this node
+        root -> right = deleteAVL(root->right, temp);    // Delete the inorder successor
     }
 
     if (root == NULL){

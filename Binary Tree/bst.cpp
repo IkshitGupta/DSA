@@ -34,12 +34,12 @@ void inOrder(Node* root){
     inOrder(root -> right);
 }
 
-Node* inorderSucc(Node* root){
+int inorderSucc(Node* root){  // minimum value in right subtree
     Node* curr = root;
     while (curr && curr -> left != NULL){
         curr = curr -> left;
     }
-    return curr;
+    return curr -> data;
 }
 
 Node* deleteBST (Node* root, int key){
@@ -56,7 +56,6 @@ Node* deleteBST (Node* root, int key){
         // CASE 1 & 2
         if (root -> left == NULL){
             Node* temp = root -> right;
-            // free(root);  // not working in leetcode
             delete root;
             return temp;
         }
@@ -66,9 +65,9 @@ Node* deleteBST (Node* root, int key){
             return temp;
         }
         // CASE 3
-        Node* temp = inorderSucc(root -> right);
-        root -> data = temp -> data;    // Copy the inorder successor's content to this node
-        root -> right = deleteBST(root->right, temp ->data);    // Delete the inorder successor
+        int temp = inorderSucc(root -> right);
+        root -> data = temp;    // Copy the inorder successor's content to this node
+        root -> right = deleteBST(root->right, temp);    // Delete the inorder successor
     }
     return root;
 }

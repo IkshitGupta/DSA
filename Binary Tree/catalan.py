@@ -54,7 +54,7 @@ for i in range(2, n + 1) :
 # triangulating a convex polygon
 # choose a base make all possible triangle including that base solve for remaining; ans = Cn-2
 
-# connecting non interseccting chords
+# connecting non intersecting chords
 # 3: join two points 
 # left
 # 0 pair 2 pair

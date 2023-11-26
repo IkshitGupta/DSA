@@ -39,32 +39,17 @@ void postOrder(Node* root){
     cout << root -> data << " ";
 }
 
-int searchinOrder(int inorder [], int start, int end, int curr){
-    for (int i = start; i <= end; i++){
-        if (inorder[i] == curr){
-            return i;
-        }
-    }
-    return -1;
-}
-// can create map
-
-// O(n*n)
-Node* construct_by_pre_in(int preorder [], int inorder [], int start, int end) {
-    if (start > end){
-        return NULL;
-    }
-    static int idx = 0;
-    int curr = preorder[idx];
+map<int, int> pos;  // position in inorder
+Node* construct_by_pre_in(int i, int j, vector<int>& preorder, int& idx){ 
+    // i and j index in inorder
+    // idx index in preorder
+    if (i > j) return NULL;
+    Node* root = new Node(preorder[idx]);
+    int x = pos[preorder[idx]];
     idx++;
-    Node* node = new Node(curr);
-    if (start == end){
-        return node;
-    }
-    int pos = searchinOrder(inorder, start, end, curr);
-    node -> left = construct_by_pre_in(preorder, inorder, start, pos - 1);
-    node -> right = construct_by_pre_in(preorder, inorder, pos + 1, end);
-    return node;
+    root -> left = construct_by_pre_in(i, x - 1, preorder, idx);
+    root -> right = construct_by_pre_in(x + 1, j, preorder, idx);
+    return root;
 }
 
 void levelorder(Node* root){
