@@ -20,10 +20,9 @@ int lenll(node *head){
 }
 
 void insertAtHead(node* &head, int data){  // passing pointer variable head by reference
-    node* n = new node(data);   // declaring node n with the given value and it stores address null
-    // new to store the data dynamically as we do not want to be destroyed at end of function call
-    n -> next = head;   // now changing its storing address as the first element (head)
-    head = n;   // now making this element as head i.e. it is now the first element
+    node* n = new node(data);
+    n -> next = head;
+    head = n;
 }
 
 void insertAtTail(node* &head, int data){
@@ -51,7 +50,7 @@ void inserAtP(node* &head, int data, int p){
         node* temp = head;
         while (jump <= p - 1){
             temp = temp -> next;
-            jump ++;
+            jump++;
         }
         node* n = new node(data);
         n ->next = temp->next;
@@ -74,9 +73,8 @@ void delAtHead (node* &head){
     node* temp = head;
     head = head ->next;
     delete temp; // will free memory
-    return;
-
 }
+
 void delAtTail (node* &head){
     node* prev = NULL;
     node* temp = head;
@@ -86,7 +84,6 @@ void delAtTail (node* &head){
     }
     prev->next = NULL;
     delete temp;
-    return;
 }
 
 void delAtP (node* &head, int p){
@@ -124,17 +121,24 @@ ostream& operator<<(ostream& os, node* head){
     return os;
 }
 
+// Parts
+// ans                  start
+// 			            a -> b -> c -> d
+// a -> 			    b -> c -> d
+// b -> a -> 		    c -> d
+// c -> b -> a -> 		d
+// d -> c -> b -> a	    NULL
 void reversell (node* &head){
-    node* c = head; // previous
-    node* p = NULL; // new
-    node* n;
-    while (c != NULL){
-        n = c->next;
-        c->next = p;
-        p = c;
-        c = n;
+    node* start = head;
+    node* ans = NULL;
+    node* temp;
+    while (start != NULL){
+        temp = start->next;
+        start->next = ans;
+        ans = start;
+        start = temp;
     }
-    head = p;
+    head = ans;
 }
 
 // 1 2 3 4      return 2
@@ -158,7 +162,7 @@ node* midP(node* head){
     // then move both slow and fast one step, when fast at null slow at kth from last
 // }
 
-node* merge(node* &a, node* &b){
+node* merge(node* a, node* b){
     // way 1 for O(n) insertion
     node c(0);
     node* p = &c;
@@ -179,10 +183,10 @@ node* merge(node* &a, node* &b){
     if (a != NULL){
         p -> next = a;
     }
-    if (b != NULL){
+    else if (b != NULL){
         p -> next = b;
     }
-    return c.next;
+    return c.next;  // not a pointer
 }
 
 node* mergeSortll(node* head){
@@ -192,7 +196,7 @@ node* mergeSortll(node* head){
     node* mid = midP(head);
     node* a = head;
     node* b = mid -> next;
-    mid ->next = NULL;
+    mid -> next = NULL;
     a = mergeSortll(a);
     b = mergeSortll(b);
     node* c = merge(a, b);
@@ -207,10 +211,10 @@ bool detectCycle(node* head){
         fast = fast ->next->next;
         slow = slow ->next;
         if (fast == slow){
-            return true;
+            return 1;
         }
     }
-    return false;
+    return 0;
 }
 
 void rotate(node* &head, int k){
@@ -229,36 +233,7 @@ void rotate(node* &head, int k){
     head = n2;
 }
 
-// can't assign
-// node* temp2 = A;
-// later temp2 = z; wrong
-// if temp2 is still head then A = z, temp2 = A
-
-// think like address, not reversing B, but reversing A
-// ListNode B(0);
-// B.next = A;
-// reversell(B.next);
-
 int main(){
-    node* head = NULL;  // initially no node so head stores no address
-    insertAtHead(head, 5);
-    insertAtHead(head, 4);
-    insertAtHead(head, 3);
-    insertAtTail(head, 6);
-    inserAtP(head, 2, 3);
-    // delAtHead(head);
-    // delAtTail(head);
-    insertAtTail(head, 8);
-    inserAtP(head, 7, 3);
-    // delAtMiddle(head, 3);
-    printll(head);
-    cout << endl;
-    rotate(head, 4);
-    printll(head);
-    // cout << endl;
-    // reversell(head);
-    // cout<<head<<endl;
-    // cout << midP(head)->data;
-    // cout << searchll(head, 9);
+    
     return 0;
 }
