@@ -4,7 +4,6 @@ Class & Objects:
     A Class is a user-defined data type that has data members and member functions.
     Data members are the data variables and member functions are the functions used to manipulate these variables together
     An Object is an instance of a Class.
-    When a class is defined, no memory is allocated but when it is instantiated (i.e. an object is created) memory is allocated.
 
     Inline Functions:
         An inline function is a function that is expanded in line when it is called. When the inline function is called whole code of the inline function gets inserted or substituted at the point of the inline function call. This substitution is performed by the C++ compiler at compile time.
@@ -49,9 +48,9 @@ Friend Class and Function:
 Constructors:
     invoked automatically at the time of object creation
     member function of a class
-    mostly declared in the public section of the class though it can be declared in the private section of the class
-    Constructor can not be declared virtual
-    Constructor cannot be inherited
+    declared in the public section
+    can not be declared virtual
+    cannot be inherited
     Addresses of Constructor cannot be referred
     Constructor make implicit calls to new and delete operators during memory allocation
 
@@ -275,7 +274,7 @@ Function Overloading:
     eliminates the use of different function names
 
 Operator Overloading:
-    Complex operator+(Complex const& obj){
+    Complex operator+(const Complex& obj){
         Complex res;
         res.real = real + obj.real;
         res.imag = imag + obj.imag;
@@ -293,6 +292,15 @@ Operator Overloading:
     Conversion Operator: We can also write conversion operators that can be used to convert one type to another type. 
     operator float() const{
         return float(num) / float(den);
+    }
+
+    ostream& operator<<(ostream& stream, const Complex& other){
+        stream << other.x << ", " << other.y;
+        return stream;
+    }
+
+    bool operator==(const Complex& other) const{
+        return x == other.x && y == other.y;
     }
 
     Overloading Unary Operator
@@ -453,9 +461,11 @@ Function Overriding:
     Base Function
     Derived Function
 
+    ideally we do not want it to print Base Function as it is storing address of the child and multiple childs are possible, hence to avoid this virtual function used
+
 Virtual Function:
     A virtual function (also known as virtual methods) is a member function that is declared within a base class and is re-defined (overridden) by a derived class. 
-    When you refer to a derived class object using a pointer or a reference to the base class, you can call a virtual function for that object and execute the derived class’s version of the method.
+    When you refer to a derived class object using a pointer to the base class, you can call a virtual function for that object and execute the derived class’s version of the method.
     Functions are declared with a virtual keyword in a base class.
     
     Virtual functions cannot be static.
@@ -887,3 +897,56 @@ Exception Handling:
     }
 
     A derived class exception should be caught before a base class exception
+
+Data Structure Allignment:
+    Data alignment means putting the data in memory at an address equal to some multiple of the word size.
+
+    The "word size" typically refers to the fundamental unit of data that a computer's central processing unit (CPU) can process in a single operation. It represents the size of the CPU's general-purpose registers and the data bus width, which is the maximum number of bits that can be transferred between the CPU and memory in one operation.
+
+    to align the data, it may be necessary to insert some extra bytes between the end of the last data structure and the start of the next data structure as the data is placed in memory as multiples of fixed word size. This insertion of extra bytes of memory to align the data is called data structure padding.
+
+    Examples:
+        struct {
+            char a;
+            short int b;
+            int c;
+            char d;
+        }
+        a ! b b
+        c c c c
+        d ! ! !
+
+        Order Matters
+
+        struct test1 {
+            short s;
+            int i;
+            char c;
+        };
+        s s ! !
+        i i i i
+        c ! ! !
+        
+        struct test2 {
+            int i;
+            char c;
+            short s;
+        };
+        i i i i
+        c ! s s
+
+        struct X{
+            char c;
+        };
+        size 1
+
+        struct A {   
+            int x; 
+            double z; 
+            short int y; 
+        };
+        x x x x ! ! ! !
+        z z z z z z z z
+        y y ! ! ! ! ! !
+
+        empty struct or class then size 1
