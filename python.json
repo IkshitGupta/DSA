@@ -1,0 +1,400 @@
+{
+	// Place your snippets for python here. Each snippet is defined under a snippet name and has a prefix, body and 
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
+	// same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+	"Input CP": {
+		"prefix": "inputcp",
+		"body": [
+			"list(map(int, inpu().split()))",
+		],
+		"description": "Input to take integers in a list"
+	},
+	"Test Cases": {
+		"prefix": "test",
+		"body": [
+			// "t = int(input())",
+			"for _ in range(int(inpu())) :$1",
+			"\t"
+		],
+		"description": "Test cases in CP"
+	},
+	"Fast Input": {
+		"prefix": "sysin",
+		"body": [
+			"import sys",
+			"inpu = sys.stdin.readline",
+			"prin = sys.stdout.write",
+		],
+		"description": "Input using sys"
+	},
+	"Fast Input 2": {
+		"prefix": "sysin2",
+		"body": [
+			"import sys",
+			"inpu = sys.stdin.buffer.readline",
+			"prin = sys.stdout.write",
+		],
+		"description": "Input using sys"
+	},
+	"String Input": {
+		"prefix": "istr",
+		"body": [
+			"inpu().rstrip('\\n')",
+			"n = len(s)",
+		],
+		"description": "Input using sys"
+	},
+	"Start time": {
+		"prefix": "timecheck",
+		"body": [
+			"from time import time",
+			"ini = time()",
+			"$1",
+			"print(time() - ini)"
+		],
+		"description": "To Calculate time"
+	},
+	"Input of 2": {
+		"prefix": "twoinput",
+		"body": [
+			"map(int, inpu().split())"
+		],
+		"description": "Taking input of 2"
+	},
+	"Xor of first n natural or whole numbers": {
+		"prefix": "xorn",
+		"body": [
+			"def xorN (n) :",
+			"\trem = n%4",
+			"\tif rem == 0:",
+			"\t\treturn n",
+			"\telif rem == 1:",
+			"\t\treturn 1",
+			"\telif rem == 2:",
+			"\t\treturn n + 1",
+			"\treturn 0",
+		],
+		"description": ""
+	},
+	"Printing List": {
+		"prefix": "prinlis",
+		"body": [
+			"prin(' '.join(map(str, $1)) + '\\n')"
+		],
+		"description": ""
+	},
+	"Factorial Divide": {
+		"prefix": "factdiv",
+		"body": [
+			"def factorial_mod (a, b) :",
+			"\tans = 1",
+			"\tfor i in range(b + 1, a + 1) :",
+			"\t\tans *= i",
+			"\t\tans %= mod",
+			"\treturn ans"
+		],
+		"description": "a! / b!"
+	},
+	"Ceil of numbers": {
+		"prefix": "ceilf",
+		"body": [
+		  "def ceil (a, b) :",
+		  "    if a <= 0:",
+		  "        return 0",
+		  "    if a%b == 0:",
+		  "        return a//b",
+		  "    return a//b + 1"
+		],
+		"description": "Ceil of numbers"
+	  },
+	"Ceil of a number divided by 2": {
+		"prefix": "ceilbin",
+		"body": [
+		  "def ceil2 (a) :",
+		  "    if a <= 0:",
+		  "        return 0",
+		  "    if a&1 :",
+		  "        return a//2 + 1",
+		  "    return a//2"
+		],
+		"description": "Ceil of a number divided by 2"
+	  },
+	"Get bit": {
+		"prefix": "getbit",
+		"body": [
+			"def getBit(x, i) :  # i from right",
+			"\treturn int(x&(1<<i) != 0)",
+		],
+		"description": ""
+	},
+	"Set bit": {
+		"prefix": "setbit",
+		"body": [
+			"def setBit(x, i) :  # i from right",
+			"\treturn x|(1<<i)",
+		],
+		"description": ""
+	},
+	"Get log2": {
+		"prefix": "log2",
+		"body": [
+		  "# commented part for ceil",
+		  "def log2(c) :",
+		  "    ans = 0",
+		  "    # power = (c and not(c & c-1))",
+		  "    while c > 1:",
+		  "        c //= 2",
+		  "        ans += 1",
+		  "    # if power == 0:",
+		  "    #     ans += 1",
+		  "    return ans"
+		],
+		"description": "Get log2"
+	  },
+	"Check Power of 2": {
+		"prefix": "ispower2",
+		"body": [
+			"isPowerof2 = lambda x : (x and not(x & x-1))"
+		],
+		"description": ""
+	},
+	"List of lists": {
+		"prefix": "lisoflis",
+		"body": [
+			"[[$1]*$2 for _ in range($3)]"
+		],
+		"description": ""
+	},
+	"HCF of two numbers": {
+		"prefix": "gcd",
+		"body": [
+			"def hcf(x, y) :",
+			"\twhile y:",
+			"\t\tx, y = y, x % y",
+			"\treturn x",
+		],
+		"description": ""
+	},
+	"Sieve of Eratosthenes": {
+		"prefix": "seive",
+		"body": [
+		  "MAXN = $1",
+		  "prime = [1 if i & 1 == 1 else 0 for i in range(MAXN + 1)]",
+		  "prime[1] = 0",
+		  "prime[2] = 1",
+		  "for i in range(3, int(sqrt(MAXN)) + 1, 2) :",
+		  "    if prime[i]:",
+		  "        for j in range(i*i, MAXN + 1, i) :",
+		  "            prime[j] = 0",
+		  "prime = [2] + [i for i in range(3, MAXN + 1, 2) if prime[i]]"
+		],
+		"description": "Sieve of Eratosthenes"
+	  },
+	"Binary Search": {
+		"prefix": "binarysearch",
+		"body": [
+			"ans = 0",
+			"while start <= end :",
+			"\tmid = (start + end)//2"
+		],
+		"description": ""
+	},
+	"Sort Dictionary By Value": {
+		"prefix": "dictsort",
+		"body": [
+			"dict(sorted($1.items(), key=lambda item: item[1]))",
+		],
+		"description": ""
+	},
+	"Nth Root": {
+		"prefix": "root",
+		"body": [
+			"def nRoot(number, p):",
+			"# For computing integral part of square root of number",
+			"\tstart = 0",
+			"\tend, ans = number, 1",
+			"\twhile (start <= end):",
+			"\t\tmid = int((start + end) / 2)",
+			"\t\tk = pow(mid, p)",
+			"\t\tif (k == number):",
+			"\t\t\tans = mid",
+			"\t\t\tbreak",
+			"\t\tif (k < number):",
+			"\t\t\tstart = mid + 1",
+			"\t\t\tans = mid",
+			"\t\telse:",
+			"\t\t\tend = mid - 1",
+			"\treturn ans",
+		],
+		"description": ""
+	},
+	"Nth Root with precision": {
+		"prefix": "rootwithdecimal",
+		"body": [
+			"def npRoot(number, p, precision):",
+			"\tstart = 0",
+			"\tend, ans = number, 1",
+			"\t# For computing integral part of square root of number",
+			"\twhile (start <= end):",
+			"\t\tmid = int((start + end) / 2)",
+			"\t\tk = pow(mid, p)",
+			"\t\tif (k == number):",
+			"\t\t\tans = mid",
+			"\t\t\tbreak",
+			"\t\tif (k < number):",
+			"\t\t\tstart = mid + 1",
+			"\t\t\tans = mid",
+			"\t\telse:",
+			"\t\t\tend = mid - 1",
+			"\t# For computing the fractional part of square root upto given precision",
+			"\tincrement = 0.1",
+			"\tfor _ in range(0, precision):",
+			"\t\twhile (pow(ans, p) <= number):",
+			"\t\t\tans += increment",
+			"\t\tans -= increment",
+			"\t\tincrement /= 10",
+			"\treturn ans",
+			"# print(round(squareRoot(10, 4), 4))",
+		],
+		"description": ""
+	},
+	"Is number prime?": {
+		"prefix": "isprime",
+		"body": [
+			"def checkPrime(n) :",
+			"\tif n <= 3:",
+			"\t\treturn n > 1",
+			"\tif n & 1 == 0 or n % 3 == 0:",
+			"\t\treturn False",
+			"\tfor i in range(5, int(sqrt(n)) + 1, 6) :",
+			"\t\tif n % i == 0 or n % (i + 2) == 0:",
+			"\t\t\treturn False",
+			"\treturn True",
+		],
+		"description": ""
+	},
+	
+	"Is string Palindrome": {
+		"prefix": "ispalin",
+		"body": [
+		  "def isPal(s, n) :",
+		  "    for i in range(n//2) :",
+		  "        if s[i] != s[n - i - 1]:",
+		  "            return 0",
+		  "    return 1"
+		],
+		"description": ""
+	  },
+	  "Index of maximum": {
+		"prefix": "maxind",
+		"body": [
+		  "def max_index(a) :",
+		  "    idx = 0",
+		  "    ma = -10**10",
+		  "    for i in range(len(a)) :",
+		  "        if a[i] > ma :",
+		  "            ma = a[i]",
+		  "            idx = i",
+		  "    return idx"
+		],
+		"description": "Index of maximum"
+	  },
+	  "Index of minimum": {
+		"prefix": "minind",
+		"body": [
+		  "def min_index(a) :",
+		  "    idx = 0",
+		  "    mi = 10**10",
+		  "    for i in range(len(a)) :",
+		  "        if a[i] < mi :",
+		  "            mi = a[i]",
+		  "            idx = i",
+		  "    return idx"
+		],
+		"description": "Index of minimum"
+	  },
+	  "Count of each element": {
+		"prefix": "countarr",
+		"body": [
+		  "def counter(a) :",
+		  "    d = {}",
+		  "    for i in a :",
+		  "        d[str(i)] = d.get(str(i), 0) + 1",
+		  "    return d"
+		],
+		"description": "Count of each element"
+	  },
+	  "": {
+		"prefix": "google",
+		"body": [
+		  "prin(f\"Case #{t + 1}: \")"
+		],
+		"description": ""
+	  },
+	  "Factors of a number": {
+		"prefix": "factors",
+		"body": [
+		  "def findDivisors(n) :",
+		  "    divisors = []",
+		  "    store = []",
+		  "    for i in range(1, int(sqrt(n)) + 1) :",
+		  "        if n % i == 0:",
+		  "            divisors.append(i)",
+		  "            if n // i != i :",
+		  "                store.append(n//i)",
+		  "    divisors += store[::-1]",
+		  "    return divisors"
+		],
+		"description": "Factors of a number"
+	  },
+	  "YES OR NO": {
+		"prefix": "yesno",
+		"body": [
+		  "def yes(a = 1) :",
+		  "    if a == 1:",
+		  "        prin(\"YES\\n\")",
+		  "    else :",
+		  "        prin(\"NO\\n\")"
+		],
+		"description": "YES OR NO"
+	  }
+	}
+// from types import GeneratorType
+// def bootstrap(f, stack=[]):
+//     def wrappedfunc(*args, **kwargs):
+//         if stack:
+//             return f(*args, **kwargs)
+//         else:
+//             to = f(*args, **kwargs)
+//             sa = stack.append
+//             sp = stack.pop
+//             while 1:
+//                 if type(to) is GeneratorType:
+//                     sa(to)
+//                     to = next(to)
+//                 else:
+//                     sp()
+//                     if not stack:
+//                         break
+//                     to = stack[-1].send(to)
+//             return to
+//     return wrappedfunc
+// @bootstrap
+// # Here goes the code
+// # Use yield everywhere while calling recurssive function
+
+
+
+// # ulti O(n^2)
+// for i in range(n, 1, -1) :
+// 	for j in range(i - 1, 0, -1) 
