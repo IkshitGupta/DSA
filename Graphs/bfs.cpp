@@ -35,8 +35,8 @@ int n;
 template<typename T>
 class Graph{
     public:
-    map<T, vector<T>> adjl;
-    // vvi adjl;
+    // map<T, vector<T>> adjl;
+    vvi adjl;
     Graph(){
         adjl.resize(n + 1);
     }
@@ -46,24 +46,24 @@ class Graph{
     }
 
     void bfs(T s){
-        map<T, bool> visited;   // Don't use for int
+        // map<T, bool> visited;   // Don't use for int
+        // map<T, T> parent;
+        // map<T, int> distance;
+        vi parent(n + 1);
         deque<T> que;
-        map<T, T> parent;
-        // vi parent(n + 1);
-        map<T, int> distance;
-        // vi distance(n + 1, INT_MAX);
-        // distance[s] = 0;
+        vi distance(n + 1, INT_MAX);
+        distance[s] = 0;
         que.eb(s);
-        visited[s] = 1;
         parent[s] = -1;
+        // visited[s] = 1;
         // parent[s] = {-1, -1};
         while(!que.empty()){
             T v = que[0];
             que.pop_front();
             for(auto u : adjl[v]){
-                // if(distance[u] > distance[v] + 1){
-                if(!visited[u]){
-                    visited[u] = 1;
+                if(distance[u] > distance[v] + 1){
+                // if(!visited[u]){
+                    // visited[u] = 1;
                     que.eb(u);
                     distance[u] = distance[v] + 1;
                     parent[u] = v;
@@ -102,25 +102,26 @@ template<typename T> void shortest_even_len(Graph<T>& g, T src){
 }
 
 int main(){
-    // Graph<int> g;
-    // g.add_edge(0, 1);
-    // g.add_edge(2, 1);
-    // g.add_edge(0, 4);
-    // g.add_edge(4, 3);
-    // g.add_edge(4, 2);
-    // g.add_edge(5, 3);
-    // g.add_edge(3, 2);
-    // g.bfs(1);
-    Graph<int> g;
     n = 5;
+    Graph<int> g;
+    g.add_edge(0, 1);
+    g.add_edge(2, 1);
+    g.add_edge(0, 4);
+    g.add_edge(4, 3);
+    g.add_edge(4, 2);
+    g.add_edge(5, 3);
+    g.add_edge(3, 2);
+    g.bfs(1);
+    // Graph<int> g;
+    // n = 5;
     // g.start();
-    g.add_edge(1, 2, 1);
-    g.add_edge(3, 2, 1);
-    g.add_edge(3, 5, 1);
-    g.add_edge(2, 5, 1);
-    g.add_edge(4, 5, 1);
-    g.add_edge(4, 3, 1);
-    shortest_even_len(g, 1);
+    // g.add_edge(1, 2, 1);
+    // g.add_edge(3, 2, 1);
+    // g.add_edge(3, 5, 1);
+    // g.add_edge(2, 5, 1);
+    // g.add_edge(4, 5, 1);
+    // g.add_edge(4, 3, 1);
+    // shortest_even_len(g, 1);
     return 0;
 }
 
